@@ -2,12 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:../PDMUtils_iOS/PDMUtils_iOS.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "container:MusicTouch.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MusicTouch.xcodeproj">
    </FileRef>
 </Workspace>

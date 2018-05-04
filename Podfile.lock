@@ -1,15 +1,20 @@
 PODS:
-  - FXBlurView (1.6.4)
-  - VHUD (1.3.0)
+  - PDMUtils (1.0.1)
+  - VHUD (1.3.1)
 
 DEPENDENCIES:
-  - FXBlurView (~> 1.6.3)
+  - PDMUtils
   - VHUD
 
+SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - PDMUtils
+    - VHUD
+
 SPEC CHECKSUMS:
-  FXBlurView: db786c2561cb49a09ae98407f52460096ab8a44f
-  VHUD: 07e98040cfe24998fd80bc0148bad3a76749b15d
+  PDMUtils: 1b9bcf4aa129baac9bcc77e2969b0225d4c2024b
+  VHUD: 77add7891a2b02edba0790bb6be3b28e8961c85b
 
-PODFILE CHECKSUM: c32948944d921bceb8fb087c00bbaeb39c38f5c9
+PODFILE CHECKSUM: e28e5be9b8499a419b8a5877449fda61e37ee8af
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.0

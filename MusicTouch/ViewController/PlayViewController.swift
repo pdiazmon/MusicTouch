@@ -9,7 +9,7 @@
 import UIKit
 import MediaPlayer
 import VHUD
-import FXBlurView
+//import FXBlurView
 
 struct volumeGestureHandler {
     var initY: Float = 0.0
