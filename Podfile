@@ -6,8 +6,14 @@ target 'MusicTouch' do
   use_frameworks!
 
   # Pods for MusicTouch
-pod 'PDMUtils'
-pod 'VHUD'
+  
+  # Use this for PDMUtils local pod repository
+  pod 'PDMUtils', :path => "../PDMUtils/PDMUtils/"
+  
+  # Or use this for PDMUtils github pod repository
+  #pod 'PDMUtils'
+  
+  pod 'VHUD'
 
   target 'MusicTouchTests' do
     inherit! :search_paths
