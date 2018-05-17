@@ -20,3 +20,26 @@ You can navigate through you music library:
 - Artists
 - Albums
 - Songs
+
+Some preview images:
+
+Playing view:
+
+<img src="https://github.com/pdiazmon/MusicTouch/blob/master/Previews/playing.jpeg" height="450">
+
+Artists list view:
+
+<img src="https://github.com/pdiazmon/MusicTouch/blob/master/Previews/artists.jpeg" height="450">
+
+Albums list view:
+
+<img src="https://github.com/pdiazmon/MusicTouch/blob/master/Previews/albums.jpeg" height="450">
+
+Songs list view:
+
+<img src="https://github.com/pdiazmon/MusicTouch/blob/master/Previews/songs.jpeg" height="450">
+
+Volume change:
+
+<img src="https://github.com/pdiazmon/MusicTouch/blob/master/Previews/volume.jpeg" height="450">
+
