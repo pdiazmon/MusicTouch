@@ -25,7 +25,7 @@ Some preview images:
 
 Playing view:
 
-<img src="https://github.com/pdiazmon/MusicTouch/blob/master/Previews/playing.jpeg" height="450">
+<img src="https://github.com/pdiazmon/MusicTouch/blob/master/Previews/playing.jpeg" height="450">   <img src="https://github.com/pdiazmon/MusicTouch/blob/master/Previews/playing2.jpeg" height="450">
 
 Artists list view:
 
