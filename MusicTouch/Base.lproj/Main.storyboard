@@ -214,7 +214,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Songs" image="song" id="Jge-U2-M3d"/>
                     <connections>
-                        <outlet property="playButtonsStack" destination="dpL-wW-bCf" id="oSJ-Va-JCz"/>
+                        <outlet property="playButtonsStack" destination="dpL-wW-bCf" id="a74-gP-CkC"/>
                         <outlet property="songsTableView" destination="ZnC-fV-F01" id="yzT-0v-7jx"/>
                     </connections>
                 </viewController>

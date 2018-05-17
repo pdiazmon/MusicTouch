@@ -21,8 +21,16 @@ class SongViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        
+        // Enable/disable play buttons depending on list emptyness
+        if let stack = self.playButtonsStack {
+            for button in stack.arrangedSubviews {
+                if let button = (button as? UIButton) {
+                    if let list = self.dataStore.songList() {
+                        button.isEnabled = list.count > 0
+                    }
+                }
+            }
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -98,10 +106,12 @@ extension SongViewController {
         self.songsTableView?.reloadData()
         
         // Enable/disable play buttons depending on list emptyness
-        for button in self.playButtonsStack.arrangedSubviews {
-            if let button = (button as? UIButton) {
-                if let list = self.dataStore.songList() {
-                    button.isEnabled = list.count > 0
+        if let stack = self.playButtonsStack {
+            for button in stack.arrangedSubviews {
+                if let button = (button as? UIButton) {
+                    if let list = self.dataStore.songList() {
+                        button.isEnabled = list.count > 0
+                    }
                 }
             }
         }

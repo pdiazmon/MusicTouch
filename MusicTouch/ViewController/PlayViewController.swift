@@ -25,7 +25,6 @@ class PlayViewController: UIViewController {
     @IBOutlet weak var artistLbl: UILabel!
     @IBOutlet weak var albumLbl: UILabel!
     @IBOutlet weak var songLbl: UILabel!
-    @IBOutlet weak var playImg: UIImageView!
     @IBOutlet weak var backgroundImg: UIImageView!
     @IBOutlet weak var blurEffectView: UIVisualEffectView!
     @IBOutlet weak var shuffleImg: UIImageView!
@@ -36,6 +35,7 @@ class PlayViewController: UIViewController {
     private var timer:                   Timer?
     private var volumeGestureInProgress: Bool = false
     private var volumeView:              MPVolumeView!
+    private var averageColorCache =      [Int: UIColor]()
 
     private var volumeBar       = VHUDContent(.percentComplete)
     private var initVolumeScale = Float()
@@ -156,11 +156,27 @@ extension PlayViewController {
             UIView.transition(with: self.songLbl, duration: flipDuration, options: .transitionFlipFromRight, animations: nil, completion: nil)
         }
     }
+    
+    func getAverageColor(image: UIImage) -> UIColor? {
+        let id = AlbumID(artist: self.app.appPlayer.nowPlayingArtist(), album: self.app.appPlayer.nowPlayingAlbumTitle())
+        
+        if let cacheValue = averageColorCache[id.hashValue] {
+            print("Average color for \(self.app.appPlayer.nowPlayingAlbumTitle()!) present in cache")
+            return cacheValue
+        }
+        else {
+            let averageColor = image.averageColor
+            averageColorCache[id.hashValue] = averageColor
+            
+            print("Average color for \(self.app.appPlayer.nowPlayingAlbumTitle()!) NOT present in cache")
+            return averageColor
+        }
+    }
 }
 
 // @objc and @IBAction and selector functions
 extension PlayViewController {
-  
+    
     @objc func updateView() {
       
         // Update the view accondingly with the current song
@@ -178,7 +194,7 @@ extension PlayViewController {
                     self.backgroundImg.image = self.artworkImg.image
                     
                     if let image = self.artworkImg.image {
-                        self.progress.progressTintColor = image.averageColor
+                        self.progress.progressTintColor = self.getAverageColor(image: image)
                     }
                 }
             }
