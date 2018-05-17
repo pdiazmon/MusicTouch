@@ -161,14 +161,11 @@ extension PlayViewController {
         let id = AlbumID(artist: self.app.appPlayer.nowPlayingArtist(), album: self.app.appPlayer.nowPlayingAlbumTitle())
         
         if let cacheValue = averageColorCache[id.hashValue] {
-            print("Average color for \(self.app.appPlayer.nowPlayingAlbumTitle()!) present in cache")
             return cacheValue
         }
         else {
             let averageColor = image.averageColor
             averageColorCache[id.hashValue] = averageColor
-            
-            print("Average color for \(self.app.appPlayer.nowPlayingAlbumTitle()!) NOT present in cache")
             return averageColor
         }
     }
