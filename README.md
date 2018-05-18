@@ -21,7 +21,10 @@ You can navigate through you music library:
 - Albums
 - Songs
 
-Some preview images:
+Demo video:
+
+[![MusicTouch Demo](http://img.youtube.com/vi/GD3wIfqh1cg/0.jpg)](http://www.youtube.com/watch?v=GD3wIfqh1cg "MusicTouch Demo")
+
 
 Playing view:
 
