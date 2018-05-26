@@ -8,10 +8,10 @@ target 'MusicTouch' do
   # Pods for MusicTouch
   
   # Use this for PDMUtils local pod repository
-  pod 'PDMUtils', :path => "../PDMUtils/PDMUtils/"
+#  pod 'PDMUtils', :path => "../PDMUtils/PDMUtils/"
   
   # Or use this for PDMUtils github pod repository
-  #pod 'PDMUtils'
+  pod 'PDMUtils'
   
   pod 'VHUD'
 

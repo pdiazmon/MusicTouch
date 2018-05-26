@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-// MARK: Item struct
+// MARK: Album struct
 struct Album: Equatable {
     var artist: String
     var album: String

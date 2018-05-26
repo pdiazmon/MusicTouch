@@ -8,6 +8,7 @@
 
 import Foundation
 
+// Enum all the TabBar controller buttons
 enum TabBarItem: Int {
     case playlist = 0
     case artist   = 1
@@ -17,6 +18,7 @@ enum TabBarItem: Int {
 }
 
 
+// Enum all the app possible statuses
 enum AppStatus {
     case foreground
     case background

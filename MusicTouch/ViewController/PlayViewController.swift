@@ -57,19 +57,26 @@ class PlayViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    /// Handler for segue transitions preparation
+    ///
+    /// - Parameters:
+    ///   - segue: segue to perform identifier
+    ///   - sender: Object performing the segue transition
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         // Set the background color for the queue list as the artwork image average color
         if let queue = segue.destination as? QueueViewController {
             queue.backgroundColor = self.progress.progressTintColor
         }
     }
-    
 }
 
+// MARK: View preparation
 extension PlayViewController {
   
+    /// Add and initialize objects to the view
     func viewSetup() {
+        
         // Set the progress bar to zero
         self.progress.progress = 0.0
         
@@ -78,16 +85,15 @@ extension PlayViewController {
         
         // Allows us to hide the system volume HUD giving it a zero frame
         self.volumeView = MPVolumeView(frame: .zero)
-        //self.volumeView.showsRouteButton = false
         view.addSubview(volumeView)
       
-        // Observe when the system volume changes
+        // Add an observer: when the system volume changes
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(volumeChanged),
                                                name: NSNotification.Name.MPMusicPlayerControllerVolumeDidChange,
                                                object: nil)
 
-        // Observe when the playing song changes over the self.app.appPlayer object
+        // Add an observer: when the playing song changes over the self.app.appPlayer object
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updateView),
                                                name: NSNotification.Name.MPMusicPlayerControllerNowPlayingItemDidChange,
@@ -95,101 +101,135 @@ extension PlayViewController {
         self.app.appPlayer.getPlayer().beginGeneratingPlaybackNotifications()
     }
   
+    /// Set the view objects style
     func viewStyle() {
+        // Volume VUHD object
         self.volumeBar.shape      = .circle
         self.volumeBar.style      = .blur(.light)
         self.volumeBar.background = .blur(.dark)
         
         // Add a shadow to the artwork image
-        self.artworkImg.layer.shadowColor   = UIColor.darkGray.cgColor //UIColor.black.cgColor
+        self.artworkImg.layer.shadowColor   = UIColor.darkGray.cgColor
         self.artworkImg.layer.shadowOpacity = 1
         self.artworkImg.layer.shadowOffset  = CGSize.zero
         self.artworkImg.layer.shadowRadius  = 10
         
+        // Add a blur view over the background image
         self.blurEffectView.effect           = UIBlurEffect(style: UIBlurEffectStyle.dark)
-        self.blurEffectView.frame            = view.bounds  //view.bounds
+        self.blurEffectView.frame            = view.bounds
         self.blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
       
-        // Set the progress bar higher
+        // Set the progress bar higher than default
         self.progress.transform =  self.progress.transform.scaledBy(x: 1, y: 3)
     }
-  
+}
+
+// MARK: Actions
+extension PlayViewController {
+    
+    /// Play the current song
     func playSong() {
         self.app.appPlayer.playSong()
         
+        // If the timer is not running, start it
         if (!timerIsOn) {
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateProgress), userInfo: nil, repeats: true)
             timerIsOn = true
         }
     }
     
+    /// Pause the current song
     func pauseSong() {
         self.app.appPlayer.pauseSong()
     }
   
+    /// Animates the view objects when changes to the previous song
+    ///
+    /// - Parameter flipDuration: Animation duration
     func animatePreviousSong(_ flipDuration: Double) {
         DispatchQueue.main.async {
             UIView.transition(with: self.artworkImg, duration: flipDuration, options: .transitionFlipFromLeft, animations: nil, completion: nil)
         }
         DispatchQueue.main.async {
-            UIView.transition(with: self.artistLbl, duration: flipDuration, options: .transitionFlipFromLeft, animations: nil, completion: nil)
+            UIView.transition(with: self.artistLbl,  duration: flipDuration, options: .transitionFlipFromLeft, animations: nil, completion: nil)
         }
         DispatchQueue.main.async {
-            UIView.transition(with: self.albumLbl, duration: flipDuration, options: .transitionFlipFromLeft, animations: nil, completion: nil)
+            UIView.transition(with: self.albumLbl,   duration: flipDuration, options: .transitionFlipFromLeft, animations: nil, completion: nil)
         }
         DispatchQueue.main.async {
-            UIView.transition(with: self.songLbl, duration: flipDuration, options: .transitionFlipFromLeft, animations: nil, completion: nil)
+            UIView.transition(with: self.songLbl,    duration: flipDuration, options: .transitionFlipFromLeft, animations: nil, completion: nil)
         }      
     }
-  
+
+    /// Animates the view objects when changes to the next song
+    ///
+    /// - Parameter flipDuration: Animation duration
     func animateNextSong(_ flipDuration: Double) {
         DispatchQueue.main.async {
             UIView.transition(with: self.artworkImg, duration: flipDuration, options: .transitionFlipFromRight, animations: nil, completion: nil)
         }
         DispatchQueue.main.async {
-            UIView.transition(with: self.artistLbl, duration: flipDuration, options: .transitionFlipFromRight, animations: nil, completion: nil)
+            UIView.transition(with: self.artistLbl,  duration: flipDuration, options: .transitionFlipFromRight, animations: nil, completion: nil)
         }
         DispatchQueue.main.async {
-            UIView.transition(with: self.albumLbl, duration: flipDuration, options: .transitionFlipFromRight, animations: nil, completion: nil)
+            UIView.transition(with: self.albumLbl,   duration: flipDuration, options: .transitionFlipFromRight, animations: nil, completion: nil)
         }
         DispatchQueue.main.async {
-            UIView.transition(with: self.songLbl, duration: flipDuration, options: .transitionFlipFromRight, animations: nil, completion: nil)
+            UIView.transition(with: self.songLbl,    duration: flipDuration, options: .transitionFlipFromRight, animations: nil, completion: nil)
         }
     }
+}
+
+// MARK: Utils
+extension PlayViewController {
     
+    /// Gets the average color from the current song artwork
+    ///
+    /// - Parameter image: Artwork image
+    /// - Returns: Average color
     func getAverageColor(image: UIImage) -> UIColor? {
+        
+        // Get the album unique id
         let id = AlbumID(artist: self.app.appPlayer.nowPlayingArtist(), album: self.app.appPlayer.nowPlayingAlbumTitle())
         
+        // If the current album average color is stored in the cache, return it
         if let cacheValue = averageColorCache[id.hashValue] {
             return cacheValue
         }
-        else {
-            let averageColor = image.averageColor
+        else { // if not, read it, store it in the cache and return it
+            let averageColor                = image.averageColor
             averageColorCache[id.hashValue] = averageColor
             return averageColor
         }
     }
 }
 
-// @objc and @IBAction and selector functions
+// Event handlers
 extension PlayViewController {
     
+    /// When the playing song changes, changes the view objects accordingly
     @objc func updateView() {
       
-        // Update the view accondingly with the current song
         DispatchQueue.main.async {
+            
+            // Song title
             self.songLbl.text = self.app.appPlayer.nowPlayingTitle()
             
             // If album title has not changed, we assume that either artist and artwork haven't changed
             if (self.albumLbl.text  != self.app.appPlayer.nowPlayingAlbumTitle()) {
-                
+             
+                // Album title
                 self.albumLbl.text  = self.app.appPlayer.nowPlayingAlbumTitle()
+                
+                // Artist name
                 self.artistLbl.text = self.app.appPlayer.nowPlayingArtist()
 
+                // Artwork image
                 if let artwork = self.app.appPlayer.nowPlayingArtwork() {
                     self.artworkImg.image    = artwork.image(at: CGSize(width: 150, height: 150))
                     self.backgroundImg.image = self.artworkImg.image
                     
+                    // Progress bar
                     if let image = self.artworkImg.image {
                         self.progress.progressTintColor = self.getAverageColor(image: image)
                     }
@@ -201,7 +241,10 @@ extension PlayViewController {
         }
     }
         
+    /// While timer run, update the progress objects accordingly
     @objc func updateProgress() {
+        
+        // If the music is not playing or the app is in background, we don't need to update them
         guard (self.app.appPlayer.isPlaying() && app.appStatus == .foreground) else { return }
         
         // Update the progress bar
@@ -226,101 +269,120 @@ extension PlayViewController {
         }
     }
     
+    /// Tap event handler for play/pause the music
+    ///
+    /// - Parameter recognizer: Gesture recognizer object
     @IBAction func tapPlayPause(_ recognizer: UIGestureRecognizer) {
         
+        // If the tap has began (the finger is still touching the screen
         if (recognizer.state == .began) {
+            
+            // Reduces the artwork shadow opacity
             self.artworkImg.layer.shadowOpacity = 0.5
 
+            // If the music was playing, pause it
             if (app.appPlayer.isPlaying()) {
                 pauseSong()
-                
-//                self.playImg.image = UIImage(named: "icons-pause")
             }
+            // If the music was paused, play it
             else if (app.appPlayer.isPaused()) {
                 playSong()
-                
-//                self.playImg.image = UIImage(named: "icons-play")
             }
-            
-//            DispatchQueue.main.async {
-//                self.playImg.isHidden = false
-//                UIView.animate(withDuration: 1, delay: 1, options: UIViewAnimationOptions.showHideTransitionViews, animations: {
-//                    self.playImg.alpha = 0
-//                }, completion: { finished in
-//                    self.playImg.isHidden = true
-//                    self.playImg.alpha = 0.5
-//                })
-//            }
-
         }
+        // The tap has finished (the finger is not touching anymore the screen)
         else if ( recognizer.state == .ended) {
+            // Set back the artwork shadow opacity to its previous value
             self.artworkImg.layer.shadowOpacity = 1
         }
-        
     }
     
+    /// Pan gesture event handler to increase/decrease volume
+    ///
+    /// - Parameter recognizer: Pan gesture recognizer
     @IBAction func handleVolume(_ recognizer: UIPanGestureRecognizer) {
+        
         let location = recognizer.location(in: recognizer.view)
         
         switch recognizer.state {
-        case .began:
-            if let volumeSlider = self.volumeSlider {
-                self.volumeHandler.initY     = Float(location.y)
-                self.volumeHandler.initValue = volumeSlider.value
-                initVolumeLevel = Float(self.volumeHandler.initValue)
-                VHUD.show(volumeBar)
-                volumeGestureInProgress = true
-            }
-        case .changed:
+        case .began: // The pan gesture has just started
             
             if let volumeSlider = self.volumeSlider {
-                let incrDeltaY = (self.volumeHandler.initY - Float(location.y)) / Float((recognizer.view?.frame.height)!)
+                // Read the Y position of the fingers and the current volume value
+                self.volumeHandler.initY     = Float(location.y)
+                self.volumeHandler.initValue = volumeSlider.value
+                initVolumeLevel              = Float(self.volumeHandler.initValue)
+                
+                // Show the VHUD view
+                VHUD.show(volumeBar)
+                
+                volumeGestureInProgress = true
+            }
+        case .changed: // The pan gesture continues moving
+            
+            if let volumeSlider = self.volumeSlider {
+                // Calculate the delta Y movement from its last position and the new volume level accordingly
+                let incrDeltaY     = (self.volumeHandler.initY - Float(location.y)) / Float((recognizer.view?.frame.height)!)
                 let newVolumeLevel = self.volumeHandler.initValue + incrDeltaY
                 
+                // If the delta Y movement is less than 0.01 we do not change the volume
                 if (abs(initVolumeLevel - newVolumeLevel) >= 0.01) {
+                    // Increase/decrease the volume level
                     volumeSlider.setValue(newVolumeLevel, animated: false)
                     initVolumeLevel = newVolumeLevel
+                    
+                    // Shows the new volume level in VUHD view
                     VHUD.updateProgress(CGFloat(volumeSlider.value))
                 }
             }
             
-        case .ended:
+        case .ended: // The pan gesture has finished
+            // Hides the VUHD view
             VHUD.dismiss(0.5, 0.5)
             volumeGestureInProgress = false
+            
         default:
             break
         }
     }
     
+    /// Volume level change handler
+    ///
+    /// - Parameter notification: <#notification description#>
     @objc func volumeChanged(_ notification: Notification) {
         
+        // If the user is changing the volume using a pan gesture, return as the change is being handle by the gesture handler
         guard (volumeGestureInProgress == false) else { return }
         
-
+        
         if (notification.name == NSNotification.Name.MPMusicPlayerControllerVolumeDidChange) {
             if let volumeSlider = self.volumeSlider {
+                // Show in the VHUD view the new volume level
                 VHUD.show(volumeBar)
                 VHUD.updateProgress(CGFloat(volumeSlider.value))
+                // and hide it
                 VHUD.dismiss(1, 1)
             }
         }
 
     }
 
+    /// Swipe gesture handler to go to the previuos/next song
+    ///
+    /// - Parameter gesture: Swipe gesture recognizer
     @IBAction func handleGesture(_ gesture: UISwipeGestureRecognizer) {
         let flipDuration = 0.4
         
+        // If the swipe is from right to left, play the previous song
         if (gesture.direction == UISwipeGestureRecognizerDirection.right && !app.appPlayer.isPlayingFirst()) {
             app.appPlayer.playPrevious()
           
             animatePreviousSong(flipDuration)
         }
+        // If the swipe is from left to right, play the next song
         else if (gesture.direction == UISwipeGestureRecognizerDirection.left && !app.appPlayer.isPlayingLast()) {
             app.appPlayer.playNext()
           
             animateNextSong(flipDuration)
         }        
     }
-    
-
 }

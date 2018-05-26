@@ -3,21 +3,18 @@ PODS:
   - VHUD (1.3.1)
 
 DEPENDENCIES:
-  - PDMUtils (from `../PDMUtils/PDMUtils/`)
+  - PDMUtils
   - VHUD
 
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
+    - PDMUtils
     - VHUD
 
-EXTERNAL SOURCES:
-  PDMUtils:
-    :path: "../PDMUtils/PDMUtils/"
-
 SPEC CHECKSUMS:
-  PDMUtils: 8a3f383579003ea85fb71bcd45b48fdd9bed72a3
+  PDMUtils: 1b9bcf4aa129baac9bcc77e2969b0225d4c2024b
   VHUD: 77add7891a2b02edba0790bb6be3b28e8961c85b
 
-PODFILE CHECKSUM: 357f49c5049f57bfdeb0e03958a48e9c9c8ddbbb
+PODFILE CHECKSUM: 7179cbac311437abb7f81b39cc2f789ec8fdc805
 
 COCOAPODS: 1.5.0

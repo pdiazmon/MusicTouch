@@ -29,15 +29,15 @@ class SongCell: UITableViewCell {
 
 // MARK: render
 extension SongCell {
-    /// Extracts the values from the item and puts them into the label
+    /// Extracts the values from the item and puts them into the label and image
     ///
-    /// - Parameter item: Item
+    /// - Parameter item: Media item
     func render(item: MPMediaItem) {
         self.songLbl.text  = item.title
-        self.songImg.image = item.artwork?.image(at: CGSize(width: 75.0, height: 75.0))
-        //self.songImg.image = item.artwork?.image(at: (self.songImg.image?.size)!)
         
-        self.songImg.layer.cornerRadius = self.songImg.frame.height/2
-        self.songImg.clipsToBounds = true
+        if let image = item.artwork?.image(at: CGSize(width: 75.0, height: 75.0)) {
+            self.songImg.setAndRound(image)
+        }
+        
     }
 }

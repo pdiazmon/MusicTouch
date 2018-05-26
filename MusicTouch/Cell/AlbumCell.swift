@@ -34,10 +34,7 @@ extension AlbumCell {
         self.albumLbl.text   = item.album
         
         if (item.image != nil) {
-            self.albumImg.image = item.image
-            self.albumImg.layer.cornerRadius = self.albumImg.frame.height/2
-            self.albumImg.clipsToBounds = true
-            
+            self.albumImg.setAndRound(item.image!)
         }
     }
 }

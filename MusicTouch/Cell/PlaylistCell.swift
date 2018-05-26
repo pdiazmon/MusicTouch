@@ -32,10 +32,7 @@ extension PlaylistCell {
         self.playlistLbl.text  = item.title
         
         if item.image != nil {
-            self.playlistImg.image = item.image
-            
-            self.playlistImg.layer.cornerRadius = self.playlistImg.frame.height/2
-            self.playlistImg.clipsToBounds      = true
+            self.playlistImg.setAndRound(item.image!)
         }
     }
     

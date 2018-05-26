@@ -7,13 +7,13 @@
 //
 
 import UIKit
+import MediaPlayer
 
 class PlaylistViewController: UIViewController {
     
     @IBOutlet weak var playlistTableView: UITableView!
     
-    private let app       = UIApplication.shared.delegate as! AppDelegate
-    private let dataStore = (UIApplication.shared.delegate as! AppDelegate).dataStore
+    private let app = UIApplication.shared.delegate as! AppDelegate
 
     override var prefersStatusBarHidden: Bool { return true }
     
@@ -21,7 +21,7 @@ class PlaylistViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.dataStore.refreshPlaylistList()
+        app.dataStore.refreshPlaylistList()
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,35 +29,40 @@ class PlaylistViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
+// MARK: UITableViewDataSource
 extension PlaylistViewController: UITableViewDataSource {
     
+    /// Datasource handler for tableview new cells creating
+    ///
+    /// - Parameters:
+    ///   - tableView: TableView itself
+    ///   - indexPath: Index of the new cell
+    /// - Returns: The new cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
+        // Request to the tableview for a new cell by its identifier
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! PlaylistCell
         
-        let item = self.dataStore.playlistList()[indexPath.row]
+        // Get the nth item from the data-source playlist list
+        let item = app.dataStore.playlistList()[indexPath.row]
         
+        // Render the new cell with the item information
         cell.render(item: item)
         cell.selectionStyle = .none
         
         return cell
     }
     
+    /// Datasource handler for tableview number of cells
+    ///
+    /// - Parameters:
+    ///   - tableView: TableView itself
+    ///   - section: Section identifier within the TableView
+    /// - Returns: Number of cells in the section
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.dataStore.playlistList().count
+        return app.dataStore.playlistList().count
     }
     
 }
@@ -65,53 +70,41 @@ extension PlaylistViewController: UITableViewDataSource {
 
 // MARK: UITableViewDelegate
 extension PlaylistViewController: UITableViewDelegate {
-    
+
+    /// Delegate handler for cell selection event in a TableView
+    ///
+    /// - Parameters:
+    ///   - tableView: The TableView itself
+    ///   - indexPath: Selected cell index
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let item = self.dataStore.playlistList()[indexPath.row]
-        
-        dataStore.refreshSongList(byPlaylist: item.title)
-        let vc = tabBarController?.customizableViewControllers![TabBarItem.song.rawValue] as! SongViewController
-        vc.reload()
-        
-        tabBarController?.selectedIndex = TabBarItem.song.rawValue
-    }
-    
-    func swipeHandlerAux(indexPath: IndexPath, shuffle: Bool) {
+        guard (indexPath.row < app.dataStore.playlistList().count) else { return }
 
-        // Get the selected playlist
-        let item = self.dataStore.playlistList()[indexPath.row]
+        // Extract the item from the data-store object with the selected cell index
+        let item = app.dataStore.playlistList()[indexPath.row]
         
-        // Fill the songlist from the selected playlist in the datastore
-        self.dataStore.refreshSongList(byPlaylist: item.title)
+        // Refresh the data-store songlist, filtering by playlist title
+        app.dataStore.refreshSongList(byPlaylist: item.title)
         
-        // Set the player collection from the datastore songlist
-        self.app.appPlayer.setCollection(self.dataStore.songList()!)
-        
-        // Sets the shuffle mode
-        if (shuffle) {
-            self.app.appPlayer.shuffleModeOn()
-        }
-        else {
-            self.app.appPlayer.shuffleModeOff()
-        }
-        
-        // Wait and start playing the first song and, also, transition to the Play view
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            
-            if let vc = self.tabBarController?.customizableViewControllers![TabBarItem.play.rawValue] as? PlayViewController {
-                vc.playSong()
-            }
-            
-            self.tabBarController?.tabBar.items![TabBarItem.play.rawValue].isEnabled = true
-            self.tabBarController?.selectedIndex                                     = TabBarItem.play.rawValue
+        // Get the SongViewController, make it to reload its table and activate it
+        if let vc = tabBarController?.customizableViewControllers?[TabBarItem.song.rawValue] as? SongViewController {
+            vc.reload()
+            tabBarController?.selectedIndex = TabBarItem.song.rawValue
         }
     }
     
-    // Handler for swipe action over a cell
+    /// Delegate handler for leading swipe event in a TableView cell
+    ///
+    /// - Parameters:
+    ///   - tableView: The TableView itself
+    ///   - indexPath: Swiped cell index
+    /// - Returns: A 'shuffle' action configuration
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        let shuffleAction = UIContextualAction(style: .normal, title:  "Play", handler: { (ac: UIContextualAction, view: UIView, success: (Bool) -> Void) in
+        guard (indexPath.row < app.dataStore.playlistList().count) else { return UISwipeActionsConfiguration(actions: []) }
+        
+        // Create the contextual action
+        let shuffleAction = UIContextualAction(style: .normal, title:  "Shuffle", handler: { (ac: UIContextualAction, view: UIView, success: (Bool) -> Void) in
             
             self.swipeHandlerAux(indexPath: indexPath, shuffle: true)
             
@@ -124,8 +117,17 @@ extension PlaylistViewController: UITableViewDelegate {
         return UISwipeActionsConfiguration(actions: [shuffleAction])
     }
     
+    /// Delegate handler for trailing swipe event in a TableView cell
+    ///
+    /// - Parameters:
+    ///   - tableView: The TableView itself
+    ///   - indexPath: Swiped cell index
+    /// - Returns: A 'play' action configuration
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
     {
+        guard (indexPath.row < app.dataStore.playlistList().count) else { return UISwipeActionsConfiguration(actions: []) }
+        
+        // Create the contextual action
         let playAction = UIContextualAction(style: .normal, title:  "Play", handler: { (ac: UIContextualAction, view: UIView, success: (Bool) -> Void) in
             
             self.swipeHandlerAux(indexPath: indexPath, shuffle: false)
@@ -138,6 +140,48 @@ extension PlaylistViewController: UITableViewDelegate {
         
         return UISwipeActionsConfiguration(actions: [playAction])
     }
+}
+
+extension PlaylistViewController {
+    
+    /// Handles the swipe event over a cell
+    ///
+    /// - Parameters:
+    ///   - indexPath: Swiped cell index
+    ///   - shuffle: true if shuffle mode has been selected, false in other case
+    private func swipeHandlerAux(indexPath: IndexPath, shuffle: Bool) {
+        
+        guard (indexPath.row < app.dataStore.playlistList().count) else { return }
+        
+        // Get the selected playlist
+        let item = app.dataStore.playlistList()[indexPath.row]
+        
+        // Refresh the data-store song list from the music library filtering by playlist title
+        app.dataStore.refreshSongList(byPlaylist: item.title)
+        
+        // Set the player collection from the datastore songlist
+        app.appPlayer.setCollection(app.dataStore.songList())
+        
+        // Sets the shuffle mode
+        if (shuffle) {
+            app.appPlayer.shuffleModeOn()
+        }
+        else {
+            app.appPlayer.shuffleModeOff()
+        }
+        
+        // Wait and start playing the first song and, also, transition to the Play view
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            
+            if let vc = self.tabBarController?.customizableViewControllers![TabBarItem.play.rawValue] as? PlayViewController {
+                vc.playSong()
+
+                self.tabBarController?.tabBar.items![TabBarItem.play.rawValue].isEnabled = true
+                self.tabBarController?.selectedIndex                                     = TabBarItem.play.rawValue
+            }
+        }
+    }
+
 }
 
 

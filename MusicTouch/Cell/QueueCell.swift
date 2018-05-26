@@ -42,9 +42,9 @@ extension QueueCell {
             self.songImg.image = UIImage(named: "speaker", in: Bundle(for: type(of: self)), compatibleWith: nil)
         }
         else {
-            self.songImg.image = item.artwork?.image(at: CGSize(width: 50.0, height: 50.0))            
-            self.songImg.layer.cornerRadius = self.songImg.frame.height/2
-            self.songImg.clipsToBounds = true
+            if let image = item.artwork?.image(at: CGSize(width: 50.0, height: 50.0)) {
+                self.songImg.setAndRound(image)
+            }
         }
         
         self.backgroundColor = color

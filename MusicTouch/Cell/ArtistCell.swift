@@ -31,10 +31,7 @@ extension ArtistCell {
         self.artistLbl.text  = item.artist
         
         if item.image != nil {
-            self.artistImg.image = item.image
-            
-            self.artistImg.layer.cornerRadius = self.artistImg.frame.height/2
-            self.artistImg.clipsToBounds      = true
+            self.artistImg.setAndRound(item.image!)
         }
     }
 

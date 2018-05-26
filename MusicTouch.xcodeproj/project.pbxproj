@@ -7,12 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A8CA941110C51BACDECFE064 /* Pods_MusicTouch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB621506855E67AFCE8E4196 /* Pods_MusicTouch.framework */; };
 		DA39D0369EDFB347566193AC /* Pods_MusicTouchUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 712F15174A4AC5C8A25E4E13 /* Pods_MusicTouchUITests.framework */; };
-		EB072E4C205F21690040EA23 /* PDMUtils_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB072E4D205F21690040EA23 /* PDMUtils_iOS.framework */; };
 		EB072E4F205F23490040EA23 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB072E4E205F23490040EA23 /* AlbumCell.swift */; };
 		EB101CAF20606854007AFAE7 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB101CAE20606854007AFAE7 /* TabBarController.swift */; };
-		EB146E05206190FF00A9EF8B /* PDMUtils_iOS.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EB072E4D205F21690040EA23 /* PDMUtils_iOS.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EB2E6DE6205EECB700588315 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2E6DE5205EECB700588315 /* AppDelegate.swift */; };
 		EB2E6DE8205EECB700588315 /* ArtistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2E6DE7205EECB700588315 /* ArtistViewController.swift */; };
 		EB2E6DEA205EECB700588315 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2E6DE9205EECB700588315 /* AlbumViewController.swift */; };
@@ -35,6 +32,7 @@
 		EB88740220ADE8A50075D9A4 /* songs.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = EB8873FD20ADE8A50075D9A4 /* songs.jpeg */; };
 		EB88740320ADE8A50075D9A4 /* playing.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = EB8873FE20ADE8A50075D9A4 /* playing.jpeg */; };
 		EB88740420ADE8A50075D9A4 /* volume.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = EB8873FF20ADE8A50075D9A4 /* volume.jpeg */; };
+		EB9251B820B48D9600839E9B /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9251B720B48D9600839E9B /* UIImageView.swift */; };
 		EBAB5DD5205F2A7D00FD3FF8 /* SongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAB5DD4205F2A7D00FD3FF8 /* SongViewController.swift */; };
 		EBAB5DD7205F2BA800FD3FF8 /* SongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAB5DD6205F2BA800FD3FF8 /* SongCell.swift */; };
 		EBD391E6207E72E400E2E47A /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD391E5207E72E400E2E47A /* UIImage.swift */; };
@@ -59,20 +57,6 @@
 			remoteInfo = MusicTouch;
 		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		EB146E062061910000A9EF8B /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				EB146E05206190FF00A9EF8B /* PDMUtils_iOS.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		271C6967F600C21BDE4D0EFA /* Pods-MusicTouchUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicTouchUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MusicTouchUITests/Pods-MusicTouchUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -114,6 +98,7 @@
 		EB8873FD20ADE8A50075D9A4 /* songs.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = songs.jpeg; sourceTree = "<group>"; };
 		EB8873FE20ADE8A50075D9A4 /* playing.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = playing.jpeg; sourceTree = "<group>"; };
 		EB8873FF20ADE8A50075D9A4 /* volume.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = volume.jpeg; sourceTree = "<group>"; };
+		EB9251B720B48D9600839E9B /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		EBAB5DD4205F2A7D00FD3FF8 /* SongViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongViewController.swift; sourceTree = "<group>"; };
 		EBAB5DD6205F2BA800FD3FF8 /* SongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongCell.swift; sourceTree = "<group>"; };
 		EBD391E5207E72E400E2E47A /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; wrapsLines = 0; };
@@ -128,8 +113,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB072E4C205F21690040EA23 /* PDMUtils_iOS.framework in Frameworks */,
-				A8CA941110C51BACDECFE064 /* Pods_MusicTouch.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,6 +279,7 @@
 			isa = PBXGroup;
 			children = (
 				EBD391E5207E72E400E2E47A /* UIImage.swift */,
+				EB9251B720B48D9600839E9B /* UIImageView.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -311,7 +295,6 @@
 				EB2E6DDE205EECB700588315 /* Sources */,
 				EB2E6DDF205EECB700588315 /* Frameworks */,
 				EB2E6DE0205EECB700588315 /* Resources */,
-				EB146E062061910000A9EF8B /* Embed Frameworks */,
 				54FED093254E0D06C1E9E086 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
@@ -537,6 +520,7 @@
 				EB68FBF02065930A00A2CB7E /* Playlist.swift in Sources */,
 				EBAB5DD5205F2A7D00FD3FF8 /* SongViewController.swift in Sources */,
 				EB101CAF20606854007AFAE7 /* TabBarController.swift in Sources */,
+				EB9251B820B48D9600839E9B /* UIImageView.swift in Sources */,
 				EBD391E6207E72E400E2E47A /* UIImage.swift in Sources */,
 				EB072E4F205F23490040EA23 /* AlbumCell.swift in Sources */,
 				EB2E6E1B205EFC5200588315 /* Album.swift in Sources */,

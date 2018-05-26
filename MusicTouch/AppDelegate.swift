@@ -7,17 +7,17 @@
 //
 
 import UIKit
-import PDMUtils_iOS
+import PDMUtils
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-    var appPlayer = PDMPlayer()
+    // Following app attributes are shared within the app
+    var appPlayer            = PDMPlayer()
     var appStatus: AppStatus = .foreground
-    
-    var dataStore = DataStore()
+    var dataStore            = DataStore()
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
