@@ -125,6 +125,7 @@ extension SongViewController {
     /// Forces the TableView to reload its data
     public func reload() {
         self.songsTableView?.reloadData()
+        layout()
     }
     
     /// Enable/disable play buttons depending on list emptyness
