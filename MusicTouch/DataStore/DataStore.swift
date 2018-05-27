@@ -16,20 +16,17 @@ class DataStore {
     private var _playlistList:         [Playlist]
     private var _albumList:            [Album]
     private var _songList:             MPMediaItemCollection?
-    private var lastArtist:            String
-    private var lastSongByArsitsAlbum: (String, String)
-    private var lastSongByPlaylist:    String
+    private var lastArtist:            String?
+    private var lastSongByArsitsAlbum: (String, String)?
+    private var lastSongByPlaylist:    String?
     
     // Default size for artwork items
     let size = 250.0
 
     init() {
-        _artistList           = []
-        _playlistList         = []
-        _albumList            = []
-        lastArtist            = ""
-        lastSongByArsitsAlbum = ("", "")
-        lastSongByPlaylist    = ""
+        _artistList   = []
+        _playlistList = []
+        _albumList    = []
     }
 }
 
@@ -64,7 +61,7 @@ extension DataStore {
     func refreshAlbumList(byArtist: String) {
         
         // If the album list refresh requested is the same as the last time, we don't need to do it again
-        guard (lastArtist != byArtist) else { return }
+        guard (lastArtist == nil || lastArtist! != byArtist) else { return }
         
         _albumList = []
         lastArtist = byArtist
@@ -84,7 +81,7 @@ extension DataStore {
     func refreshSongList(byArtist: String, byAlbum: String = "") {
 
         // If the song list refresh requested is the same as the last time, we don't need to do it again
-        guard ((byArtist, byAlbum) != lastSongByArsitsAlbum) else { return }
+        guard (lastSongByArsitsAlbum == nil || lastSongByArsitsAlbum! != (byArtist, byAlbum)) else { return }
         
         lastSongByArsitsAlbum = (byArtist, byAlbum)
         
@@ -99,7 +96,7 @@ extension DataStore {
     func refreshSongList(byPlaylist: String) {
         
         // If the song list refresh requested is the same as the last time, we don't need to do it again
-        guard (lastSongByPlaylist != byPlaylist) else { return }
+        guard (lastSongByPlaylist == nil || lastSongByPlaylist! != byPlaylist) else { return }
         
         lastSongByPlaylist = byPlaylist
         
@@ -134,7 +131,7 @@ extension DataStore {
             return list
         }
         else {
-            return MPMediaItemCollection()
+            return MPMediaItemCollection(items: [])
         }
     }
     
