@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D61DDE6BD0098248FC047645 /* Pods_MusicTouch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB621506855E67AFCE8E4196 /* Pods_MusicTouch.framework */; };
 		DA39D0369EDFB347566193AC /* Pods_MusicTouchUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 712F15174A4AC5C8A25E4E13 /* Pods_MusicTouchUITests.framework */; };
 		EB072E4F205F23490040EA23 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB072E4E205F23490040EA23 /* AlbumCell.swift */; };
 		EB101CAF20606854007AFAE7 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB101CAE20606854007AFAE7 /* TabBarController.swift */; };
@@ -93,6 +94,8 @@
 		EB3739572090DF7800BC4988 /* QueueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueCell.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EB68FBEF2065930A00A2CB7E /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
 		EB68FBF1206593DB00A2CB7E /* PlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewController.swift; sourceTree = "<group>"; wrapsLines = 0; };
+		EB6C243420B9DBE1009B87AC /* PDMUtils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PDMUtils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB6C243820B9DC0F009B87AC /* PDMUtils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PDMUtils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB8873FB20ADE8A40075D9A4 /* artists.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = artists.jpeg; sourceTree = "<group>"; };
 		EB8873FC20ADE8A40075D9A4 /* albums.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = albums.jpeg; sourceTree = "<group>"; };
 		EB8873FD20ADE8A50075D9A4 /* songs.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = songs.jpeg; sourceTree = "<group>"; };
@@ -113,6 +116,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D61DDE6BD0098248FC047645 /* Pods_MusicTouch.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,6 +155,8 @@
 		EB2E6DD9205EECB700588315 = {
 			isa = PBXGroup;
 			children = (
+				EB6C243820B9DC0F009B87AC /* PDMUtils.framework */,
+				EB6C243420B9DBE1009B87AC /* PDMUtils.framework */,
 				EB8873FA20ADE8270075D9A4 /* Previews */,
 				EB2E6DE4205EECB700588315 /* MusicTouch */,
 				EB2E6DFB205EECB700588315 /* MusicTouchTests */,
