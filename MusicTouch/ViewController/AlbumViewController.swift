@@ -188,6 +188,7 @@ extension AlbumViewController {
     public func reload() {
         if let tv = self.albumsTableView {
             tv.reloadData()
+            layout()
         }
     }
     
