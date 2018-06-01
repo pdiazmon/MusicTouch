@@ -87,10 +87,10 @@ extension PlayViewController {
         self.volumeView = MPVolumeView(frame: .zero)
         view.addSubview(volumeView)
       
-        // Add an observer: when the system volume changes
+        // Add an observer: when the system volume changes if the user has pressed any of the volume buttons
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(volumeChanged),
-                                               name: NSNotification.Name.MPMusicPlayerControllerVolumeDidChange,
+                                               name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"),
                                                object: nil)
 
         // Add an observer: when the playing song changes over the self.app.appPlayer object
@@ -352,19 +352,21 @@ extension PlayViewController {
         // If the user is changing the volume using a pan gesture, return as the change is being handle by the gesture handler
         guard (volumeGestureInProgress == false) else { return }
         
-        if (notification.name == NSNotification.Name.MPMusicPlayerControllerVolumeDidChange) {
-            if let volumeSlider = self.volumeSlider {
-                
-                // Show a the transparent view with the new volume label and hide it after a time
-                volumeBoxView.changeVolume(to: CGFloat(volumeSlider.value))
-                volumeBoxView.show()
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    self.volumeBoxView.hide()
+        if let userInfo = notification.userInfo {
+            if let volumeChangeType = (userInfo["AVSystemController_AudioVolumeChangeReasonNotificationParameter"] as? String) {
+                if volumeChangeType == "ExplicitVolumeChange" {
+                    if let volumeSlider = self.volumeSlider {
+                        // Show a the transparent view with the new volume label and hide it after a time
+                        volumeBoxView.changeVolume(to: CGFloat(volumeSlider.value))
+                        volumeBoxView.show()
+                        
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            self.volumeBoxView.hide()
+                        }
+                    }
                 }
             }
         }
-
     }
 
     /// Swipe gesture handler to go to the previuos/next song
