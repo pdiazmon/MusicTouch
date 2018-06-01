@@ -8,8 +8,6 @@
 
 import UIKit
 import MediaPlayer
-import VHUD
-//import FXBlurView
 
 struct volumeGestureHandler {
     var initY: Float = 0.0
@@ -37,10 +35,10 @@ class PlayViewController: UIViewController {
     private var volumeView:              MPVolumeView!
     private var averageColorCache =      [Int: UIColor]()
 
-    private var volumeBar       = VHUDContent(.percentComplete)
     private var initVolumeScale = Float()
     private var initVolumeLevel = Float()
     private var volumeHandler   = volumeGestureHandler()
+    private var volumeBoxView   = VolumeView(color: UIColor.red)
     
     override var prefersStatusBarHidden: Bool { return true }
     
@@ -77,6 +75,8 @@ extension PlayViewController {
     /// Add and initialize objects to the view
     func viewSetup() {
         
+        self.view.addSubview(volumeBoxView)
+        
         // Set the progress bar to zero
         self.progress.progress = 0.0
         
@@ -103,10 +103,6 @@ extension PlayViewController {
   
     /// Set the view objects style
     func viewStyle() {
-        // Volume VUHD object
-        self.volumeBar.shape      = .circle
-        self.volumeBar.style      = .blur(.light)
-        self.volumeBar.background = .blur(.dark)
         
         // Add a shadow to the artwork image
         self.artworkImg.layer.shadowColor   = UIColor.darkGray.cgColor
@@ -312,11 +308,13 @@ extension PlayViewController {
                 self.volumeHandler.initValue = volumeSlider.value
                 initVolumeLevel              = Float(self.volumeHandler.initValue)
                 
-                // Show the VHUD view
-                VHUD.show(volumeBar)
-                
+                // Show the transparent view with the volume
+                volumeBoxView.changeVolume(to: CGFloat(initVolumeLevel))
+                volumeBoxView.show()
+
                 volumeGestureInProgress = true
             }
+            
         case .changed: // The pan gesture continues moving
             
             if let volumeSlider = self.volumeSlider {
@@ -325,19 +323,20 @@ extension PlayViewController {
                 let newVolumeLevel = self.volumeHandler.initValue + incrDeltaY
                 
                 // If the delta Y movement is less than 0.01 we do not change the volume
-                if (abs(initVolumeLevel - newVolumeLevel) >= 0.01) {
+                if (abs(initVolumeLevel - newVolumeLevel) >= 0.01 && newVolumeLevel <= 1 && newVolumeLevel >= 0) {
                     // Increase/decrease the volume level
                     volumeSlider.setValue(newVolumeLevel, animated: false)
                     initVolumeLevel = newVolumeLevel
-                    
-                    // Shows the new volume level in VUHD view
-                    VHUD.updateProgress(CGFloat(volumeSlider.value))
+
+                    // Change the volume value in the transparent view
+                    volumeBoxView.changeVolume(to: CGFloat(newVolumeLevel))
                 }
             }
             
         case .ended: // The pan gesture has finished
-            // Hides the VUHD view
-            VHUD.dismiss(0.5, 0.5)
+            // Hides the volume view
+            volumeBoxView.hide()
+            
             volumeGestureInProgress = false
             
         default:
@@ -347,20 +346,22 @@ extension PlayViewController {
     
     /// Volume level change handler
     ///
-    /// - Parameter notification: <#notification description#>
+    /// - Parameter notification: Volume change notification
     @objc func volumeChanged(_ notification: Notification) {
         
         // If the user is changing the volume using a pan gesture, return as the change is being handle by the gesture handler
         guard (volumeGestureInProgress == false) else { return }
         
-        
         if (notification.name == NSNotification.Name.MPMusicPlayerControllerVolumeDidChange) {
             if let volumeSlider = self.volumeSlider {
-                // Show in the VHUD view the new volume level
-                VHUD.show(volumeBar)
-                VHUD.updateProgress(CGFloat(volumeSlider.value))
-                // and hide it
-                VHUD.dismiss(1, 1)
+                
+                // Show a the transparent view with the new volume label and hide it after a time
+                volumeBoxView.changeVolume(to: CGFloat(volumeSlider.value))
+                volumeBoxView.show()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    self.volumeBoxView.hide()
+                }
             }
         }
 

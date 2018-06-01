@@ -24,6 +24,7 @@
 		EB2E6E1C205EFC5200588315 /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2E6E19205EFC5200588315 /* Artist.swift */; };
 		EB339E1F2060716A00D7092A /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB339E1E2060716A00D7092A /* Constant.swift */; };
 		EB339E2120607FBE00D7092A /* PlayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB339E2020607FBE00D7092A /* PlayViewController.swift */; };
+		EB34A34C20C058AF0055A7AC /* VolumeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB34A34B20C058AF0055A7AC /* VolumeView.swift */; };
 		EB3739562090D8B200BC4988 /* QueueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3739552090D8B200BC4988 /* QueueViewController.swift */; };
 		EB3739582090DF7800BC4988 /* QueueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3739572090DF7800BC4988 /* QueueCell.swift */; };
 		EB68FBF02065930A00A2CB7E /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB68FBEF2065930A00A2CB7E /* Playlist.swift */; };
@@ -90,6 +91,7 @@
 		EB2E6E19205EFC5200588315 /* Artist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
 		EB339E1E2060716A00D7092A /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		EB339E2020607FBE00D7092A /* PlayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayViewController.swift; sourceTree = "<group>"; wrapsLines = 0; };
+		EB34A34B20C058AF0055A7AC /* VolumeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeView.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EB3739552090D8B200BC4988 /* QueueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueViewController.swift; sourceTree = "<group>"; };
 		EB3739572090DF7800BC4988 /* QueueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueCell.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EB68FBEF2065930A00A2CB7E /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 			children = (
 				EB2E6DE5205EECB700588315 /* AppDelegate.swift */,
 				EB339E1E2060716A00D7092A /* Constant.swift */,
+				EB34A34A20C058880055A7AC /* UI */,
 				EBD391E4207E72C500E2E47A /* Extension */,
 				EB2E6E26205EFCD800588315 /* Cell */,
 				EB2E6E25205EFCC900588315 /* ViewController */,
@@ -267,6 +270,14 @@
 				712F15174A4AC5C8A25E4E13 /* Pods_MusicTouchUITests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		EB34A34A20C058880055A7AC /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				EB34A34B20C058AF0055A7AC /* VolumeView.swift */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 		EB8873FA20ADE8270075D9A4 /* Previews */ = {
@@ -473,12 +484,10 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-MusicTouch/Pods-MusicTouch-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/PDMUtils/PDMUtils.framework",
-				"${BUILT_PRODUCTS_DIR}/VHUD/VHUD.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PDMUtils.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/VHUD.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -517,6 +526,7 @@
 				EB339E1F2060716A00D7092A /* Constant.swift in Sources */,
 				EB2E6DEA205EECB700588315 /* AlbumViewController.swift in Sources */,
 				EB2E6DE6205EECB700588315 /* AppDelegate.swift in Sources */,
+				EB34A34C20C058AF0055A7AC /* VolumeView.swift in Sources */,
 				EBFD73922066DBA60056FB12 /* DataStore.swift in Sources */,
 				EB3739562090D8B200BC4988 /* QueueViewController.swift in Sources */,
 				EB3739582090DF7800BC4988 /* QueueCell.swift in Sources */,

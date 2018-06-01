@@ -13,8 +13,6 @@ target 'MusicTouch' do
   # Or use this for PDMUtils github pod repository
   pod 'PDMUtils'
   
-  pod 'VHUD'
-
   target 'MusicTouchTests' do
     inherit! :search_paths
     # Pods for testing
