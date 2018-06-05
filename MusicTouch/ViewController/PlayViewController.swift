@@ -320,7 +320,7 @@ extension PlayViewController {
                 initVolumeLevel              = Float(self.volumeHandler.initValue)
                 
                 // Show the transparent view with the volume
-                volumeBoxView.changeVolume(to: CGFloat(initVolumeLevel), tabBarHeight: (self.tabBarController?.tabBar.frame.height)!)
+                volumeBoxView.changeVolume(to: CGFloat(initVolumeLevel), viewController: self)
                 volumeBoxView.show()
 
                 volumeGestureInProgress = true
@@ -340,7 +340,7 @@ extension PlayViewController {
                     initVolumeLevel = newVolumeLevel
 
                     // Change the volume value in the transparent view
-                    volumeBoxView.changeVolume(to: CGFloat(newVolumeLevel), tabBarHeight: (self.tabBarController?.tabBar.frame.height)!)
+                    volumeBoxView.changeVolume(to: CGFloat(newVolumeLevel), viewController: self)
                 }
             }
             
@@ -368,7 +368,7 @@ extension PlayViewController {
                 if volumeChangeType == "ExplicitVolumeChange" {
                     if let volumeSlider = self.volumeSlider {
                         // Show a the transparent view with the new volume label and hide it after a time
-                        volumeBoxView.changeVolume(to: CGFloat(volumeSlider.value), tabBarHeight: (self.tabBarController?.tabBar.frame.height)!)
+                        volumeBoxView.changeVolume(to: CGFloat(volumeSlider.value), viewController: self)
                         volumeBoxView.show()
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
