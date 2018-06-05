@@ -27,15 +27,17 @@ class VolumeView: UIView {
         volumeText.textColor     = UIColor.white
         volumeText.shadowColor   = UIColor.lightGray
         volumeText.textAlignment = .center
-
+        
     }
     
     /// Shows the transparent view with the appropiate size according to the volume value
     ///
     /// - Parameter volume: volume value
     public func changeVolume(to volume: CGFloat) {
+        guard (self.superview != nil) else { return }
+        
         let viewHeight = self.superview!.safeAreaLayoutGuide.layoutFrame.height
-
+        
         self.frame = CGRect(x: 0,
                             y: viewHeight * (1-volume),
                             width: self.superview!.safeAreaLayoutGuide.layoutFrame.width,
@@ -45,7 +47,7 @@ class VolumeView: UIView {
         if (volume >= 0.1) {
             volumeText.text = "\(Int(volume*100))%"
             volumeText.sizeToFit()
-            // Localte the volume value label at the center of the transparent view
+            // Locate the volume value label at the center of the transparent view
             volumeText.center.x = self.center.x
             volumeText.center.y = self.bounds.height/2
             volumeText.isHidden = false

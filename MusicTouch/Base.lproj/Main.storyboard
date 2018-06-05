@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -338,9 +338,10 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="YDj-6F-Rcd">
                                 <rect key="frame" x="0.0" y="20" width="375" height="598"/>
                             </imageView>
-                            <visualEffectView opaque="NO" contentMode="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="fCH-KP-123">
+                            <visualEffectView opaque="NO" contentMode="bottom" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fCH-KP-123">
                                 <rect key="frame" x="0.0" y="20" width="375" height="598"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" insetsLayoutMarginsFromSafeArea="NO" id="1Ur-Nl-5Ab">
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFill" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="1Ur-Nl-5Ab" userLabel="Blur effect">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="598"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 </view>
@@ -408,7 +409,6 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="fCH-KP-123" firstAttribute="centerX" secondItem="TYg-Hk-tFC" secondAttribute="centerX" id="1MM-Az-BLn"/>
                             <constraint firstItem="YDj-6F-Rcd" firstAttribute="centerX" secondItem="TYg-Hk-tFC" secondAttribute="centerX" id="6n9-qU-gXH"/>
                             <constraint firstItem="Uur-Ph-G0C" firstAttribute="centerY" secondItem="TYg-Hk-tFC" secondAttribute="centerY" multiplier="0.5" id="8c1-sB-jkB"/>
                             <constraint firstItem="OBf-YT-8im" firstAttribute="centerX" secondItem="TYg-Hk-tFC" secondAttribute="centerX" id="9O6-q8-VrF"/>
@@ -423,12 +423,9 @@
                             <constraint firstItem="Mkr-B7-t9p" firstAttribute="centerX" secondItem="TYg-Hk-tFC" secondAttribute="centerX" id="WqP-VM-AF9"/>
                             <constraint firstItem="YDj-6F-Rcd" firstAttribute="width" secondItem="TYg-Hk-tFC" secondAttribute="width" id="YTV-ui-uCx"/>
                             <constraint firstItem="YDj-6F-Rcd" firstAttribute="centerY" secondItem="TYg-Hk-tFC" secondAttribute="centerY" id="dsK-LI-95O"/>
-                            <constraint firstItem="fCH-KP-123" firstAttribute="width" secondItem="TYg-Hk-tFC" secondAttribute="width" id="hNN-H4-nCo"/>
                             <constraint firstItem="Uur-Ph-G0C" firstAttribute="centerX" secondItem="TYg-Hk-tFC" secondAttribute="centerX" id="o8R-kE-8LC"/>
                             <constraint firstItem="OBf-YT-8im" firstAttribute="width" secondItem="TYg-Hk-tFC" secondAttribute="width" multiplier="0.95" id="pA6-NV-B55"/>
-                            <constraint firstItem="fCH-KP-123" firstAttribute="height" secondItem="TYg-Hk-tFC" secondAttribute="height" id="qAV-jW-Fdq"/>
                             <constraint firstItem="5Qs-7E-P4R" firstAttribute="centerX" secondItem="TYg-Hk-tFC" secondAttribute="centerX" id="tZS-y0-I7B"/>
-                            <constraint firstItem="fCH-KP-123" firstAttribute="centerY" secondItem="TYg-Hk-tFC" secondAttribute="centerY" id="xW9-jO-42D"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="TYg-Hk-tFC"/>
                         <connections>

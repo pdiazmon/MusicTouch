@@ -99,8 +99,9 @@ extension PlayViewController {
                                                name: NSNotification.Name.MPMusicPlayerControllerNowPlayingItemDidChange,
                                                object: self.app.appPlayer.getPlayer())
         self.app.appPlayer.getPlayer().beginGeneratingPlaybackNotifications()
+        
     }
-  
+    
     /// Set the view objects style
     func viewStyle() {
         
@@ -114,7 +115,13 @@ extension PlayViewController {
         self.blurEffectView.effect           = UIBlurEffect(style: UIBlurEffectStyle.dark)
         self.blurEffectView.frame            = view.bounds
         self.blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-      
+        self.blurEffectView.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.blurEffectView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        self.blurEffectView.centerYAnchor.constraint(equalTo: self.view.centerYAnchor).isActive = true
+        self.blurEffectView.heightAnchor.constraint(equalTo: self.view.heightAnchor).isActive = true
+        self.blurEffectView.widthAnchor.constraint(equalTo: self.view.widthAnchor).isActive = true
+
         // Set the progress bar higher than default
         self.progress.transform =  self.progress.transform.scaledBy(x: 1, y: 3)
     }
