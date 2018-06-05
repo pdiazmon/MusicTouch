@@ -77,6 +77,10 @@ extension PlayViewController {
         
         self.view.addSubview(volumeBoxView)
         
+//        self.volumeBoxView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//        self.volumeBoxView.translatesAutoresizingMaskIntoConstraints = false
+//        self.volumeBoxView.bottomAnchor.constraint(equalTo: self.tabBarController!.view.topAnchor).isActive = true
+        
         // Set the progress bar to zero
         self.progress.progress = 0.0
         
@@ -316,7 +320,7 @@ extension PlayViewController {
                 initVolumeLevel              = Float(self.volumeHandler.initValue)
                 
                 // Show the transparent view with the volume
-                volumeBoxView.changeVolume(to: CGFloat(initVolumeLevel))
+                volumeBoxView.changeVolume(to: CGFloat(initVolumeLevel), tabBarHeight: (self.tabBarController?.tabBar.frame.height)!)
                 volumeBoxView.show()
 
                 volumeGestureInProgress = true
@@ -336,7 +340,7 @@ extension PlayViewController {
                     initVolumeLevel = newVolumeLevel
 
                     // Change the volume value in the transparent view
-                    volumeBoxView.changeVolume(to: CGFloat(newVolumeLevel))
+                    volumeBoxView.changeVolume(to: CGFloat(newVolumeLevel), tabBarHeight: (self.tabBarController?.tabBar.frame.height)!)
                 }
             }
             
@@ -364,7 +368,7 @@ extension PlayViewController {
                 if volumeChangeType == "ExplicitVolumeChange" {
                     if let volumeSlider = self.volumeSlider {
                         // Show a the transparent view with the new volume label and hide it after a time
-                        volumeBoxView.changeVolume(to: CGFloat(volumeSlider.value))
+                        volumeBoxView.changeVolume(to: CGFloat(volumeSlider.value), tabBarHeight: (self.tabBarController?.tabBar.frame.height)!)
                         volumeBoxView.show()
                         
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {

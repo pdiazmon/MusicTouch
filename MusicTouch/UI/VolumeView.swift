@@ -33,15 +33,18 @@ class VolumeView: UIView {
     /// Shows the transparent view with the appropiate size according to the volume value
     ///
     /// - Parameter volume: volume value
-    public func changeVolume(to volume: CGFloat) {
+    public func changeVolume(to volume: CGFloat, tabBarHeight: CGFloat) {
         guard (self.superview != nil) else { return }
         
-        let viewHeight = self.superview!.safeAreaLayoutGuide.layoutFrame.height
+        let viewHeight         = self.superview!.frame.height
+        let safeAreaViewHeight = viewHeight - tabBarHeight
+        let volumeHeight       = safeAreaViewHeight * volume
+        let yCorner            = viewHeight - volumeHeight - tabBarHeight
         
         self.frame = CGRect(x: 0,
-                            y: viewHeight * (1-volume),
+                            y: yCorner,
                             width: self.superview!.safeAreaLayoutGuide.layoutFrame.width,
-                            height: viewHeight * volume)
+                            height: volumeHeight)
         
         // Do not show the volume value label if volume value is less than 10% as the view is too small
         if (volume >= 0.1) {
