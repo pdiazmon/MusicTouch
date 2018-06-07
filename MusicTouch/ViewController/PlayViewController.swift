@@ -76,11 +76,7 @@ extension PlayViewController {
     func viewSetup() {
         
         self.view.addSubview(volumeBoxView)
-        
-//        self.volumeBoxView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//        self.volumeBoxView.translatesAutoresizingMaskIntoConstraints = false
-//        self.volumeBoxView.bottomAnchor.constraint(equalTo: self.tabBarController!.view.topAnchor).isActive = true
-        
+                
         // Set the progress bar to zero
         self.progress.progress = 0.0
         

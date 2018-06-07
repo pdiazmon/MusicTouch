@@ -42,6 +42,16 @@ class VolumeView: UIView {
         guard (self.superview != nil)                  else { return }
         guard (viewController.tabBarController != nil) else { return }
         
+        /*
+           View height is calculated based in the tabBar height instead of using an AutoLayout constraint to the Safe Area bottom anchor.
+           I have made a lot of tests based on the idea that an autolayout constraint is the best and more elegant solution,
+           but when the screen is rotated to the landscape mode the safe area size is not updated properly by the system.
+           Even, when you get its size programmatically, the returned value is wrong once the device is rotated.
+           And it happens when you rotate again the device to portrait mode. The returned safe area size value is not the same
+           as you got when the app was launched.
+           So strange.
+        */
+        
         let viewHeight         = self.superview!.frame.height
         let tabBarHeight       = viewController.tabBarController!.tabBar.frame.height
         let safeAreaViewHeight = viewHeight - tabBarHeight
