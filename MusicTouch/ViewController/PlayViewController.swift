@@ -124,6 +124,12 @@ extension PlayViewController {
 
         // Set the progress bar higher than default
         self.progress.transform =  self.progress.transform.scaledBy(x: 1, y: 3)
+
+        // Hides the route button
+        self.volumeView.showsRouteButton  = false
+        // As, if volumeView.showsVolumeSlider is set to false the system volume alert window appears,
+        // it is hidden moving behind the background image
+        self.volumeView.layer.zPosition = self.backgroundImg.layer.zPosition - 1
     }
 }
 
