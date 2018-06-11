@@ -29,6 +29,8 @@
 		EB3739582090DF7800BC4988 /* QueueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3739572090DF7800BC4988 /* QueueCell.swift */; };
 		EB68FBF02065930A00A2CB7E /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB68FBEF2065930A00A2CB7E /* Playlist.swift */; };
 		EB68FBF2206593DB00A2CB7E /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB68FBF1206593DB00A2CB7E /* PlaylistViewController.swift */; };
+		EB87367D20CEEBBC00CF643F /* DatastoreProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB87367C20CEEBBC00CF643F /* DatastoreProtocol.swift */; };
+		EB87367F20CEECB100CF643F /* DatastoreMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB87367E20CEECB100CF643F /* DatastoreMock.swift */; };
 		EB88740020ADE8A50075D9A4 /* artists.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = EB8873FB20ADE8A40075D9A4 /* artists.jpeg */; };
 		EB88740120ADE8A50075D9A4 /* albums.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = EB8873FC20ADE8A40075D9A4 /* albums.jpeg */; };
 		EB88740220ADE8A50075D9A4 /* songs.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = EB8873FD20ADE8A50075D9A4 /* songs.jpeg */; };
@@ -98,6 +100,8 @@
 		EB68FBF1206593DB00A2CB7E /* PlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewController.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EB6C243420B9DBE1009B87AC /* PDMUtils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PDMUtils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB6C243820B9DC0F009B87AC /* PDMUtils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PDMUtils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB87367C20CEEBBC00CF643F /* DatastoreProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatastoreProtocol.swift; sourceTree = "<group>"; };
+		EB87367E20CEECB100CF643F /* DatastoreMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatastoreMock.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EB8873FB20ADE8A40075D9A4 /* artists.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = artists.jpeg; sourceTree = "<group>"; };
 		EB8873FC20ADE8A40075D9A4 /* albums.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = albums.jpeg; sourceTree = "<group>"; };
 		EB8873FD20ADE8A50075D9A4 /* songs.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = songs.jpeg; sourceTree = "<group>"; };
@@ -190,8 +194,9 @@
 				EB2E6E25205EFCC900588315 /* ViewController */,
 				EB2E6E1E205EFCAB00588315 /* DataStore */,
 				EB2E6E17205EFC5200588315 /* Model */,
-				EB2E6DEB205EECB700588315 /* Main.storyboard */,
+				EB87367920CEEB8F00CF643F /* Protocol */,
 				EB2E6DEE205EECB700588315 /* Assets.xcassets */,
+				EB2E6DEB205EECB700588315 /* Main.storyboard */,
 				EB2E6DF0205EECB700588315 /* LaunchScreen.storyboard */,
 				EB2E6DF3205EECB700588315 /* Info.plist */,
 			);
@@ -230,6 +235,7 @@
 			isa = PBXGroup;
 			children = (
 				EBFD73912066DBA60056FB12 /* DataStore.swift */,
+				EB87367E20CEECB100CF643F /* DatastoreMock.swift */,
 			);
 			path = DataStore;
 			sourceTree = "<group>";
@@ -278,6 +284,14 @@
 				EB34A34B20C058AF0055A7AC /* VolumeView.swift */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		EB87367920CEEB8F00CF643F /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				EB87367C20CEEBBC00CF643F /* DatastoreProtocol.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		EB8873FA20ADE8270075D9A4 /* Previews */ = {
@@ -519,6 +533,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB87367F20CEECB100CF643F /* DatastoreMock.swift in Sources */,
 				EB68FBF2206593DB00A2CB7E /* PlaylistViewController.swift in Sources */,
 				EB2E6E1C205EFC5200588315 /* Artist.swift in Sources */,
 				EBAB5DD7205F2BA800FD3FF8 /* SongCell.swift in Sources */,
@@ -526,6 +541,7 @@
 				EB339E1F2060716A00D7092A /* Constant.swift in Sources */,
 				EB2E6DEA205EECB700588315 /* AlbumViewController.swift in Sources */,
 				EB2E6DE6205EECB700588315 /* AppDelegate.swift in Sources */,
+				EB87367D20CEEBBC00CF643F /* DatastoreProtocol.swift in Sources */,
 				EB34A34C20C058AF0055A7AC /* VolumeView.swift in Sources */,
 				EBFD73922066DBA60056FB12 /* DataStore.swift in Sources */,
 				EB3739562090D8B200BC4988 /* QueueViewController.swift in Sources */,

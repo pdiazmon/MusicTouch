@@ -204,7 +204,7 @@ extension ArtistViewController {
         let item = app.dataStore.artistList()[indexPath.row]
         
         // Refresh the data-store song list from the music library filtering by artist name
-        app.dataStore.refreshSongList(byArtist: item.artist)
+        app.dataStore.refreshSongList(byArtist: item.artist, byAlbum: "")
         
         // Set the player collection from the datastore songlist
         app.appPlayer.setCollection(app.dataStore.songList())

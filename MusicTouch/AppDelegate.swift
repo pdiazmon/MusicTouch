@@ -17,7 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Following app attributes are shared within the app
     var appPlayer            = PDMPlayer()
     var appStatus: AppStatus = .foreground
-    var dataStore            = DataStore()
+    var dataStore: DataStoreProtocol = DataStore()
+//    var dataStore: DataStoreProtocol = DataStoreMock()
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {

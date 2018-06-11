@@ -11,7 +11,7 @@ import MediaPlayer
 import PDMUtils
 
 /// Music Library wrapper to make it easy for the rest of the classes to request music items
-class DataStore {
+class DataStore: DataStoreProtocol {
     private var _artistList:           [Artist]
     private var _playlistList:         [Playlist]
     private var _albumList:            [Album]
