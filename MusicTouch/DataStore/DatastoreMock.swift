@@ -12,25 +12,25 @@ import MediaPlayer
 
 class MPMediaItemMock: MPMediaItem {
     
-    public var artistID: Int = 0
-    public var albumID: Int = 0
-    public var titleID: Int = 0
+    public var _artist: String!
+    public var _album: String!
+    public var _title: String!
     
-    init(artistID: Int, albumID: Int, titleID: Int) {
+    init(artist: String, album: String, title: String) {
         super.init()
         
-        self.artistID = artistID
-        self.albumID  = albumID
-        self.titleID  = titleID
+        self._artist = artist
+        self._album  = album
+        self._title  = title
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    override var albumArtist: String { return "Mock Artist \(artistID)" }
-    override var albumTitle: String { return "Mock Album \(artistID)-\(albumID)" }
-    override var title: String { return "Mock Song \(artistID)-\(albumID)-\(titleID)" }
+    override var albumArtist: String { return _artist }
+    override var albumTitle: String { return _album }
+    override var title: String { return _title }
     override var artwork: MPMediaItemArtwork? { return nil }
 }
 
@@ -40,45 +40,7 @@ class MediaDB {
     public var _albumList:            [Album] = []
     public var _songList =             MPMediaItemCollection(items: [])
 
-    init() {
-        self.initializePlaylistList()
-        self.initializeArtistList()
-        self.initializeAlbumsList()
-        self.initializeSongsList()
-    }
-    
-    func initializePlaylistList() {
-        let playlist1 = Playlist(title: "Mock Playlist 1", image: nil)
-        let playlist2 = Playlist(title: "Mock Playlist 2", image: nil)
-        
-        _playlistList = [playlist1, playlist2]
-    }
-    
-    func initializeArtistList() {
-        let artist1 = Artist(artist: "Mock Artist 1", image: nil)
-        let artist2 = Artist(artist: "Mock Artist 2", image: nil)
-        
-        _artistList = [artist1, artist2]
-    }
-    
-    func initializeAlbumsList() {
-        let album11 = Album(artist: "Mock Artist 1", album: "Mock Album 1-1", image: nil)
-        let album12 = Album(artist: "Mock Artist 1", album: "Mock Album 1-2", image: nil)
-        let album21 = Album(artist: "Mock Artist 2", album: "Mock Album 2-1", image: nil)
-        
-        _albumList = [album11, album12, album21]
-    }
-    
-    func initializeSongsList() {
-        let song111 = MPMediaItemMock(artistID: 1, albumID: 1, titleID: 1)
-        let song112 = MPMediaItemMock(artistID: 1, albumID: 1, titleID: 2)
-        let song113 = MPMediaItemMock(artistID: 1, albumID: 1, titleID: 3)
-        let song121 = MPMediaItemMock(artistID: 1, albumID: 2, titleID: 1)
-        let song122 = MPMediaItemMock(artistID: 1, albumID: 2, titleID: 2)
-        let song211 = MPMediaItemMock(artistID: 2, albumID: 1, titleID: 1)
-        
-        _songList = MPMediaItemCollection(items: [song111, song112, song113, song121, song122, song211])
-    }
+    init() {}
 
 }
 
@@ -124,10 +86,6 @@ class DataStoreMock: DataStoreProtocol {
         _songList = MPMediaItemCollection(items: [_mediaDB._songList.items[0], _mediaDB._songList.items[1]])
     }
 
-//    func refreshSongList(byArtist: String) {
-//        refreshSongList(byArtist: byArtist, byAlbum: "")
-//    }
-    
     func refreshSongListFromAlbumList() {
         _songList = _mediaDB._songList
     }
@@ -148,4 +106,45 @@ class DataStoreMock: DataStoreProtocol {
         return _artistList
     }
     
+}
+
+extension DataStoreMock {
+    func newPlaylist(playlist: String) {
+        _mediaDB._playlistList.append(Playlist(title: playlist, image: nil))
+    }
+    
+    func newArtist(artist: String) {
+        _mediaDB._artistList.append(Artist(artist: artist, image: nil))
+    }
+    
+    func newAlbum(artist: String, album: String) {
+        _mediaDB._albumList.append(Album(artist: artist, album: album, image: nil))
+    }
+    
+    func newSong(artist: String, album: String, title: String) {
+        _mediaDB._songList = MPMediaItemCollection(items: _mediaDB._songList.items + [MPMediaItemMock(artist: artist, album: album, title: title)])
+    }
+}
+
+extension DataStoreMock {
+    public func defaultInitialize() {
+        
+        newPlaylist(playlist: "Mock Playlist 1")
+        newPlaylist(playlist: "Mock Playlist 2")
+        
+        newArtist(artist: "Mock Artist 1")
+        newArtist(artist: "Mock Artist 2")
+
+        newAlbum(artist: "Mock Artist 1", album: "Mock Album 1-1")
+        newAlbum(artist: "Mock Artist 1", album: "Mock Album 1-2")
+        newAlbum(artist: "Mock Artist 2", album: "Mock Album 2-1")
+
+        newSong(artist: "Mock Artist 1", album: "Mock Album 1-1", title: "Mock Song 1-1-1")
+        newSong(artist: "Mock Artist 1", album: "Mock Album 1-1", title: "Mock Song 1-1-2")
+        newSong(artist: "Mock Artist 1", album: "Mock Album 1-1", title: "Mock Song 1-1-3")
+        newSong(artist: "Mock Artist 1", album: "Mock Album 1-2", title: "Mock Song 1-2-1")
+        newSong(artist: "Mock Artist 1", album: "Mock Album 1-2", title: "Mock Song 1-1-2")
+        newSong(artist: "Mock Artist 2", album: "Mock Album 2-1", title: "Mock Song 2-1-1")
+
+    }
 }
