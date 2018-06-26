@@ -58,10 +58,10 @@ extension QueueViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! QueueCell
         
         // Get the nth item from the data-store song list
-        let item = app.dataStore.songList().items[indexPath.row]
+        let item = app.dataStore.songList()[indexPath.row]
         
         // Render the new cell with the item information
-        cell.render(item: item, color: self.backgroundColor)
+        cell.render(item: item.mediaItem, color: self.backgroundColor)
         cell.selectionStyle = .none
         
         return cell

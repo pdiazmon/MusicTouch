@@ -23,11 +23,13 @@ protocol DataStoreProtocol {
     
     func refreshSongListFromAlbumList()
     
-    func songList() -> MPMediaItemCollection
+    func songList() -> [MTSongData]
     
-    func albumList() -> [Album]
+    func songCollection() -> MPMediaItemCollection
     
-    func playlistList() -> [Playlist]
+    func albumList() -> [MTAlbumData]
     
-    func artistList() -> [Artist]
+    func playlistList() -> [MTPlaylistData]
+    
+    func artistList() -> [MTArtistData]
 }

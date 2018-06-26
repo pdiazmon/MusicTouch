@@ -28,6 +28,12 @@ class ArtistViewController: UIViewController {
                 button.isEnabled = app.dataStore.artistList().count > 0
             }
         }
+        
+        // Register the correct CellView class
+        self.artistTable.register(MTCell.classForCoder(), forCellReuseIdentifier: "CellArtist")
+        
+        self.artistTable.backgroundColor = UIColor.gray
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -60,7 +66,7 @@ class ArtistViewController: UIViewController {
         app.dataStore.refreshSongList(byArtist: "", byAlbum: "")
         
         // Set the player collection from the datastore songlist
-        app.appPlayer.setCollection(app.dataStore.songList())
+        app.appPlayer.setCollection(app.dataStore.songCollection())
         
         if (shuffle) {
             app.appPlayer.shuffleModeOn()
@@ -91,10 +97,13 @@ extension ArtistViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // Request to the tableview for a new cell by its identifier
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! ArtistCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CellArtist") as! MTCell
         
         // Get the nth item from the data-source artist list
         let item = app.dataStore.artistList()[indexPath.row]
+        
+        // Create the delegate
+        cell.delegate = MTArtistCell()
         
         // Render the new cell with the item information
         cell.render(item: item)
@@ -131,7 +140,7 @@ extension ArtistViewController: UITableViewDelegate {
         let item = app.dataStore.artistList()[indexPath.row]
         
         // Refresh the data-store songlist, filtering by artist name
-        app.dataStore.refreshAlbumList(byArtist: item.artist)
+        app.dataStore.refreshAlbumList(byArtist: item.name)
         
         // Get the SongViewController, make it to reload its table and activate it
         if let vc = tabBarController?.customizableViewControllers?[TabBarItem.album.rawValue] as? AlbumViewController {
@@ -187,6 +196,7 @@ extension ArtistViewController: UITableViewDelegate {
         
         return UISwipeActionsConfiguration(actions: [playAction])
     }
+
 }
 
 extension ArtistViewController {
@@ -204,10 +214,10 @@ extension ArtistViewController {
         let item = app.dataStore.artistList()[indexPath.row]
         
         // Refresh the data-store song list from the music library filtering by artist name
-        app.dataStore.refreshSongList(byArtist: item.artist, byAlbum: "")
+        app.dataStore.refreshSongList(byArtist: item.name, byAlbum: "")
         
         // Set the player collection from the datastore songlist
-        app.appPlayer.setCollection(app.dataStore.songList())
+        app.appPlayer.setCollection(app.dataStore.songCollection())
         
         // Sets the shuffle mode
         if (shuffle) {

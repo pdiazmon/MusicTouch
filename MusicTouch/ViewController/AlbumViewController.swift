@@ -22,6 +22,11 @@ class AlbumViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
         
         layout()
+        
+        // Register the correct CellView class
+        self.albumsTableView.register(MTCell.classForCoder(), forCellReuseIdentifier: "CellAlbum")
+        
+        self.albumsTableView.backgroundColor = UIColor.gray
     }
 
     override func didReceiveMemoryWarning() {
@@ -52,7 +57,7 @@ class AlbumViewController: UIViewController {
         app.dataStore.refreshSongListFromAlbumList()
         
         // Set the player collection from the datastore songlist
-        app.appPlayer.setCollection(app.dataStore.songList())
+        app.appPlayer.setCollection(app.dataStore.songCollection())
         
         if (shuffle) {
             app.appPlayer.shuffleModeOn()
@@ -82,10 +87,13 @@ extension AlbumViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // Request to the tableview for a new cell by its identifier
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! AlbumCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CellAlbum") as! MTCell
         
         // Get the nth item from the data-store album list
         let item = app.dataStore.albumList()[indexPath.row]
+        
+        // Create the delegate
+        cell.delegate = MTAlbumCell()
         
         // Render the new cell with the item information
         cell.render(item: item)
@@ -122,7 +130,7 @@ extension AlbumViewController: UITableViewDelegate {
         let item = app.dataStore.albumList()[indexPath.row]
         
         // Refresh the data-store songlist, filtering by artist name and album title
-        app.dataStore.refreshSongList(byArtist: item.artist, byAlbum: item.album)
+        app.dataStore.refreshSongList(byArtist: item.artistName, byAlbum: item.albumTitle)
         
         // Get the SongViewController, make it to reload its table and activate it
         if let vc = tabBarController?.customizableViewControllers?[TabBarItem.song.rawValue] as? SongViewController {
@@ -214,10 +222,10 @@ extension AlbumViewController {
         let item = app.dataStore.albumList()[indexPath.row]
         
         // Refresh the data-store song list from the music library filtering by artist name and album title
-        app.dataStore.refreshSongList(byArtist: item.artist, byAlbum: item.album)
+        app.dataStore.refreshSongList(byArtist: item.artistName, byAlbum: item.albumTitle)
         
         // Set the player collection from the datastore songlist
-        app.appPlayer.setCollection(app.dataStore.songList())
+        app.appPlayer.setCollection(app.dataStore.songCollection())
         
         // Sets the shuffle mode
         if (shuffle) {

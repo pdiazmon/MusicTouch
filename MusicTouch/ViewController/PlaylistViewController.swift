@@ -22,6 +22,11 @@ class PlaylistViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         app.dataStore.refreshPlaylistList()
+        
+        // Register the correct CellView class
+        self.playlistTableView.register(MTCell.classForCoder(), forCellReuseIdentifier: "CellPlaylist")
+        
+        self.playlistTableView.backgroundColor = UIColor.gray
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,10 +48,13 @@ extension PlaylistViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // Request to the tableview for a new cell by its identifier
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! PlaylistCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CellPlaylist") as! MTCell
         
         // Get the nth item from the data-source playlist list
         let item = app.dataStore.playlistList()[indexPath.row]
+
+        // Create the delegate
+        cell.delegate = MTPlaylistCell()
         
         // Render the new cell with the item information
         cell.render(item: item)
@@ -84,7 +92,7 @@ extension PlaylistViewController: UITableViewDelegate {
         let item = app.dataStore.playlistList()[indexPath.row]
         
         // Refresh the data-store songlist, filtering by playlist title
-        app.dataStore.refreshSongList(byPlaylist: item.title)
+        app.dataStore.refreshSongList(byPlaylist: item.name)
         
         // Get the SongViewController, make it to reload its table and activate it
         if let vc = tabBarController?.customizableViewControllers?[TabBarItem.song.rawValue] as? SongViewController {
@@ -157,10 +165,10 @@ extension PlaylistViewController {
         let item = app.dataStore.playlistList()[indexPath.row]
         
         // Refresh the data-store song list from the music library filtering by playlist title
-        app.dataStore.refreshSongList(byPlaylist: item.title)
+        app.dataStore.refreshSongList(byPlaylist: item.name)
         
         // Set the player collection from the datastore songlist
-        app.appPlayer.setCollection(app.dataStore.songList())
+        app.appPlayer.setCollection(app.dataStore.songCollection())
         
         // Sets the shuffle mode
         if (shuffle) {

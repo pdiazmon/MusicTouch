@@ -21,6 +21,12 @@ class SongViewController: UIViewController {
         super.viewDidLoad()
 
         layout()
+        
+        // Register the correct CellView class
+        self.songsTableView.register(MTCell.classForCoder(), forCellReuseIdentifier: "CellSong")
+        
+        self.songsTableView.backgroundColor = UIColor.gray
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,7 +55,7 @@ class SongViewController: UIViewController {
     private func startToPlay(shuffle: Bool,  index: Int = -1) {
         
         // Set the player collection from the datastore songlist
-        app.appPlayer.setCollection(app.dataStore.songList())
+        app.appPlayer.setCollection(app.dataStore.songCollection())
         
         if (shuffle) {
             app.appPlayer.shuffleModeOn()
@@ -60,7 +66,7 @@ class SongViewController: UIViewController {
         
         // If an index has been informed, get the nth song from the data-store list
         if (index >= 0) {
-            app.appPlayer.setSong(app.dataStore.songList().items[index])
+            app.appPlayer.setSong(app.dataStore.songList()[index].mediaItem)
         }
         
         // Start playing the first song and, also, transition to the Play view
@@ -84,10 +90,13 @@ extension SongViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // Request to the tableview for a new cell by its identifier
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! SongCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CellSong") as! MTCell
         
         // Get the nth item from the data-store album list
-        let item = app.dataStore.songList().items[indexPath.row]
+        let item = app.dataStore.songList()[indexPath.row]
+        
+        // Create the delegate
+        cell.delegate = MTSongCell()
         
         // Render the new cell with the item information
         cell.render(item: item)

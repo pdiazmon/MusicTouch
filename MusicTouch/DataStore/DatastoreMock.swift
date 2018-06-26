@@ -35,10 +35,10 @@ class MPMediaItemMock: MPMediaItem {
 }
 
 class MediaDB {
-    public var _artistList:           [Artist] = []
-    public var _playlistList:         [Playlist] = []
-    public var _albumList:            [Album] = []
-    public var _songList =             MPMediaItemCollection(items: [])
+    public var _artistList:           [MTArtistData] = []
+    public var _playlistList:         [MTPlaylistData] = []
+    public var _albumList:            [MTAlbumData] = []
+    public var _songList:             [MTSongData] = [] // MPMediaItemCollection(items: [])
 
     init() {}
 
@@ -46,10 +46,10 @@ class MediaDB {
 
 class DataStoreMock: DataStoreProtocol {
     
-    private var _artistList:           [Artist] = []
-    private var _playlistList:         [Playlist] = []
-    private var _albumList:            [Album] = []
-    private var _songList =             MPMediaItemCollection(items: [])
+    private var _artistList:           [MTArtistData] = []
+    private var _playlistList:         [MTPlaylistData] = []
+    private var _albumList:            [MTAlbumData] = []
+    private var _songList:             [MTSongData] = [] // MPMediaItemCollection(items: [])
 
     private var _mediaDB = MediaDB()
     
@@ -63,7 +63,7 @@ class DataStoreMock: DataStoreProtocol {
     
     func refreshAlbumList(byArtist: String) {
         if (byArtist.count > 0) {
-            _albumList = _mediaDB._albumList.filter { $0.artist == byArtist }
+            _albumList = _mediaDB._albumList.filter { $0.artistName == byArtist }
         }
         else {
             _albumList = _mediaDB._albumList
@@ -75,34 +75,38 @@ class DataStoreMock: DataStoreProtocol {
             _songList = _mediaDB._songList
         }
         else if (byAlbum.count > 0) {
-            _songList = MPMediaItemCollection(items: _mediaDB._songList.items.filter { $0.albumArtist == byArtist && $0.albumTitle == byAlbum })
+            _songList = _mediaDB._songList.filter { $0.mediaItem.albumArtist == byArtist && $0.mediaItem.albumTitle == byAlbum }
         }
         else {
-            _songList = MPMediaItemCollection(items: _mediaDB._songList.items.filter { $0.albumArtist == byArtist })
+            _songList = _mediaDB._songList.filter { $0.mediaItem.albumArtist == byArtist }
         }
     }
     
     func refreshSongList(byPlaylist: String) {
-        _songList = MPMediaItemCollection(items: [_mediaDB._songList.items[0], _mediaDB._songList.items[1]])
+        _songList = [_mediaDB._songList[0], _mediaDB._songList[1]]
     }
 
     func refreshSongListFromAlbumList() {
         _songList = _mediaDB._songList
     }
     
-    func songList() -> MPMediaItemCollection {
+    func songList() -> [MTSongData] {
         return _songList
     }
     
-    func albumList() -> [Album] {
+    func songCollection() -> MPMediaItemCollection {
+        return MPMediaItemCollection(items: [])
+    }
+    
+    func albumList() -> [MTAlbumData] {
         return _albumList
     }
     
-    func playlistList() -> [Playlist] {
+    func playlistList() -> [MTPlaylistData] {
         return _playlistList
     }
     
-    func artistList() -> [Artist] {
+    func artistList() -> [MTArtistData] {
         return _artistList
     }
     
@@ -110,19 +114,19 @@ class DataStoreMock: DataStoreProtocol {
 
 extension DataStoreMock {
     func newPlaylist(playlist: String) {
-        _mediaDB._playlistList.append(Playlist(title: playlist, image: nil))
+        _mediaDB._playlistList.append(MTPlaylistData(image: nil, name: playlist))
     }
     
     func newArtist(artist: String) {
-        _mediaDB._artistList.append(Artist(artist: artist, image: nil))
+        _mediaDB._artistList.append(MTArtistData(image: nil, name: artist))
     }
     
     func newAlbum(artist: String, album: String) {
-        _mediaDB._albumList.append(Album(artist: artist, album: album, image: nil))
+        _mediaDB._albumList.append(MTAlbumData(image: nil, artistName: artist, albumTitle: album, year: 2018))
     }
     
     func newSong(artist: String, album: String, title: String) {
-        _mediaDB._songList = MPMediaItemCollection(items: _mediaDB._songList.items + [MPMediaItemMock(artist: artist, album: album, title: title)])
+        _mediaDB._songList = _mediaDB._songList + [MTSongData(mediaItem: MPMediaItemMock(artist: artist, album: album, title: title))]
     }
 }
 
