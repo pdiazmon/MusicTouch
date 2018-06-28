@@ -23,9 +23,9 @@ class SongViewController: UIViewController {
         layout()
         
         // Register the correct CellView class
-        self.songsTableView.register(MTCell.classForCoder(), forCellReuseIdentifier: "CellSong")
+        self.songsTableView.register(MTCellFactory.shared.classForCoder(), forCellReuseIdentifier: "CellSong")
         
-        self.songsTableView.backgroundColor = UIColor.gray
+        self.songsTableView.backgroundColor = UIColor.lightGray
         
     }
 
@@ -96,10 +96,10 @@ extension SongViewController: UITableViewDataSource {
         let item = app.dataStore.songList()[indexPath.row]
         
         // Create the delegate
-        cell.delegate = MTSongCell()
+        if (cell.delegate == nil) { cell.delegate = MTSongCell() }
         
         // Render the new cell with the item information
-        cell.render(item: item)
+        MTCellFactory.shared.render(cell: cell, item: item)
         cell.selectionStyle = .none
         
         return cell

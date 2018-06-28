@@ -24,9 +24,9 @@ class PlaylistViewController: UIViewController {
         app.dataStore.refreshPlaylistList()
         
         // Register the correct CellView class
-        self.playlistTableView.register(MTCell.classForCoder(), forCellReuseIdentifier: "CellPlaylist")
+        self.playlistTableView.register(MTCellFactory.shared.classForCoder(), forCellReuseIdentifier: "CellPlaylist")
         
-        self.playlistTableView.backgroundColor = UIColor.gray
+        self.playlistTableView.backgroundColor = UIColor.lightGray
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,10 +54,10 @@ extension PlaylistViewController: UITableViewDataSource {
         let item = app.dataStore.playlistList()[indexPath.row]
 
         // Create the delegate
-        cell.delegate = MTPlaylistCell()
+        if (cell.delegate == nil) { cell.delegate = MTPlaylistCell() }
         
         // Render the new cell with the item information
-        cell.render(item: item)
+        MTCellFactory.shared.render(cell: cell, item: item)
         cell.selectionStyle = .none
         
         return cell

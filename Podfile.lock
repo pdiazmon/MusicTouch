@@ -1,16 +1,20 @@
 PODS:
   - PDMUtils (1.2.1)
+  - UIFontComplete (3.0.0)
 
 DEPENDENCIES:
   - PDMUtils
+  - UIFontComplete
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - PDMUtils
+    - UIFontComplete
 
 SPEC CHECKSUMS:
   PDMUtils: ec0412b2062bd3af96b43b0fb3a85dad28ab6af0
+  UIFontComplete: 5b0f59a83308816c610164b79a2540b3520f9b72
 
-PODFILE CHECKSUM: d9efff0852009763a75f17e0d0a5eb096f9a8ada
+PODFILE CHECKSUM: 7d98d74b9903433a81d1bfeaa9f25833958dfc4d
 
 COCOAPODS: 1.5.3

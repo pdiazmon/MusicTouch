@@ -24,9 +24,9 @@ class AlbumViewController: UIViewController {
         layout()
         
         // Register the correct CellView class
-        self.albumsTableView.register(MTCell.classForCoder(), forCellReuseIdentifier: "CellAlbum")
+        self.albumsTableView.register(MTCellFactory.shared.classForCoder(), forCellReuseIdentifier: "CellAlbum")
         
-        self.albumsTableView.backgroundColor = UIColor.gray
+        self.albumsTableView.backgroundColor = UIColor.lightGray
     }
 
     override func didReceiveMemoryWarning() {
@@ -93,10 +93,10 @@ extension AlbumViewController: UITableViewDataSource {
         let item = app.dataStore.albumList()[indexPath.row]
         
         // Create the delegate
-        cell.delegate = MTAlbumCell()
+        if (cell.delegate == nil) { cell.delegate = MTAlbumCell() }
         
         // Render the new cell with the item information
-        cell.render(item: item)
+        MTCellFactory.shared.render(cell: cell, item: item)
         cell.selectionStyle = .none
         
         return cell

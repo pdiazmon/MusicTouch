@@ -41,9 +41,12 @@
 		EB88740220ADE8A50075D9A4 /* songs.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = EB8873FD20ADE8A50075D9A4 /* songs.jpeg */; };
 		EB88740320ADE8A50075D9A4 /* playing.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = EB8873FE20ADE8A50075D9A4 /* playing.jpeg */; };
 		EB88740420ADE8A50075D9A4 /* volume.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = EB8873FF20ADE8A50075D9A4 /* volume.jpeg */; };
+		EB88DCD920E29CD100B2E878 /* MTCellParis.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB88DCD820E29CD100B2E878 /* MTCellParis.swift */; };
+		EB88DCDB20E29F4700B2E878 /* MTCellFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB88DCDA20E29F4700B2E878 /* MTCellFactory.swift */; };
 		EB9251B820B48D9600839E9B /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9251B720B48D9600839E9B /* UIImageView.swift */; };
 		EBAB5DD5205F2A7D00FD3FF8 /* SongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAB5DD4205F2A7D00FD3FF8 /* SongViewController.swift */; };
 		EBAB5DD7205F2BA800FD3FF8 /* MTSongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAB5DD6205F2BA800FD3FF8 /* MTSongCell.swift */; };
+		EBBD6E0920E531E20037CD2B /* MTCellLondon.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBD6E0820E531E20037CD2B /* MTCellLondon.swift */; };
 		EBD391E6207E72E400E2E47A /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD391E5207E72E400E2E47A /* UIImage.swift */; };
 		EBF2BD2B206597040051C7F5 /* MTPlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF2BD2A206597040051C7F5 /* MTPlaylistCell.swift */; };
 		EBFD73922066DBA60056FB12 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFD73912066DBA60056FB12 /* DataStore.swift */; };
@@ -117,9 +120,12 @@
 		EB8873FD20ADE8A50075D9A4 /* songs.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = songs.jpeg; sourceTree = "<group>"; };
 		EB8873FE20ADE8A50075D9A4 /* playing.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = playing.jpeg; sourceTree = "<group>"; };
 		EB8873FF20ADE8A50075D9A4 /* volume.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = volume.jpeg; sourceTree = "<group>"; };
+		EB88DCD820E29CD100B2E878 /* MTCellParis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTCellParis.swift; sourceTree = "<group>"; };
+		EB88DCDA20E29F4700B2E878 /* MTCellFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTCellFactory.swift; sourceTree = "<group>"; };
 		EB9251B720B48D9600839E9B /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		EBAB5DD4205F2A7D00FD3FF8 /* SongViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongViewController.swift; sourceTree = "<group>"; };
 		EBAB5DD6205F2BA800FD3FF8 /* MTSongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTSongCell.swift; sourceTree = "<group>"; };
+		EBBD6E0820E531E20037CD2B /* MTCellLondon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTCellLondon.swift; sourceTree = "<group>"; };
 		EBD391E5207E72E400E2E47A /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EBDA5830205F00F20063C245 /* xcschememanagement.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = xcschememanagement.plist; path = MusicTouch.xcodeproj/xcuserdata/pedro.xcuserdatad/xcschemes/xcschememanagement.plist; sourceTree = "<group>"; };
 		EBF2BD2A206597040051C7F5 /* MTPlaylistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTPlaylistCell.swift; sourceTree = "<group>"; wrapsLines = 0; };
@@ -269,7 +275,10 @@
 		EB2E6E26205EFCD800588315 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				EB88DCDA20E29F4700B2E878 /* MTCellFactory.swift */,
 				EB7752F420DAA504009060B6 /* MTCell.swift */,
+				EB88DCD820E29CD100B2E878 /* MTCellParis.swift */,
+				EBBD6E0820E531E20037CD2B /* MTCellLondon.swift */,
 				EBF2BD2A206597040051C7F5 /* MTPlaylistCell.swift */,
 				EB2E6E15205EEE6F00588315 /* MTArtistCell.swift */,
 				EB072E4E205F23490040EA23 /* MTAlbumCell.swift */,
@@ -513,10 +522,12 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-MusicTouch/Pods-MusicTouch-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/PDMUtils/PDMUtils.framework",
+				"${BUILT_PRODUCTS_DIR}/UIFontComplete/UIFontComplete.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PDMUtils.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UIFontComplete.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -555,6 +566,7 @@
 				EB2E6E1C205EFC5200588315 /* MTArtistData.swift in Sources */,
 				EBAB5DD7205F2BA800FD3FF8 /* MTSongCell.swift in Sources */,
 				EBF2BD2B206597040051C7F5 /* MTPlaylistCell.swift in Sources */,
+				EB88DCDB20E29F4700B2E878 /* MTCellFactory.swift in Sources */,
 				EB339E1F2060716A00D7092A /* Constant.swift in Sources */,
 				EB2E6DEA205EECB700588315 /* AlbumViewController.swift in Sources */,
 				EB7752F920DAC2B4009060B6 /* MTCellDelegateProtocol.swift in Sources */,
@@ -566,8 +578,10 @@
 				EB3739582090DF7800BC4988 /* QueueCell.swift in Sources */,
 				EB2E6E16205EEE6F00588315 /* MTArtistCell.swift in Sources */,
 				EB2E6DE8205EECB700588315 /* ArtistViewController.swift in Sources */,
+				EBBD6E0920E531E20037CD2B /* MTCellLondon.swift in Sources */,
 				EB339E2120607FBE00D7092A /* PlayViewController.swift in Sources */,
 				EB68FBF02065930A00A2CB7E /* MTPlaylistData.swift in Sources */,
+				EB88DCD920E29CD100B2E878 /* MTCellParis.swift in Sources */,
 				EBAB5DD5205F2A7D00FD3FF8 /* SongViewController.swift in Sources */,
 				EB7752F720DABFF8009060B6 /* MTDataProtocol.swift in Sources */,
 				EB101CAF20606854007AFAE7 /* TabBarController.swift in Sources */,

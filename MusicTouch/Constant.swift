@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIFontComplete
 
 // Enum all the TabBar controller buttons
 enum TabBarItem: Int {
@@ -23,3 +24,7 @@ enum AppStatus {
     case foreground
     case background
 }
+
+// App font
+let appFont: Font       = Font.helveticaLight
+let appFontItalic: Font = Font.helveticaNeueThinItalic

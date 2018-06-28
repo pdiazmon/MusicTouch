@@ -27,6 +27,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Disable screen block
         UIApplication.shared.isIdleTimerDisabled = true
         
+        // Choose the cell style
+        if CommandLine.arguments.contains("-stylelondon") {
+            MTCellFactory.shared.style = .london
+        }
+        else if CommandLine.arguments.contains("-styleparis") {
+            MTCellFactory.shared.style = .paris
+        }
+        else {
+            MTCellFactory.shared.style = .paris
+        }
+        
         if CommandLine.arguments.contains("-test") {
             dataStore = DataStoreMock()
             (dataStore as! DataStoreMock).defaultInitialize()

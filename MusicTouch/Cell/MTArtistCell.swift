@@ -47,11 +47,11 @@ class MTArtistCell: MTCellDelegate {
     func style() {
         // Number of Albums
         self.numberOfAlbums.textAlignment = .left
-        self.numberOfAlbums.font          = UIFont.italicSystemFont(ofSize:14)
+        self.numberOfAlbums.font          = UIFont(font: appFontItalic, size: 14)
 
         // Play time
         self.playTime.textAlignment = .right
-        self.playTime.font          = UIFont.italicSystemFont(ofSize:12)
+        self.playTime.font          = UIFont(font: appFontItalic, size: 12)
     }
     
     func render(item: MTData) {

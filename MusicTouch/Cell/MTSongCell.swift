@@ -1,5 +1,5 @@
 //
-//  SongCell.swift
+//  MTSongCell.swift
 //  MusicTouch
 //
 //  Created by Pedro L. Diaz Montilla on 19/3/18.
@@ -57,15 +57,15 @@ class MTSongCell: MTCellDelegate {
     func style() {
         // Artist Name
         self.artistName.textAlignment = .left
-        self.artistName.font = UIFont.italicSystemFont(ofSize: 13)
+        self.artistName.font = UIFont(font: appFontItalic, size: 13)
         
         // Number of Albums
         self.albumTitle.textAlignment = .left
-        self.albumTitle.font          = UIFont.italicSystemFont(ofSize:13)
+        self.albumTitle.font          = UIFont(font: appFontItalic, size: 13)
         
         // Play time
         self.playTime.textAlignment = .right
-        self.playTime.font          = UIFont.italicSystemFont(ofSize:12)
+        self.playTime.font          = UIFont(font: appFontItalic, size: 12)
     }
     
     func render(item: MTData) {

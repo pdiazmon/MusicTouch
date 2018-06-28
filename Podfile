@@ -12,7 +12,9 @@ target 'MusicTouch' do
   
   # Or use this for PDMUtils github pod repository
   pod 'PDMUtils'
-  
+
+pod 'UIFontComplete'
+
   target 'MusicTouchTests' do
     inherit! :search_paths
     # Pods for testing

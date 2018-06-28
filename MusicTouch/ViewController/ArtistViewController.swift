@@ -30,9 +30,9 @@ class ArtistViewController: UIViewController {
         }
         
         // Register the correct CellView class
-        self.artistTable.register(MTCell.classForCoder(), forCellReuseIdentifier: "CellArtist")
+        self.artistTable.register(MTCellFactory.shared.classForCoder(), forCellReuseIdentifier: "CellArtist")
         
-        self.artistTable.backgroundColor = UIColor.gray
+        self.artistTable.backgroundColor = UIColor.lightGray
 
     }
 
@@ -103,10 +103,10 @@ extension ArtistViewController: UITableViewDataSource {
         let item = app.dataStore.artistList()[indexPath.row]
         
         // Create the delegate
-        cell.delegate = MTArtistCell()
+        if (cell.delegate == nil) { cell.delegate = MTArtistCell() }
         
         // Render the new cell with the item information
-        cell.render(item: item)
+        MTCellFactory.shared.render(cell: cell, item: item)
         cell.selectionStyle = .none
         
         return cell

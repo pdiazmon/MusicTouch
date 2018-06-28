@@ -1,5 +1,5 @@
 //
-//  AlbumCell.swift
+//  MTAlbumCell.swift
 //  MusicTouch
 //
 //  Created by Pedro L. Diaz Montilla on 18/3/18.
@@ -49,7 +49,6 @@ class MTAlbumCell: MTCellDelegate {
         // Play time
         self.playTime.translatesAutoresizingMaskIntoConstraints = false
         self.playTime.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
-        //self.playTime.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         self.playTime.centerYAnchor.constraint(equalTo: numberOfSongs.centerYAnchor).isActive = true
         self.playTime.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         self.playTime.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.45).isActive = true
@@ -58,15 +57,15 @@ class MTAlbumCell: MTCellDelegate {
     func style() {
         // Artist Name
         self.artistName.textAlignment = .left
-        self.artistName.font = UIFont.italicSystemFont(ofSize: 13)
+        self.artistName.font = UIFont(font: appFontItalic, size: 13)
         
         // Number of Albums
         self.numberOfSongs.textAlignment = .left
-        self.numberOfSongs.font          = UIFont.italicSystemFont(ofSize:13)
+        self.numberOfSongs.font          = UIFont(font: appFontItalic, size: 13)
         
         // Play time
         self.playTime.textAlignment = .right
-        self.playTime.font          = UIFont.italicSystemFont(ofSize:12)
+        self.playTime.font          = UIFont(font: appFontItalic, size: 12)
     }
     
     func render(item: MTData) {
