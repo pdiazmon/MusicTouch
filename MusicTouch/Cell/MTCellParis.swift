@@ -29,11 +29,11 @@ class MTCellParis: MTCell {
     }
     
     override func layoutSubviews() {
-        super.layoutSubviews()
-        
         setup()
         layoutView()
         style()
+
+        super.layoutSubviews()
     }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -107,7 +107,7 @@ class MTCellParis: MTCell {
         self.title.font          = UIFont(font: appFont, size: 18)  //self.title.font.withSize(18)
         
         // Image
-        self.img.layer.cornerRadius = self.img.frame.height / 2
+        self.img.layer.cornerRadius = self.img.frame.height * 0.1
 
         super.style()
     }
@@ -116,7 +116,7 @@ class MTCellParis: MTCell {
         self.title.text  = item.title()
         
         if item.image() != nil {
-            self.img.setAndRound(item.image()!)
+            self.img.setAndRound(item.image()!, ratio: 0.1)
         }
 
         super.render(item: item)

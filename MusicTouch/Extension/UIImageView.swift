@@ -14,10 +14,10 @@ extension UIImageView {
     /// Set the UIImage and round it to be a circle
     ///
     /// - Parameter image: image to be set
-    func setAndRound(_ image: UIImage) {
+    func setAndRound(_ image: UIImage, ratio: CGFloat = 0.5) {
         self.image = image
         
-        self.layer.cornerRadius = self.frame.height/2
+        self.layer.cornerRadius = self.frame.height * ratio
         self.clipsToBounds      = true
     }
 }
