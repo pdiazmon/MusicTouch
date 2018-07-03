@@ -88,7 +88,9 @@ extension DataStore {
         // Get all the artists
         datastoreQueue.async {
             self.artistSemaphore.wait()
-            
+            self.albumSemaphore.wait()
+            self.songSemaphore.wait()
+
             self.cache.artistList = []
             for item in PDMMediaLibrary.getAlbumArtistList() {
                 let artistAlbums = PDMMediaLibrary.getAlbumsList(byArtist: item.albumArtist!)
@@ -124,12 +126,10 @@ extension DataStore {
             self.artistSemaphore.signal()
           
             // Cache all the albums
-            self.albumSemaphore.wait()
             self.cache.albumList = self.cache.artistList.flatMap { $0.albums }
             self.albumSemaphore.signal()
           
             // Cache all the songs
-            self.songSemaphore.wait()
             self.cache.songList = self.cache.albumList.flatMap { $0.songs }
             self.songSemaphore.signal()
         }
