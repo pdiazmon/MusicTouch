@@ -85,44 +85,38 @@ extension DataStore {
             self.playlistSemaphore.signal()
         }
         
-        // Get all the artists
+        // Get all the artists, and their albums and albums' songs
         datastoreQueue.async {
             self.artistSemaphore.wait()
             self.albumSemaphore.wait()
             self.songSemaphore.wait()
-
-            self.cache.artistList = []
-            for item in PDMMediaLibrary.getAlbumArtistList() {
-                let artistAlbums = PDMMediaLibrary.getAlbumsList(byArtist: item.albumArtist!)
-              
-                let artist = MTArtistData(image: item.artwork == nil ? nil : (item.artwork?.image(at: CGSize(width: self.size, height: self.size)))!,
-                                                name: item.albumArtist!)
-              
-                // Get all the artist's albums
-                for item in artistAlbums {
-                    let albumSongs = PDMMediaLibrary.getSongsList(byArtist: item.artist!, byAlbum: item.albumTitle!)
-                  
-                    let album = MTAlbumData(image: item.artwork == nil ? nil : (item.artwork?.image(at: CGSize(width: self.size, height: self.size))),
-                                              artistName: item.artist!,
-                                              albumTitle: item.albumTitle!,
-                                              year: (item.releaseDate != nil) ? Calendar.current.component(.year, from: item.releaseDate!) : nil)
-                  
-                    artist.albums.append(album)
-                  
-                    // Get all the album's songs ..
-                    for song in albumSongs {
-                        album.songs.append(MTSongData(mediaItem: song))
-                    }
-                  
-                    // .. and sort them by track number
-                    album.songs = album.songs.sorted {
-                        return $0.mediaItem.albumTrackNumber < $1.mediaItem.albumTrackNumber
-                    }
+            
+            let allAlbums  = PDMMediaLibrary.getAlbumsList()
+            let allSongs   = PDMMediaLibrary.getSongsList()
+            
+            self.cache.artistList = PDMMediaLibrary.getArtistList().map {
+                let artist = MTArtistData(image: $0.artwork == nil ? nil : ($0.artwork?.image(at: CGSize(width: self.size, height: self.size)))!,
+                                          name: $0.albumArtist!)
+                
+                artist.albums = allAlbums.filter { artist.name == $0.albumArtist }.map {
+                    let album = MTAlbumData(image: $0.artwork == nil ? nil : ($0.artwork?.image(at: CGSize(width: self.size, height: self.size))),
+                                            artistName: $0.artist!,
+                                            albumTitle: $0.albumTitle!,
+                                            year: ($0.releaseDate != nil) ? Calendar.current.component(.year, from: $0.releaseDate!) : ALBUMYEAR_DEFAULT)
+                    
+                    album.songs = allSongs.filter { $0.albumArtist == artist.name && $0.albumTitle == album.albumTitle }
+                                          .map { MTSongData(mediaItem: $0) }
+                                          .sorted { return $0.mediaItem.albumTrackNumber < $1.mediaItem.albumTrackNumber }
+                
+                    return album
+                }
+                .sorted {
+                        return $0.year < $1.year
                 }
                 
-                // add it to the cache
-                self.cache.artistList.append(artist)
+                return artist
             }
+            
             self.artistSemaphore.signal()
           
             // Cache all the albums

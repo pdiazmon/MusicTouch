@@ -9,11 +9,13 @@
 import Foundation
 import UIKit
 
+let ALBUMYEAR_DEFAULT:Int = 1900
+
 class MTAlbumData: MTData {    
     var albumTitle: String
     var artistName: String
     var numberOfSongs: Int { get { return songs.count } }
-    var year: Int?
+    var year: Int 
     var songs: [MTSongData]
     
     override public var playTime: (hours: Int, minutes: Int, seconds: Int) { get {
@@ -24,7 +26,7 @@ class MTAlbumData: MTData {
         return fromSeconds(seconds: secs)
     } }
     
-    init(image: UIImage?, artistName: String, albumTitle: String, year: Int?) {
+    init(image: UIImage?, artistName: String, albumTitle: String, year: Int = ALBUMYEAR_DEFAULT) {
         self.artistName    = artistName
         self.albumTitle    = albumTitle
         self.year          = year

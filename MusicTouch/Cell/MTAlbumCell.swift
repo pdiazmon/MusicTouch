@@ -71,7 +71,7 @@ class MTAlbumCell: MTCellDelegate {
     func render(item: MTData) {
         
         if let itemAlbum = item as? MTAlbumData {
-            self.artistName.text = "\(itemAlbum.artistName)" + ((itemAlbum.year != nil) ? "  [\(String(itemAlbum.year!))]" : "")
+            self.artistName.text = "\(itemAlbum.artistName)" + ((itemAlbum.year != ALBUMYEAR_DEFAULT) ? "  [\(String(itemAlbum.year))]" : "")
             
             self.numberOfSongs.text = "\(itemAlbum.numberOfSongs) song" + ((itemAlbum.numberOfSongs > 1) ? "s" : "")
             
