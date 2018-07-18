@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MediaPlayer
 import UIKit
 
 typealias MTData = MTDataRoot & MTDataProtocol
@@ -32,9 +33,4 @@ class MTDataRoot {
         return (_hour, _min, _sec)
     }
     
-    /*
-    func addSeconds(seconds: Int) {
-        self.playTime = fromSeconds(seconds: seconds + self.toSeconds())
-    }
-     */
 }

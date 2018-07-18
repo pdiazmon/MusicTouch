@@ -7,11 +7,12 @@
 //
 
 import Foundation
+import MediaPlayer
 import UIKit
 
 let ALBUMYEAR_DEFAULT:Int = 1900
 
-class MTAlbumData: MTData {    
+class MTAlbumData: MTData {
     var albumTitle: String
     var artistName: String
     var numberOfSongs: Int { get { return songs.count } }
@@ -42,6 +43,19 @@ class MTAlbumData: MTData {
     func image() -> UIImage? {
         return image
     }
+    
+    func describe(offset: Int) {
+        print("\(String(repeating: " ", count: offset))Album: *\(self.albumTitle)*")
+        for song in self.songs {
+            song.describe(offset: offset + 2)
+        }
+    }
+    
+    func songsCollection() -> MPMediaItemCollection {
+        return MPMediaItemCollection(items: songs.map { $0.mediaItem })
+    }
+    
+
 }
 
 

@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import MediaPlayer
 import UIKit
 
 class MTPlaylistData: MTData {
@@ -35,6 +36,18 @@ class MTPlaylistData: MTData {
     
     func image() -> UIImage? {
         return image
+    }
+    
+    func describe(offset: Int) {
+        print("Playlist: *\(self.name)*")
+        for song in self.songs {
+            song.describe(offset: offset + 2)
+        }
+        
+    }
+
+    func songsCollection() -> MPMediaItemCollection {
+        return MPMediaItemCollection(items: songs.map { $0.mediaItem } )
     }
 
 }

@@ -13,7 +13,8 @@ target 'MusicTouch' do
   # Or use this for PDMUtils github pod repository
   pod 'PDMUtils'
 
-pod 'UIFontComplete'
+  pod 'UIFontComplete'
+  pod 'NVActivityIndicatorView'
 
   target 'MusicTouchTests' do
     inherit! :search_paths

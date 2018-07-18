@@ -10,7 +10,7 @@ import Foundation
 import MediaPlayer
 
 class MTSongData: MTData {
-    
+
     public var mediaItem: MPMediaItem
     override public var playTime: (hours: Int, minutes: Int, seconds: Int) { get {
         return fromSeconds(seconds: Int(mediaItem.playbackDuration) )
@@ -19,9 +19,7 @@ class MTSongData: MTData {
     init(mediaItem: MPMediaItem) {        
         self.mediaItem = mediaItem
         
-        super.init(image: self.mediaItem.artwork?.image(at: CGSize.zero))
-        
-//        self.playTime = self.fromSeconds(seconds: Int(mediaItem.playbackDuration))
+        super.init(image: self.mediaItem.artwork?.image(at: CGSize.zero))        
     }
     
     func title() -> String {
@@ -34,5 +32,12 @@ class MTSongData: MTData {
         return mediaItem.artwork?.image(at: CGSize.zero)
     }
 
+    func describe(offset: Int) {
+        print("\(String(repeating: " ", count: offset))Song: *\(self.title())*")
+    }
+    
+    func songsCollection() -> MPMediaItemCollection {
+        return MPMediaItemCollection(items: [self.mediaItem])
+    }
 
 }

@@ -7,6 +7,9 @@
 //
 
 import UIKit
+import MediaPlayer
+import NVActivityIndicatorView
+
 
 class SongViewController: UIViewController {
 
@@ -15,6 +18,8 @@ class SongViewController: UIViewController {
     
     private let app = UIApplication.shared.delegate as! AppDelegate
     
+    private var songList: [MTSongData] = []
+
     override var prefersStatusBarHidden: Bool { return true }
 
     override func viewDidLoad() {
@@ -55,7 +60,7 @@ class SongViewController: UIViewController {
     private func startToPlay(shuffle: Bool,  index: Int = -1) {
         
         // Set the player collection from the datastore songlist
-        app.appPlayer.setCollection(app.dataStore.songCollection())
+        app.appPlayer.setCollection(MPMediaItemCollection(items: self.songList.map { $0.mediaItem }))
         
         if (shuffle) {
             app.appPlayer.shuffleModeOn()
@@ -66,7 +71,7 @@ class SongViewController: UIViewController {
         
         // If an index has been informed, get the nth song from the data-store list
         if (index >= 0) {
-            app.appPlayer.setSong(app.dataStore.songList()[index].mediaItem)
+            app.appPlayer.setSong(self.songList[index].mediaItem)
         }
         
         // Start playing the first song and, also, transition to the Play view
@@ -92,8 +97,8 @@ extension SongViewController: UITableViewDataSource {
         // Request to the tableview for a new cell by its identifier
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellSong") as! MTCell
         
-        // Get the nth item from the data-store album list
-        let item = app.dataStore.songList()[indexPath.row]
+        // Get the nth item from the album list
+        let item = self.songList[indexPath.row]
         
         // Create the delegate
         if (cell.delegate == nil) { cell.delegate = MTSongCell() }
@@ -112,7 +117,7 @@ extension SongViewController: UITableViewDataSource {
     ///   - section: Section identifier within the TableView
     /// - Returns: Number of cells in the section
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return app.dataStore.songList().count
+        return self.songList.count
     }
 }
 
@@ -129,6 +134,8 @@ extension SongViewController: UITableViewDelegate {
     }
 }
 
+// MARK: Activity animation
+
 extension SongViewController {
     
     /// Forces the TableView to reload its data
@@ -142,10 +149,53 @@ extension SongViewController {
         if let stack = self.playButtonsStack {
             for button in stack.arrangedSubviews {
                 if let button = (button as? UIButton) {
-                    button.isEnabled = app.dataStore.songList().count > 0
+                    button.isEnabled = self.songList.count > 0
                 }
             }
         }
     }
+    
+    /// Set the song list to be displayed in the view
+    ///
+    /// - Parameter songs: List of songs
+    func setSongList(_ songs: [MTSongData]) {
+        self.songList = songs
+        self.reload()
+    }
+    
+    /// The ViewController has just appeared on screen. Load its data.
+    ///
+    /// - Parameter animated: If true, the view was added to the window using an animation.
+    override func viewDidAppear(_ animated: Bool) {
+        
+        super.viewDidAppear(animated)
+        
+        if (self.app.dataStore.isDataLoaded() && self.songList.count == 0) {
+            self.setSongList(self.app.dataStore.songList())
+        }
+        else if (!self.app.dataStore.isDataLoaded()) {
+
+            // create an activity animation
+            let activity = NVActivityIndicatorViewFactory.shared.getNewLoading(frame: self.songsTableView.frame)
+            
+            self.view.addSubview(activity)
+            activity.startAnimating()
+            
+            // Asynchronously, in background, load the albums data
+            DispatchQueue.main.async {
+                
+                if (self.songList.count == 0) {
+                    self.setSongList(self.app.dataStore.songList())
+                }
+                
+                // stop the animation
+                activity.stopAnimating()
+                activity.removeFromSuperview()
+            }
+        }
+        
+    }
+    
 }
+
 

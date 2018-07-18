@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import NVActivityIndicatorView
+
 
 class TabBarController: UITabBarController {
     
@@ -28,20 +30,22 @@ class TabBarController: UITabBarController {
 // MARK: UITabBarControllerDelegate
 extension TabBarController: UITabBarControllerDelegate {
     
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        return (customizableViewControllers?[selectedIndex] != viewController)
+    }
+    
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        
         // If the Album button has been clicked
         if (viewController is AlbumViewController) {
-            // Store all the albums from the music library into the data-store
-            self.dataStore.refreshAlbumList(byArtist: "")
-            // Reload the albums view data table
-            (viewController as! AlbumViewController).reload()
+            // .. prepare the AlbumViewController to show all the existing albums
+            (viewController as! AlbumViewController).setAlbumList([])
         }
         // If the Song button has been clicked
         else if (viewController is SongViewController) {
-            // Store all the songs from the music library into the data-store
-            self.dataStore.refreshSongList(byArtist: "", byAlbum: "")
-            // Reload the songs view data table
-            (viewController as! SongViewController).reload()
+            // .. prepare the SongViewController to show all the existing songs
+            (viewController as! SongViewController).setSongList([])
         }
+
     }
 }

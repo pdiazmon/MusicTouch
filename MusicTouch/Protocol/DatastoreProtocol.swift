@@ -11,25 +11,27 @@ import MediaPlayer
 
 protocol DataStoreProtocol {
     
-    func refreshArtistList()
+//    func refreshArtistList()
     
-    func refreshPlaylistList()
+//    func refreshPlaylistList()
     
-    func refreshAlbumList(byArtist: String)
+//    func refreshAlbumList(byArtist: String)
     
-    func refreshSongList(byArtist: String, byAlbum: String)
+//    func refreshSongList(byArtist: String, byAlbum: String)
     
-    func refreshSongList(byPlaylist: String)
+//    func refreshSongList(byPlaylist: String)
     
-    func refreshSongListFromAlbumList()
+//    func refreshSongListFromAlbumList()
     
     func songList() -> [MTSongData]
     
-    func songCollection() -> MPMediaItemCollection
+//    func songCollection() -> MPMediaItemCollection
     
     func albumList() -> [MTAlbumData]
     
     func playlistList() -> [MTPlaylistData]
     
     func artistList() -> [MTArtistData]
+    
+    func isDataLoaded() -> Bool
 }

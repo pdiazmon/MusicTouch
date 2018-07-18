@@ -7,11 +7,11 @@
 //
 
 import Foundation
+import MediaPlayer
 import UIKit
 
 
 class MTArtistData: MTData {
-   
     var name: String
     var numberOfAlbums: Int { get { return albums.count } }
     var albums: [MTAlbumData]
@@ -36,6 +36,17 @@ class MTArtistData: MTData {
     
     func image() -> UIImage? {
         return image
+    }
+    
+    func describe(offset: Int) {
+        print("\(String(repeating: " ", count: offset))Artist: *\(self.name)*")
+        for album in albums {
+            album.describe(offset: offset + 2)
+        }
+    }
+    
+    func songsCollection() -> MPMediaItemCollection {
+        return MPMediaItemCollection(items: albums.flatMap { $0.songs.map { $0.mediaItem } } )
     }
     
 }

@@ -12,7 +12,7 @@ class QueueViewController: UIViewController {
     
     @IBOutlet weak var queueTable: UITableView!
     
-    private var app       = UIApplication.shared.delegate as! AppDelegate
+    private var app = UIApplication.shared.delegate as! AppDelegate
     override var prefersStatusBarHidden: Bool { return true }
     
     public var backgroundColor: UIColor? {
@@ -57,11 +57,11 @@ extension QueueViewController: UITableViewDataSource {
         // Request to the tableview for a new cell by its identifier
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! QueueCell
         
-        // Get the nth item from the data-store song list
-        let item = app.dataStore.songList()[indexPath.row]
+        // Get the nth item from the song list
+        let item = app.appPlayer.getCollection().items[indexPath.row]
         
         // Render the new cell with the item information
-        cell.render(item: item.mediaItem, color: self.backgroundColor)
+        cell.render(item: item, color: self.backgroundColor)
         cell.selectionStyle = .none
         
         return cell
@@ -74,7 +74,7 @@ extension QueueViewController: UITableViewDataSource {
     ///   - section: Section identifier within the TableView
     /// - Returns: Number of cells in the section
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return app.dataStore.songList().count
+        return app.appPlayer.getCollection().items.count
     }
 
 }

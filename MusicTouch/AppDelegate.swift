@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var appPlayer            = PDMPlayer()
     var appStatus: AppStatus = .foreground
 
-    var dataStore: DataStoreProtocol = DataStore()
+    lazy var dataStore: DataStoreProtocol = DataStore()
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {

@@ -47,6 +47,8 @@
 		EBAB5DD5205F2A7D00FD3FF8 /* SongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAB5DD4205F2A7D00FD3FF8 /* SongViewController.swift */; };
 		EBAB5DD7205F2BA800FD3FF8 /* MTSongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAB5DD6205F2BA800FD3FF8 /* MTSongCell.swift */; };
 		EBBD6E0920E531E20037CD2B /* MTCellLondon.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBD6E0820E531E20037CD2B /* MTCellLondon.swift */; };
+		EBC7D15920FA09D200C5BCE0 /* NVActivityIndicatorViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC7D15820FA09D200C5BCE0 /* NVActivityIndicatorViewFactory.swift */; };
+		EBC7D15B20FA329F00C5BCE0 /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC7D15A20FA329F00C5BCE0 /* CGRect.swift */; };
 		EBD391E6207E72E400E2E47A /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD391E5207E72E400E2E47A /* UIImage.swift */; };
 		EBF2BD2B206597040051C7F5 /* MTPlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF2BD2A206597040051C7F5 /* MTPlaylistCell.swift */; };
 		EBFD73922066DBA60056FB12 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFD73912066DBA60056FB12 /* DataStore.swift */; };
@@ -81,11 +83,11 @@
 		E4C330A05C75291581EEEDBF /* Pods_MusicTouchTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MusicTouchTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB072E4D205F21690040EA23 /* PDMUtils_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PDMUtils_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB072E4E205F23490040EA23 /* MTAlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTAlbumCell.swift; sourceTree = "<group>"; };
-		EB101CAE20606854007AFAE7 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		EB101CAE20606854007AFAE7 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EB2E6DE2205EECB700588315 /* MusicTouch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicTouch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB2E6DE5205EECB700588315 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EB2E6DE7205EECB700588315 /* ArtistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistViewController.swift; sourceTree = "<group>"; wrapsLines = 0; };
-		EB2E6DE9205EECB700588315 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; };
+		EB2E6DE9205EECB700588315 /* AlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumViewController.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EB2E6DEC205EECB700588315 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		EB2E6DEE205EECB700588315 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EB2E6DF1205EECB700588315 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -123,9 +125,11 @@
 		EB88DCD820E29CD100B2E878 /* MTCellParis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTCellParis.swift; sourceTree = "<group>"; };
 		EB88DCDA20E29F4700B2E878 /* MTCellFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTCellFactory.swift; sourceTree = "<group>"; };
 		EB9251B720B48D9600839E9B /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
-		EBAB5DD4205F2A7D00FD3FF8 /* SongViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongViewController.swift; sourceTree = "<group>"; };
+		EBAB5DD4205F2A7D00FD3FF8 /* SongViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongViewController.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EBAB5DD6205F2BA800FD3FF8 /* MTSongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTSongCell.swift; sourceTree = "<group>"; };
 		EBBD6E0820E531E20037CD2B /* MTCellLondon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTCellLondon.swift; sourceTree = "<group>"; };
+		EBC7D15820FA09D200C5BCE0 /* NVActivityIndicatorViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NVActivityIndicatorViewFactory.swift; sourceTree = "<group>"; };
+		EBC7D15A20FA329F00C5BCE0 /* CGRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EBD391E5207E72E400E2E47A /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EBDA5830205F00F20063C245 /* xcschememanagement.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = xcschememanagement.plist; path = MusicTouch.xcodeproj/xcuserdata/pedro.xcuserdatad/xcschemes/xcschememanagement.plist; sourceTree = "<group>"; };
 		EBF2BD2A206597040051C7F5 /* MTPlaylistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTPlaylistCell.swift; sourceTree = "<group>"; wrapsLines = 0; };
@@ -204,6 +208,7 @@
 			children = (
 				EB2E6DE5205EECB700588315 /* AppDelegate.swift */,
 				EB339E1E2060716A00D7092A /* Constant.swift */,
+				EBC7D15720FA09AF00C5BCE0 /* Factory */,
 				EB34A34A20C058880055A7AC /* UI */,
 				EBD391E4207E72C500E2E47A /* Extension */,
 				EB2E6E26205EFCD800588315 /* Cell */,
@@ -275,7 +280,6 @@
 		EB2E6E26205EFCD800588315 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				EB88DCDA20E29F4700B2E878 /* MTCellFactory.swift */,
 				EB7752F420DAA504009060B6 /* MTCell.swift */,
 				EB88DCD820E29CD100B2E878 /* MTCellParis.swift */,
 				EBBD6E0820E531E20037CD2B /* MTCellLondon.swift */,
@@ -330,11 +334,21 @@
 			path = Previews;
 			sourceTree = "<group>";
 		};
+		EBC7D15720FA09AF00C5BCE0 /* Factory */ = {
+			isa = PBXGroup;
+			children = (
+				EB88DCDA20E29F4700B2E878 /* MTCellFactory.swift */,
+				EBC7D15820FA09D200C5BCE0 /* NVActivityIndicatorViewFactory.swift */,
+			);
+			path = Factory;
+			sourceTree = "<group>";
+		};
 		EBD391E4207E72C500E2E47A /* Extension */ = {
 			isa = PBXGroup;
 			children = (
 				EBD391E5207E72E400E2E47A /* UIImage.swift */,
 				EB9251B720B48D9600839E9B /* UIImageView.swift */,
+				EBC7D15A20FA329F00C5BCE0 /* CGRect.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -521,11 +535,13 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-MusicTouch/Pods-MusicTouch-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/PDMUtils/PDMUtils.framework",
 				"${BUILT_PRODUCTS_DIR}/UIFontComplete/UIFontComplete.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PDMUtils.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UIFontComplete.framework",
 			);
@@ -559,6 +575,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EBC7D15920FA09D200C5BCE0 /* NVActivityIndicatorViewFactory.swift in Sources */,
+				EBC7D15B20FA329F00C5BCE0 /* CGRect.swift in Sources */,
 				EB87367F20CEECB100CF643F /* DatastoreMock.swift in Sources */,
 				EB68FBF2206593DB00A2CB7E /* PlaylistViewController.swift in Sources */,
 				EB7752F120DAA030009060B6 /* MTData.swift in Sources */,

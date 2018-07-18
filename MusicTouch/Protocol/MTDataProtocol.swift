@@ -7,9 +7,13 @@
 //
 
 import Foundation
+import MediaPlayer
 import UIKit
 
 protocol MTDataProtocol {
     func title() -> String
     func image() -> UIImage?
+    
+    func describe(offset: Int)
+    func songsCollection() -> MPMediaItemCollection
 }

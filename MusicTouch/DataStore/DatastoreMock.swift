@@ -38,7 +38,7 @@ class MediaDB {
     public var _artistList:           [MTArtistData] = []
     public var _playlistList:         [MTPlaylistData] = []
     public var _albumList:            [MTAlbumData] = []
-    public var _songList:             [MTSongData] = [] // MPMediaItemCollection(items: [])
+    public var _songList:             [MTSongData] = []
 
     init() {}
 
@@ -49,7 +49,7 @@ class DataStoreMock: DataStoreProtocol {
     private var _artistList:           [MTArtistData] = []
     private var _playlistList:         [MTPlaylistData] = []
     private var _albumList:            [MTAlbumData] = []
-    private var _songList:             [MTSongData] = [] // MPMediaItemCollection(items: [])
+    private var _songList:             [MTSongData] = [] 
 
     private var _mediaDB = MediaDB()
     
@@ -108,6 +108,10 @@ class DataStoreMock: DataStoreProtocol {
     
     func artistList() -> [MTArtistData] {
         return _artistList
+    }
+    
+    func isDataLoaded() -> Bool {
+        return true
     }
     
 }
