@@ -23,7 +23,7 @@ You can navigate through you music library:
 
 Demo video:
 
-[![MusicTouch Demo](http://img.youtube.com/vi/GD3wIfqh1cg/0.jpg)](http://www.youtube.com/watch?v=GD3wIfqh1cg "MusicTouch Demo")
+[![MusicTouch Demo](http://img.youtube.com/vi/EansZXeeu4E/0.jpg)](https://www.youtube.com/embed/EansZXeeu4E "MusicTouch Demo")
 
 
 Playing view:
