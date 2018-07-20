@@ -51,6 +51,7 @@
 		EBC7D15B20FA329F00C5BCE0 /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC7D15A20FA329F00C5BCE0 /* CGRect.swift */; };
 		EBD391E6207E72E400E2E47A /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD391E5207E72E400E2E47A /* UIImage.swift */; };
 		EBF2BD2B206597040051C7F5 /* MTPlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF2BD2A206597040051C7F5 /* MTPlaylistCell.swift */; };
+		EBF67543210102CB00B35ED7 /* MTAudioEqualizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF67542210102CB00B35ED7 /* MTAudioEqualizer.swift */; };
 		EBFD73922066DBA60056FB12 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFD73912066DBA60056FB12 /* DataStore.swift */; };
 		EC5F9E8089B26473F4858232 /* Pods_MusicTouchTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E4C330A05C75291581EEEDBF /* Pods_MusicTouchTests.framework */; };
 /* End PBXBuildFile section */
@@ -133,6 +134,7 @@
 		EBD391E5207E72E400E2E47A /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EBDA5830205F00F20063C245 /* xcschememanagement.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = xcschememanagement.plist; path = MusicTouch.xcodeproj/xcuserdata/pedro.xcuserdatad/xcschemes/xcschememanagement.plist; sourceTree = "<group>"; };
 		EBF2BD2A206597040051C7F5 /* MTPlaylistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTPlaylistCell.swift; sourceTree = "<group>"; wrapsLines = 0; };
+		EBF67542210102CB00B35ED7 /* MTAudioEqualizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTAudioEqualizer.swift; sourceTree = "<group>"; };
 		EBFD73912066DBA60056FB12 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		FB621506855E67AFCE8E4196 /* Pods_MusicTouch.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MusicTouch.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -308,6 +310,7 @@
 			isa = PBXGroup;
 			children = (
 				EB34A34B20C058AF0055A7AC /* VolumeView.swift */,
+				EBF67542210102CB00B35ED7 /* MTAudioEqualizer.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -589,6 +592,7 @@
 				EB2E6DEA205EECB700588315 /* AlbumViewController.swift in Sources */,
 				EB7752F920DAC2B4009060B6 /* MTCellDelegateProtocol.swift in Sources */,
 				EB2E6DE6205EECB700588315 /* AppDelegate.swift in Sources */,
+				EBF67543210102CB00B35ED7 /* MTAudioEqualizer.swift in Sources */,
 				EB87367D20CEEBBC00CF643F /* DatastoreProtocol.swift in Sources */,
 				EB34A34C20C058AF0055A7AC /* VolumeView.swift in Sources */,
 				EBFD73922066DBA60056FB12 /* DataStore.swift in Sources */,

@@ -40,6 +40,8 @@ class PlayViewController: UIViewController {
     private var volumeHandler   = volumeGestureHandler()
     private var volumeBoxView   = VolumeView(color: UIColor.red)
     
+    private var audioEqualizer: MTAudioEqualizer?
+    
     override var prefersStatusBarHidden: Bool { return true }
     
     override func viewDidLoad() {
@@ -100,6 +102,13 @@ extension PlayViewController {
                                                object: self.app.appPlayer.getPlayer())
         self.app.appPlayer.getPlayer().beginGeneratingPlaybackNotifications()
         
+        // Add an audio equalizer simulation
+        self.audioEqualizer = MTAudioEqualizer(frame: CGRect.zero, color: UIColor.white, padding: 0)
+        self.view.addSubview(self.audioEqualizer!)
+        if (self.app.appPlayer.isPlaying()) {
+            self.audioEqualizer?.startAnimating()
+        }
+        
     }
     
     /// Set the view objects style
@@ -130,6 +139,13 @@ extension PlayViewController {
         // As, if volumeView.showsVolumeSlider is set to false the system volume alert window appears,
         // it is hidden moving behind the background image
         self.volumeView.layer.zPosition = self.backgroundImg.layer.zPosition - 1
+        
+        // Audio Equalizer simulator
+        self.audioEqualizer?.translatesAutoresizingMaskIntoConstraints = false
+        self.audioEqualizer?.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        self.audioEqualizer?.bottomAnchor.constraint(equalTo: self.artworkImg.bottomAnchor).isActive = true
+        self.audioEqualizer?.heightAnchor.constraint(equalTo: self.artworkImg.heightAnchor, multiplier: 0.4).isActive = true
+        self.audioEqualizer?.widthAnchor.constraint(equalTo: self.artworkImg.heightAnchor).isActive = true
     }
 }
 
@@ -145,17 +161,21 @@ extension PlayViewController {
             timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(updateProgress), userInfo: nil, repeats: true)
             timerIsOn = true
         }
+        
+        self.audioEqualizer?.startAnimating()
     }
     
     /// Pause the current song
     func pauseSong() {
         self.app.appPlayer.pauseSong()
+        self.audioEqualizer?.stopAnimating()
     }
   
     /// Animates the view objects when changes to the previous song
     ///
     /// - Parameter flipDuration: Animation duration
     func animatePreviousSong(_ flipDuration: Double) {
+        
         DispatchQueue.main.async {
             UIView.transition(with: self.artworkImg, duration: flipDuration, options: .transitionFlipFromLeft, animations: nil, completion: nil)
         }
@@ -167,13 +187,15 @@ extension PlayViewController {
         }
         DispatchQueue.main.async {
             UIView.transition(with: self.songLbl,    duration: flipDuration, options: .transitionFlipFromLeft, animations: nil, completion: nil)
-        }      
+        }
+        
     }
 
     /// Animates the view objects when changes to the next song
     ///
     /// - Parameter flipDuration: Animation duration
     func animateNextSong(_ flipDuration: Double) {
+        
         DispatchQueue.main.async {
             UIView.transition(with: self.artworkImg, duration: flipDuration, options: .transitionFlipFromRight, animations: nil, completion: nil)
         }
@@ -186,6 +208,7 @@ extension PlayViewController {
         DispatchQueue.main.async {
             UIView.transition(with: self.songLbl,    duration: flipDuration, options: .transitionFlipFromRight, animations: nil, completion: nil)
         }
+        
     }
 }
 
@@ -221,6 +244,8 @@ extension PlayViewController {
       
         DispatchQueue.main.async {
             
+            if (self.app.appPlayer.isPlaying()) { self.audioEqualizer?.stopAnimating() }
+
             // Song title
             self.songLbl.text = self.app.appPlayer.nowPlayingTitle()
             
@@ -241,12 +266,16 @@ extension PlayViewController {
                     // Progress bar
                     if let image = self.artworkImg.image {
                         self.progress.progressTintColor = self.getAverageColor(image: image)
+                        self.audioEqualizer?.color = self.progress.progressTintColor!
                     }
                 }
             }
             
             // Show the shuffle icon if shuffle play mode is on
             self.shuffleImg.isHidden = !self.app.appPlayer.isShuffleOn()
+            
+            if (self.app.appPlayer.isPlaying()) { self.audioEqualizer?.startAnimating() }
+
         }
     }
         
