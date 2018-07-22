@@ -73,15 +73,10 @@ class MTAudioEqualizer: UIView {
     }
 
     private final func setUpAnimation() {
-        let animation = MTAudioEqualizerAnimation()
-        
         layer.sublayers = nil
 
-        animation.setUpAnimation(in: layer, size: frame.size, color: color, number: 5)
+        setUpAnimation(size: frame.size, color: color, number: 6)
     }
-}
-
-class MTAudioEqualizerAnimation {
     
     func randomStep() -> Double { return Double.random(in: -0.2...0.2) }
     
@@ -124,7 +119,7 @@ class MTAudioEqualizerAnimation {
     }
     
     
-    func setUpAnimation(in layer: CALayer, size: CGSize, color: UIColor, number: Int) {
+    func setUpAnimation(size: CGSize, color: UIColor, number: Int) {
         let lineSize = (size.width / CGFloat(number))
         let x = (layer.bounds.size.width - size.width) / 2
         let y = (layer.bounds.size.height - size.height) / 2
