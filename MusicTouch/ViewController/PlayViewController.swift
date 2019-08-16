@@ -121,7 +121,7 @@ extension PlayViewController {
         self.artworkImg.layer.shadowRadius  = 10
         
         // Add a blur view over the background image
-        self.blurEffectView.effect           = UIBlurEffect(style: UIBlurEffectStyle.dark)
+		self.blurEffectView.effect           = UIBlurEffect(style: UIBlurEffect.Style.dark)
         self.blurEffectView.frame            = view.bounds
         self.blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.blurEffectView.translatesAutoresizingMaskIntoConstraints = false
@@ -418,13 +418,13 @@ extension PlayViewController {
         let flipDuration = 0.4
         
         // If the swipe is from right to left, play the previous song
-        if (gesture.direction == UISwipeGestureRecognizerDirection.right && !app.appPlayer.isPlayingFirst()) {
+		if (gesture.direction == UISwipeGestureRecognizer.Direction.right && !app.appPlayer.isPlayingFirst()) {
             app.appPlayer.playPrevious()
           
             animatePreviousSong(flipDuration)
         }
         // If the swipe is from left to right, play the next song
-        else if (gesture.direction == UISwipeGestureRecognizerDirection.left && !app.appPlayer.isPlayingLast()) {
+		else if (gesture.direction == UISwipeGestureRecognizer.Direction.left && !app.appPlayer.isPlayingLast()) {
             app.appPlayer.playNext()
           
             animateNextSong(flipDuration)

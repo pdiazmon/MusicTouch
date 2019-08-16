@@ -31,7 +31,7 @@ class MTCell: UITableViewCell {
         style()
     }
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+	override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         self.delegate = nil
         
         super.init(style: style, reuseIdentifier: reuseIdentifier)
