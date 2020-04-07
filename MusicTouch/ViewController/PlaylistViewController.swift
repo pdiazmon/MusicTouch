@@ -35,7 +35,8 @@ class PlaylistViewController: UIViewController {
         // Register the correct CellView class
         self.playlistTableView.register(MTCellFactory.shared.classForCoder(), forCellReuseIdentifier: "CellPlaylist")
         
-        self.playlistTableView.backgroundColor = UIColor.lightGray
+        //self.playlistTableView.backgroundColor = UIColor.lightGray
+		self.playlistTableView.backgroundColor = UIColor.systemBackground
     }
 
     override func didReceiveMemoryWarning() {

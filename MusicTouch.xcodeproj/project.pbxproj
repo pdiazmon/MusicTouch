@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D61DDE6BD0098248FC047645 /* Pods_MusicTouch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB621506855E67AFCE8E4196 /* Pods_MusicTouch.framework */; };
 		DA39D0369EDFB347566193AC /* Pods_MusicTouchUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 712F15174A4AC5C8A25E4E13 /* Pods_MusicTouchUITests.framework */; };
 		EB072E4F205F23490040EA23 /* MTAlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB072E4E205F23490040EA23 /* MTAlbumCell.swift */; };
 		EB101CAF20606854007AFAE7 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB101CAE20606854007AFAE7 /* TabBarController.swift */; };
@@ -50,6 +49,8 @@
 		EBC7D15920FA09D200C5BCE0 /* NVActivityIndicatorViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC7D15820FA09D200C5BCE0 /* NVActivityIndicatorViewFactory.swift */; };
 		EBC7D15B20FA329F00C5BCE0 /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBC7D15A20FA329F00C5BCE0 /* CGRect.swift */; };
 		EBD391E6207E72E400E2E47A /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD391E5207E72E400E2E47A /* UIImage.swift */; };
+		EBEAA60C230DB8430005BBB3 /* Pods_MusicTouch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB621506855E67AFCE8E4196 /* Pods_MusicTouch.framework */; };
+		EBEAA60D230DB8430005BBB3 /* Pods_MusicTouch.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FB621506855E67AFCE8E4196 /* Pods_MusicTouch.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EBF2BD2B206597040051C7F5 /* MTPlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF2BD2A206597040051C7F5 /* MTPlaylistCell.swift */; };
 		EBF67543210102CB00B35ED7 /* MTAudioEqualizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF67542210102CB00B35ED7 /* MTAudioEqualizer.swift */; };
 		EBFD73922066DBA60056FB12 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFD73912066DBA60056FB12 /* DataStore.swift */; };
@@ -73,6 +74,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		EBEAA60B230DB83E0005BBB3 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				EBEAA60D230DB8430005BBB3 /* Pods_MusicTouch.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		271C6967F600C21BDE4D0EFA /* Pods-MusicTouchUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicTouchUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MusicTouchUITests/Pods-MusicTouchUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		30E244B32DBA8048AC453AD1 /* Pods-MusicTouch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicTouch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MusicTouch/Pods-MusicTouch.debug.xcconfig"; sourceTree = "<group>"; };
@@ -85,6 +100,7 @@
 		EB072E4D205F21690040EA23 /* PDMUtils_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PDMUtils_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB072E4E205F23490040EA23 /* MTAlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTAlbumCell.swift; sourceTree = "<group>"; };
 		EB101CAE20606854007AFAE7 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; wrapsLines = 0; };
+		EB123763243B47A5006FA209 /* MusicTouch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MusicTouch.entitlements; sourceTree = "<group>"; };
 		EB2E6DE2205EECB700588315 /* MusicTouch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicTouch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB2E6DE5205EECB700588315 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EB2E6DE7205EECB700588315 /* ArtistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistViewController.swift; sourceTree = "<group>"; wrapsLines = 0; };
@@ -133,6 +149,7 @@
 		EBC7D15A20FA329F00C5BCE0 /* CGRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EBD391E5207E72E400E2E47A /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EBDA5830205F00F20063C245 /* xcschememanagement.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = xcschememanagement.plist; path = MusicTouch.xcodeproj/xcuserdata/pedro.xcuserdatad/xcschemes/xcschememanagement.plist; sourceTree = "<group>"; };
+		EBEAA608230DB83E0005BBB3 /* PDMUtils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PDMUtils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EBF2BD2A206597040051C7F5 /* MTPlaylistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTPlaylistCell.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EBF67542210102CB00B35ED7 /* MTAudioEqualizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTAudioEqualizer.swift; sourceTree = "<group>"; };
 		EBFD73912066DBA60056FB12 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; wrapsLines = 0; };
@@ -144,7 +161,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D61DDE6BD0098248FC047645 /* Pods_MusicTouch.framework in Frameworks */,
+				EBEAA60C230DB8430005BBB3 /* Pods_MusicTouch.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,6 +225,7 @@
 		EB2E6DE4205EECB700588315 /* MusicTouch */ = {
 			isa = PBXGroup;
 			children = (
+				EB123763243B47A5006FA209 /* MusicTouch.entitlements */,
 				EB2E6DE5205EECB700588315 /* AppDelegate.swift */,
 				EB339E1E2060716A00D7092A /* Constant.swift */,
 				EBC7D15720FA09AF00C5BCE0 /* Factory */,
@@ -297,6 +315,7 @@
 		EB2E6E27205EFDFD00588315 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EBEAA608230DB83E0005BBB3 /* PDMUtils.framework */,
 				EB072E4D205F21690040EA23 /* PDMUtils_iOS.framework */,
 				EBDA5830205F00F20063C245 /* xcschememanagement.plist */,
 				FB621506855E67AFCE8E4196 /* Pods_MusicTouch.framework */,
@@ -368,6 +387,7 @@
 				EB2E6DDF205EECB700588315 /* Frameworks */,
 				EB2E6DE0205EECB700588315 /* Resources */,
 				54FED093254E0D06C1E9E086 /* [CP] Embed Pods Frameworks */,
+				EBEAA60B230DB83E0005BBB3 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -537,7 +557,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-MusicTouch/Pods-MusicTouch-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-MusicTouch/Pods-MusicTouch-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/PDMUtils/PDMUtils.framework",
 				"${BUILT_PRODUCTS_DIR}/UIFontComplete/UIFontComplete.framework",
@@ -550,7 +570,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-MusicTouch/Pods-MusicTouch-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-MusicTouch/Pods-MusicTouch-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		AB0AFB8478F2A96E7E3E8A73 /* [CP] Check Pods Manifest.lock */ = {
@@ -778,6 +798,7 @@
 			baseConfigurationReference = 30E244B32DBA8048AC453AD1 /* Pods-MusicTouch.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MusicTouch/MusicTouch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S3P397D556;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -785,10 +806,11 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = MusicTouch/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = pdiazmon.MusicTouch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -799,6 +821,7 @@
 			baseConfigurationReference = 43F61EEFDD33C33A6040E84C /* Pods-MusicTouch.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = MusicTouch/MusicTouch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S3P397D556;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -806,10 +829,11 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = MusicTouch/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = pdiazmon.MusicTouch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

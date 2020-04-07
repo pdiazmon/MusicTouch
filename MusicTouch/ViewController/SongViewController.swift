@@ -30,7 +30,8 @@ class SongViewController: UIViewController {
         // Register the correct CellView class
         self.songsTableView.register(MTCellFactory.shared.classForCoder(), forCellReuseIdentifier: "CellSong")
         
-        self.songsTableView.backgroundColor = UIColor.lightGray
+        //self.songsTableView.backgroundColor = UIColor.lightGray
+		self.songsTableView.backgroundColor = UIColor.systemBackground
         
     }
 

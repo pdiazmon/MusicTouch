@@ -96,15 +96,18 @@ class MTCellParis: MTCell {
     
     override func style() {
         // Background Grey
-        self.backgroundGrey.backgroundColor = UIColor.lightGray
+//        self.backgroundGrey.backgroundColor = UIColor.lightGray
+		self.backgroundGrey.backgroundColor = UIColor.systemBackground
         
         // Background Box
-        self.backgroundBox.backgroundColor    = UIColor.white
+//        self.backgroundBox.backgroundColor    = UIColor.white
+		self.backgroundBox.backgroundColor    = UIColor.secondarySystemBackground
         self.backgroundBox.layer.cornerRadius = self.frame.height * 0.1
         
         // Title
         self.title.textAlignment = .left
         self.title.font          = UIFont(font: appFont, size: 18)  //self.title.font.withSize(18)
+		self.title.textColor     = UIColor.label
         
         // Image
         self.img.layer.cornerRadius = self.img.frame.height * 0.1

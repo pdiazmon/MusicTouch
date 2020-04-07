@@ -28,7 +28,8 @@ class ArtistViewController: UIViewController {
         // Register the correct CellView class
         self.artistTable.register(MTCellFactory.shared.classForCoder(), forCellReuseIdentifier: "CellArtist")
         
-        self.artistTable.backgroundColor = UIColor.lightGray
+        //self.artistTable.backgroundColor = UIColor.lightGray
+		self.artistTable.backgroundColor = UIColor.systemBackground
 
     }
 

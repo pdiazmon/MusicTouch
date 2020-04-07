@@ -91,6 +91,7 @@ class MTCellLondon: MTCell {
         // Title
         self.title.textAlignment = .left
         self.title.font          = self.title.font.withSize(18)
+		self.title.textColor     = UIColor.label
         
         super.style()
     }
