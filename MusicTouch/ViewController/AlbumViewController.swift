@@ -29,7 +29,6 @@ class AlbumViewController: UIViewController {
         // Register the correct CellView class
         self.albumsTableView.register(MTCellFactory.shared.classForCoder(), forCellReuseIdentifier: "CellAlbum")
         
-        //self.albumsTableView.backgroundColor = UIColor.lightGray
 		self.albumsTableView.backgroundColor = UIColor.systemBackground
     }
 

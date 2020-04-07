@@ -96,11 +96,9 @@ class MTCellParis: MTCell {
     
     override func style() {
         // Background Grey
-//        self.backgroundGrey.backgroundColor = UIColor.lightGray
 		self.backgroundGrey.backgroundColor = UIColor.systemBackground
         
         // Background Box
-//        self.backgroundBox.backgroundColor    = UIColor.white
 		self.backgroundBox.backgroundColor    = UIColor.secondarySystemBackground
         self.backgroundBox.layer.cornerRadius = self.frame.height * 0.1
         
