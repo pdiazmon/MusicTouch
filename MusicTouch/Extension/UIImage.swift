@@ -9,10 +9,10 @@
 import Foundation
 import UIKit
 
-// From https://www.hackingwithswift.com/example-code/media/how-to-read-the-average-color-of-a-uiimage-using-ciareaaverage
 extension UIImage {
     
     /// Gets the average color of an UIImage
+	// From https://www.hackingwithswift.com/example-code/media/how-to-read-the-average-color-of-a-uiimage-using-ciareaaverage
 	var averageColor: UIColor? {
 		// Resizing the image fixes an issue when rendering the context. The app could't allocate the IOSurface.
 		guard let resizedImage = self.resized(toWidth: 25) else { return nil }
@@ -30,12 +30,12 @@ extension UIImage {
 
 		return UIColor(red: CGFloat(bitmap[0]) / 255, green: CGFloat(bitmap[1]) / 255, blue: CGFloat(bitmap[2]) / 255, alpha: CGFloat(bitmap[3]) / 255)
 	}
-	
-    func resized(toWidth width: CGFloat) -> UIImage? {
-        let canvasSize = CGSize(width: width, height: CGFloat(ceil(width/size.width * size.height)))
-        UIGraphicsBeginImageContextWithOptions(canvasSize, false, scale)
-        defer { UIGraphicsEndImageContext() }
-        draw(in: CGRect(origin: .zero, size: canvasSize))
-        return UIGraphicsGetImageFromCurrentImageContext()
-    }
+		
+	// From https://nshipster.com/image-resizing/
+	func resized(toWidth width: CGFloat) -> UIImage? {
+		let renderer = UIGraphicsImageRenderer(size: CGSize(width: width, height: CGFloat(ceil(width/size.width * size.height))))
+		return renderer.image { (context) in
+			self.draw(in: CGRect(origin: .zero, size: size))
+		}
+	}
 }
