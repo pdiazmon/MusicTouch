@@ -11,6 +11,8 @@ import UIKit
 class MTCell: UITableViewCell {
     
     var delegate: MTCellDelegate?
+	
+    let img = UIImageView()
     
     override func awakeFromNib() {
         super.awakeFromNib()

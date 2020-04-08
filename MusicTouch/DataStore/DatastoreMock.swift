@@ -75,10 +75,10 @@ class DataStoreMock: DataStoreProtocol {
             _songList = _mediaDB._songList
         }
         else if (byAlbum.count > 0) {
-            _songList = _mediaDB._songList.filter { $0.mediaItem.albumArtist == byArtist && $0.mediaItem.albumTitle == byAlbum }
+            _songList = _mediaDB._songList.filter { $0.mediaItem!.albumArtist == byArtist && $0.mediaItem!.albumTitle == byAlbum }
         }
         else {
-            _songList = _mediaDB._songList.filter { $0.mediaItem.albumArtist == byArtist }
+            _songList = _mediaDB._songList.filter { $0.mediaItem!.albumArtist == byArtist }
         }
     }
     

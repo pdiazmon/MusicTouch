@@ -42,6 +42,7 @@
 		EB88740420ADE8A50075D9A4 /* volume.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = EB8873FF20ADE8A50075D9A4 /* volume.jpeg */; };
 		EB88DCD920E29CD100B2E878 /* MTCellParis.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB88DCD820E29CD100B2E878 /* MTCellParis.swift */; };
 		EB88DCDB20E29F4700B2E878 /* MTCellFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB88DCDA20E29F4700B2E878 /* MTCellFactory.swift */; };
+		EB8EB2AD243E39D40086781D /* PDMMediaLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8EB2AC243E39D40086781D /* PDMMediaLibrary.swift */; };
 		EB9251B820B48D9600839E9B /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9251B720B48D9600839E9B /* UIImageView.swift */; };
 		EBAB5DD5205F2A7D00FD3FF8 /* SongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAB5DD4205F2A7D00FD3FF8 /* SongViewController.swift */; };
 		EBAB5DD7205F2BA800FD3FF8 /* MTSongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAB5DD6205F2BA800FD3FF8 /* MTSongCell.swift */; };
@@ -51,6 +52,7 @@
 		EBD391E6207E72E400E2E47A /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD391E5207E72E400E2E47A /* UIImage.swift */; };
 		EBEAA60C230DB8430005BBB3 /* Pods_MusicTouch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FB621506855E67AFCE8E4196 /* Pods_MusicTouch.framework */; };
 		EBEAA60D230DB8430005BBB3 /* Pods_MusicTouch.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = FB621506855E67AFCE8E4196 /* Pods_MusicTouch.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EBF25318243E3DE300B84F3A /* PDMPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF25317243E3DE300B84F3A /* PDMPlayer.swift */; };
 		EBF2BD2B206597040051C7F5 /* MTPlaylistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF2BD2A206597040051C7F5 /* MTPlaylistCell.swift */; };
 		EBF67543210102CB00B35ED7 /* MTAudioEqualizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBF67542210102CB00B35ED7 /* MTAudioEqualizer.swift */; };
 		EBFD73922066DBA60056FB12 /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBFD73912066DBA60056FB12 /* DataStore.swift */; };
@@ -141,6 +143,7 @@
 		EB8873FF20ADE8A50075D9A4 /* volume.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = volume.jpeg; sourceTree = "<group>"; };
 		EB88DCD820E29CD100B2E878 /* MTCellParis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTCellParis.swift; sourceTree = "<group>"; };
 		EB88DCDA20E29F4700B2E878 /* MTCellFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTCellFactory.swift; sourceTree = "<group>"; };
+		EB8EB2AC243E39D40086781D /* PDMMediaLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDMMediaLibrary.swift; sourceTree = "<group>"; };
 		EB9251B720B48D9600839E9B /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		EBAB5DD4205F2A7D00FD3FF8 /* SongViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongViewController.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EBAB5DD6205F2BA800FD3FF8 /* MTSongCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTSongCell.swift; sourceTree = "<group>"; };
@@ -150,6 +153,7 @@
 		EBD391E5207E72E400E2E47A /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EBDA5830205F00F20063C245 /* xcschememanagement.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = xcschememanagement.plist; path = MusicTouch.xcodeproj/xcuserdata/pedro.xcuserdatad/xcschemes/xcschememanagement.plist; sourceTree = "<group>"; };
 		EBEAA608230DB83E0005BBB3 /* PDMUtils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = PDMUtils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EBF25317243E3DE300B84F3A /* PDMPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDMPlayer.swift; sourceTree = "<group>"; };
 		EBF2BD2A206597040051C7F5 /* MTPlaylistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTPlaylistCell.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EBF67542210102CB00B35ED7 /* MTAudioEqualizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTAudioEqualizer.swift; sourceTree = "<group>"; };
 		EBFD73912066DBA60056FB12 /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; wrapsLines = 0; };
@@ -225,6 +229,7 @@
 		EB2E6DE4205EECB700588315 /* MusicTouch */ = {
 			isa = PBXGroup;
 			children = (
+				EB8EB2AB243E39850086781D /* MediaLibrary */,
 				EB123763243B47A5006FA209 /* MusicTouch.entitlements */,
 				EB2E6DE5205EECB700588315 /* AppDelegate.swift */,
 				EB339E1E2060716A00D7092A /* Constant.swift */,
@@ -354,6 +359,15 @@
 				EB8873FF20ADE8A50075D9A4 /* volume.jpeg */,
 			);
 			path = Previews;
+			sourceTree = "<group>";
+		};
+		EB8EB2AB243E39850086781D /* MediaLibrary */ = {
+			isa = PBXGroup;
+			children = (
+				EB8EB2AC243E39D40086781D /* PDMMediaLibrary.swift */,
+				EBF25317243E3DE300B84F3A /* PDMPlayer.swift */,
+			);
+			path = MediaLibrary;
 			sourceTree = "<group>";
 		};
 		EBC7D15720FA09AF00C5BCE0 /* Factory */ = {
@@ -559,13 +573,11 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-MusicTouch/Pods-MusicTouch-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/NVActivityIndicatorView/NVActivityIndicatorView.framework",
-				"${BUILT_PRODUCTS_DIR}/PDMUtils/PDMUtils.framework",
 				"${BUILT_PRODUCTS_DIR}/UIFontComplete/UIFontComplete.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NVActivityIndicatorView.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PDMUtils.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UIFontComplete.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -618,6 +630,7 @@
 				EBFD73922066DBA60056FB12 /* DataStore.swift in Sources */,
 				EB3739562090D8B200BC4988 /* QueueViewController.swift in Sources */,
 				EB3739582090DF7800BC4988 /* QueueCell.swift in Sources */,
+				EBF25318243E3DE300B84F3A /* PDMPlayer.swift in Sources */,
 				EB2E6E16205EEE6F00588315 /* MTArtistCell.swift in Sources */,
 				EB2E6DE8205EECB700588315 /* ArtistViewController.swift in Sources */,
 				EBBD6E0920E531E20037CD2B /* MTCellLondon.swift in Sources */,
@@ -627,6 +640,7 @@
 				EBAB5DD5205F2A7D00FD3FF8 /* SongViewController.swift in Sources */,
 				EB7752F720DABFF8009060B6 /* MTDataProtocol.swift in Sources */,
 				EB101CAF20606854007AFAE7 /* TabBarController.swift in Sources */,
+				EB8EB2AD243E39D40086781D /* PDMMediaLibrary.swift in Sources */,
 				EB9251B820B48D9600839E9B /* UIImageView.swift in Sources */,
 				EB7752F520DAA504009060B6 /* MTCell.swift in Sources */,
 				EBD391E6207E72E400E2E47A /* UIImage.swift in Sources */,

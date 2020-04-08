@@ -11,7 +11,7 @@ target 'MusicTouch' do
 #  pod 'PDMUtils', :path => "../PDMUtils/PDMUtils/"
   
   # Or use this for PDMUtils github pod repository
-  pod 'PDMUtils'
+#  pod 'PDMUtils'
 
   pod 'UIFontComplete'
   pod 'NVActivityIndicatorView'

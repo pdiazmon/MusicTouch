@@ -14,7 +14,6 @@ class MTCellLondon: MTCell {
     
     private let sideBar = UIView()
     private let title   = UILabel()
-    private let img     = UIImageView()
     
     var viewController: UIViewController?
     

@@ -60,7 +60,7 @@ class SongViewController: UIViewController {
     private func startToPlay(shuffle: Bool,  index: Int = -1) {
         
         // Set the player collection from the datastore songlist
-        app.appPlayer.setCollection(MPMediaItemCollection(items: self.songList.map { $0.mediaItem }))
+        app.appPlayer.setCollection(MPMediaItemCollection(items: self.songList.compactMap { $0.mediaItem }))
         
         if (shuffle) {
             app.appPlayer.shuffleModeOn()
@@ -105,6 +105,13 @@ extension SongViewController: UITableViewDataSource {
         
         // Render the new cell with the item information
         MTCellFactory.shared.render(cell: cell, item: item)
+			
+		let artwork = PDMMediaLibrary.getSongArtwork(byArtistName: item.albumArtist(), byAlbumTitle: item.albumTitle(), bySongTitle: item.songTitle())
+		
+		if (artwork != nil) {
+			let image = artwork!.image(at: CGSize.zero)
+			cell.img.setAndRound(image!, ratio: 0.1)
+		}
         cell.selectionStyle = .none
         
         return cell

@@ -47,7 +47,7 @@ class MTPlaylistData: MTData {
     }
 
     func songsCollection() -> MPMediaItemCollection {
-        return MPMediaItemCollection(items: songs.map { $0.mediaItem } )
+		return MPMediaItemCollection(items: PDMMediaLibrary.getSongsList(byPlaylist: self.name))
     }
 
 }

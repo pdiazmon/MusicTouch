@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import PDMUtils
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

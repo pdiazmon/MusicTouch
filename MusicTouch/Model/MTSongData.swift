@@ -11,33 +11,64 @@ import MediaPlayer
 
 class MTSongData: MTData {
 
-    public var mediaItem: MPMediaItem
+	private var _albumArtist: String?
+	private var _albumTitle: String?
+	private var _songTitle: String?
+	private var _albumTrackNumber: Int
+	private var _playbackDuration: TimeInterval
+	
+    var mediaItem: MPMediaItem? {
+		get {
+			return PDMMediaLibrary.getSongItem(byArtistName: self._albumArtist, byAlbumTitle: self._albumTitle, bySongTitle: self._songTitle)
+		}
+	}
+
     override public var playTime: (hours: Int, minutes: Int, seconds: Int) { get {
-        return fromSeconds(seconds: Int(mediaItem.playbackDuration) )
+		return fromSeconds(seconds: Int(self._playbackDuration) )
     } }
     
     init(mediaItem: MPMediaItem) {        
-        self.mediaItem = mediaItem
+		self._albumArtist       = mediaItem.albumArtist
+		self._albumTitle        = mediaItem.albumTitle
+		self._songTitle         = mediaItem.title
+		self._albumTrackNumber  = mediaItem.albumTrackNumber
+		self._playbackDuration  = mediaItem.playbackDuration
         
-        super.init(image: self.mediaItem.artwork?.image(at: CGSize.zero))        
+		super.init(image: nil)
     }
     
     func title() -> String {
-        guard let title = mediaItem.title else { return "" }
-        
-        return "\(mediaItem.albumTrackNumber). \(title)"
+		return (self._songTitle == nil) ? "" : "\(self._albumTrackNumber). \(self._songTitle!)"
     }
-    
+	
+	func albumArtist() -> String {
+		return (self._albumArtist == nil) ? "" : self._albumArtist!
+	}
+	
+	func albumTitle() -> String {
+		return (self._albumTitle == nil) ? "" : self._albumTitle!
+	}
+
+	func albumTrackNumber() -> Int {
+		return self._albumTrackNumber
+	}
+	
+	func songTitle() -> String {
+		return (self._songTitle == nil) ? "" : self._songTitle!
+	}
+	
     func image() -> UIImage? {
-        return mediaItem.artwork?.image(at: CGSize.zero)
+		return nil
     }
 
     func describe(offset: Int) {
         print("\(String(repeating: " ", count: offset))Song: *\(self.title())*")
     }
-    
+	
     func songsCollection() -> MPMediaItemCollection {
-        return MPMediaItemCollection(items: [self.mediaItem])
+		let item = self.mediaItem
+		
+		return (item == nil) ? MPMediaItemCollection(items: []) : MPMediaItemCollection(items: [item!])
     }
 
 }

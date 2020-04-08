@@ -74,8 +74,8 @@ class MTSongCell: MTCellDelegate {
     func render(item: MTData) {
         
         if let itemSong = item as? MTSongData {
-            self.artistName.text = "\(itemSong.mediaItem.albumArtist!)"
-            self.albumTitle.text = "\(itemSong.mediaItem.albumTitle!)"
+			self.artistName.text = "\(itemSong.albumArtist())"
+            self.albumTitle.text = "\(itemSong.albumTitle())"
             
             self.playTime.text = (itemSong.playTime.hours > 0) ? "\(itemSong.playTime.hours):" : ""
             self.playTime.text = self.playTime.text! + String(format: "%02i:%02i", itemSong.playTime.minutes, itemSong.playTime.seconds)

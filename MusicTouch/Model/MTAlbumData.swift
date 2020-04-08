@@ -52,7 +52,7 @@ class MTAlbumData: MTData {
     }
     
     func songsCollection() -> MPMediaItemCollection {
-        return MPMediaItemCollection(items: songs.map { $0.mediaItem })
+		return MPMediaItemCollection(items: PDMMediaLibrary.getSongsList(byArtist: self.artistName, byAlbum: self.albumTitle))
     }
     
 

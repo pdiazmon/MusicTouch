@@ -8,7 +8,6 @@
 
 import Foundation
 import MediaPlayer
-import PDMUtils
 
 struct MediaLibraryCache {
   var playlistList: [MTPlaylistData] = []
@@ -73,10 +72,10 @@ extension DataStore {
                 playlist.songs = PDMMediaLibrary.getSongsList(byPlaylist: name).map {
                     MTSongData(mediaItem: $0)
                 }.sorted {
-                    if $0.mediaItem.albumTitle! == $1.mediaItem.albumTitle! {
-                        return $0.mediaItem.albumTrackNumber < $1.mediaItem.albumTrackNumber
+                    if $0.albumTitle() == $1.albumTitle() {
+                        return $0.albumTrackNumber() < $1.albumTrackNumber()
                     } else {
-                        return $0.mediaItem.albumTitle! < $1.mediaItem.albumTitle!
+                        return $0.albumTitle() < $1.albumTitle()
                     }
                 }
                 
@@ -107,7 +106,11 @@ extension DataStore {
                     
                     album.songs = allSongs.filter { $0.albumArtist == artist.name && $0.albumTitle == album.albumTitle }
                                           .map { MTSongData(mediaItem: $0) }
-                                          .sorted { return $0.mediaItem.albumTrackNumber < $1.mediaItem.albumTrackNumber }
+                                          .sorted {
+												if ($0.mediaItem == nil) { return true }
+												else if ($1.mediaItem == nil) { return false }
+												else { return $0.mediaItem!.albumTrackNumber < $1.mediaItem!.albumTrackNumber }
+											}
                 
                     return album
                 }

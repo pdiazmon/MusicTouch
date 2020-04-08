@@ -15,7 +15,6 @@ class MTCellParis: MTCell {
     private let backgroundGrey = UIView()
     private let backgroundBox  = UIView()
     private let title          = UILabel()
-    private let img            = UIImageView()
     
     override func awakeFromNib() {
         super.awakeFromNib()

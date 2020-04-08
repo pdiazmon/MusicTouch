@@ -171,7 +171,7 @@ extension PlaylistViewController {
         let item = self.playlistList[indexPath.row]
         
         // Set the player collection
-        app.appPlayer.setCollection(MPMediaItemCollection(items: item.songs.map { $0.mediaItem } ))
+		app.appPlayer.setCollection(item.songsCollection())
         
         // Sets the shuffle mode
         if (shuffle) {

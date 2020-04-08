@@ -2,25 +2,21 @@ PODS:
   - NVActivityIndicatorView (4.7.0):
     - NVActivityIndicatorView/Presenter (= 4.7.0)
   - NVActivityIndicatorView/Presenter (4.7.0)
-  - PDMUtils (1.2.4)
   - UIFontComplete (4.0.0)
 
 DEPENDENCIES:
   - NVActivityIndicatorView
-  - PDMUtils
   - UIFontComplete
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - NVActivityIndicatorView
-    - PDMUtils
     - UIFontComplete
 
 SPEC CHECKSUMS:
   NVActivityIndicatorView: b19ddab2576f805cbe0fb2306cba3476e09a1dea
-  PDMUtils: ed79524faf4c0ec99f26cccf65d941ddc43f7787
   UIFontComplete: 9542d390ee6114412a585d979b09fe820896695d
 
-PODFILE CHECKSUM: 264e0fec01c591ecbc3945632ea83a1e2301b9e3
+PODFILE CHECKSUM: f3c571c11a1e39e98482288acbb0fc58744e0a66
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.9.1
