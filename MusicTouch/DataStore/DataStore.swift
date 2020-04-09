@@ -66,9 +66,8 @@ extension DataStore {
 
                 let name = $0.value(forProperty: MPMediaPlaylistPropertyName) as! String
                 
-                let playlist = MTPlaylistData(image: $0.representativeItem?.artwork == nil ? nil : ($0.representativeItem?.artwork?.image(at: CGSize(width: self.size, height: self.size)))!,
-                                              name: name)
-                
+                let playlist = MTPlaylistData(name: name)
+
                 playlist.songs = PDMMediaLibrary.getSongsList(byPlaylist: name).map {
                     MTSongData(mediaItem: $0)
                 }.sorted {
@@ -95,15 +94,13 @@ extension DataStore {
             let allSongs   = PDMMediaLibrary.getSongsList()
             
             self.cache.artistList = PDMMediaLibrary.getAlbumArtistList().map {
-                let artist = MTArtistData(image: $0.artwork == nil ? nil : ($0.artwork?.image(at: CGSize(width: self.size, height: self.size)))!,
-                                          name: $0.albumArtist!)
-                
+                let artist = MTArtistData(name: $0.albumArtist!)
+
                 artist.albums = allAlbums.filter { artist.name == $0.albumArtist }.map {
-                    let album = MTAlbumData(image: $0.artwork == nil ? nil : ($0.artwork?.image(at: CGSize(width: self.size, height: self.size))),
-                                            artistName: $0.artist!,
+                    let album = MTAlbumData(artistName: $0.artist!,
                                             albumTitle: $0.albumTitle!,
                                             year: ($0.releaseDate != nil) ? Calendar.current.component(.year, from: $0.releaseDate!) : ALBUMYEAR_DEFAULT)
-                    
+
                     album.songs = allSongs.filter { $0.albumArtist == artist.name && $0.albumTitle == album.albumTitle }
                                           .map { MTSongData(mediaItem: $0) }
                                           .sorted {

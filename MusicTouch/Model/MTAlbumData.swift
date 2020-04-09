@@ -27,13 +27,11 @@ class MTAlbumData: MTData {
         return fromSeconds(seconds: secs)
     } }
     
-    init(image: UIImage?, artistName: String, albumTitle: String, year: Int = ALBUMYEAR_DEFAULT) {
+    init(artistName: String, albumTitle: String, year: Int = ALBUMYEAR_DEFAULT) {
         self.artistName    = artistName
         self.albumTitle    = albumTitle
         self.year          = year
         self.songs         = []
-
-        super.init(image: image)
     }
     
     func title() -> String {
@@ -41,7 +39,7 @@ class MTAlbumData: MTData {
     }
     
     func image() -> UIImage? {
-        return image
+		return PDMMediaLibrary.getAlbumArtworkImage(byArtistName: self.artistName, byAlbumTitle: self.albumTitle)
     }
     
     func describe(offset: Int) {

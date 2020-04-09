@@ -23,11 +23,9 @@ class MTPlaylistData: MTData {
         return fromSeconds(seconds: secs)
     } }
     
-    init(image: UIImage?, name: String) {
+	init(name: String) {
         self.name          = name
         self.songs         = []
-
-        super.init(image: image)
     }
     
     func title() -> String {
@@ -35,7 +33,7 @@ class MTPlaylistData: MTData {
     }
     
     func image() -> UIImage? {
-        return image
+		return PDMMediaLibrary.getPlaylistArtworkImage(byPlaylistName: self.name)
     }
     
     func describe(offset: Int) {

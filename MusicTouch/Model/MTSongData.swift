@@ -33,8 +33,6 @@ class MTSongData: MTData {
 		self._songTitle         = mediaItem.title
 		self._albumTrackNumber  = mediaItem.albumTrackNumber
 		self._playbackDuration  = mediaItem.playbackDuration
-        
-		super.init(image: nil)
     }
     
     func title() -> String {
@@ -58,7 +56,7 @@ class MTSongData: MTData {
 	}
 	
     func image() -> UIImage? {
-		return nil
+		return PDMMediaLibrary.getSongArtworkImage(byArtistName: self._albumArtist, byAlbumTitle: self._albumTitle, bySongTitle: self._songTitle)
     }
 
     func describe(offset: Int) {

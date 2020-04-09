@@ -118,15 +118,15 @@ class DataStoreMock: DataStoreProtocol {
 
 extension DataStoreMock {
     func newPlaylist(playlist: String) {
-        _mediaDB._playlistList.append(MTPlaylistData(image: nil, name: playlist))
+        _mediaDB._playlistList.append(MTPlaylistData(name: playlist))
     }
     
     func newArtist(artist: String) {
-        _mediaDB._artistList.append(MTArtistData(image: nil, name: artist))
+        _mediaDB._artistList.append(MTArtistData(name: artist))
     }
     
     func newAlbum(artist: String, album: String) {
-        _mediaDB._albumList.append(MTAlbumData(image: nil, artistName: artist, albumTitle: album, year: 2018))
+        _mediaDB._albumList.append(MTAlbumData(artistName: artist, albumTitle: album, year: 2018))
     }
     
     func newSong(artist: String, album: String, title: String) {

@@ -104,14 +104,7 @@ extension SongViewController: UITableViewDataSource {
         if (cell.delegate == nil) { cell.delegate = MTSongCell() }
         
         // Render the new cell with the item information
-        MTCellFactory.shared.render(cell: cell, item: item)
-			
-		let artwork = PDMMediaLibrary.getSongArtwork(byArtistName: item.albumArtist(), byAlbumTitle: item.albumTitle(), bySongTitle: item.songTitle())
-		
-		if (artwork != nil) {
-			let image = artwork!.image(at: CGSize.zero)
-			cell.img.setAndRound(image!, ratio: 0.1)
-		}
+        MTCellFactory.shared.render(cell: cell, item: item)			
         cell.selectionStyle = .none
         
         return cell

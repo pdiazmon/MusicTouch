@@ -98,8 +98,8 @@ class MTCellLondon: MTCell {
     override func render(item: MTData) {
         self.title.text  = item.title()
         
-        if item.image() != nil {
-            self.img.image = item.image
+		if let image = item.image() {
+            self.img.image = image
             self.clipsToBounds = true
         }
         

@@ -115,8 +115,8 @@ class MTCellParis: MTCell {
     override func render(item: MTData) {
         self.title.text  = item.title()
         
-        if item.image() != nil {
-            self.img.setAndRound(item.image()!, ratio: 0.1)
+		if let image = item.image() {
+			self.img.setAndRound(image, ratio: 0.1)
         }
 
         super.render(item: item)

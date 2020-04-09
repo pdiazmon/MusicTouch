@@ -13,12 +13,7 @@ import UIKit
 typealias MTData = MTDataRoot & MTDataProtocol
 
 class MTDataRoot {
-    public var image: UIImage?
     public var playTime: (hours: Int, minutes: Int, seconds: Int) { get { return (0,0,0) } }
-    
-    init(image: UIImage?) {
-        self.image    = image
-    }
     
     func toSeconds() -> Int {
         return playTime.hours * 3600 + playTime.minutes * 60 + playTime.seconds
