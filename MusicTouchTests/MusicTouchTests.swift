@@ -7,9 +7,9 @@
 //
 
 import XCTest
-@testable import iTunesTest3
+@testable import MusicTouch
 
-class iTunesTest3Tests: XCTestCase {
+class MusicTouchTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
