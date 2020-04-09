@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "NVActivityIndicatorView",
+        "repositoryURL": "https://github.com/ninjaprox/NVActivityIndicatorView.git",
+        "state": {
+          "branch": null,
+          "revision": "4a4726d15367d82bd3e9e1f01625bd76dbbb0c98",
+          "version": "4.8.0"
+        }
+      },
+      {
+        "package": "UIFontComplete",
+        "repositoryURL": "https://github.com/Nirma/UIFontComplete.git",
+        "state": {
+          "branch": null,
+          "revision": "28959719e8078c3a9cc359cb85589016b57f1fd4",
+          "version": "4.0.1"
+        }
+      }
+    ]
+  },
+  "version": 1
+}
