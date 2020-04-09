@@ -117,16 +117,16 @@ class DataStoreMock: DataStoreProtocol {
 }
 
 extension DataStoreMock {
-    func newPlaylist(playlist: String) {
-        _mediaDB._playlistList.append(MTPlaylistData(name: playlist))
+	func newPlaylist(persistentID: MPMediaEntityPersistentID, playlist: String) {
+		_mediaDB._playlistList.append(MTPlaylistData(persistentID: persistentID, name: playlist))
     }
     
-    func newArtist(artist: String) {
-        _mediaDB._artistList.append(MTArtistData(name: artist))
+    func newArtist(persistentID: MPMediaEntityPersistentID, artist: String) {
+		_mediaDB._artistList.append(MTArtistData(persistentID: persistentID, name: artist))
     }
     
-    func newAlbum(artist: String, album: String) {
-        _mediaDB._albumList.append(MTAlbumData(artistName: artist, albumTitle: album, year: 2018))
+	func newAlbum(persistentID: MPMediaEntityPersistentID, artist: String, album: String) {
+		_mediaDB._albumList.append(MTAlbumData(persistentID: persistentID, artistName: artist, albumTitle: album, year: 2018))
     }
     
     func newSong(artist: String, album: String, title: String) {
@@ -137,15 +137,15 @@ extension DataStoreMock {
 extension DataStoreMock {
     public func defaultInitialize() {
         
-        newPlaylist(playlist: "Mock Playlist 1")
-        newPlaylist(playlist: "Mock Playlist 2")
+        newPlaylist(persistentID: 1, playlist: "Mock Playlist 1")
+        newPlaylist(persistentID: 2, playlist: "Mock Playlist 2")
         
-        newArtist(artist: "Mock Artist 1")
-        newArtist(artist: "Mock Artist 2")
+        newArtist(persistentID: 3, artist: "Mock Artist 1")
+        newArtist(persistentID: 4, artist: "Mock Artist 2")
 
-        newAlbum(artist: "Mock Artist 1", album: "Mock Album 1-1")
-        newAlbum(artist: "Mock Artist 1", album: "Mock Album 1-2")
-        newAlbum(artist: "Mock Artist 2", album: "Mock Album 2-1")
+		newAlbum(persistentID: 5, artist: "Mock Artist 1", album: "Mock Album 1-1")
+        newAlbum(persistentID: 6, artist: "Mock Artist 1", album: "Mock Album 1-2")
+        newAlbum(persistentID: 7, artist: "Mock Artist 2", album: "Mock Album 2-1")
 
         newSong(artist: "Mock Artist 1", album: "Mock Album 1-1", title: "Mock Song 1-1-1")
         newSong(artist: "Mock Artist 1", album: "Mock Album 1-1", title: "Mock Song 1-1-2")

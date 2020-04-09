@@ -65,8 +65,9 @@ extension DataStore {
             self.cache.playlistList = PDMMediaLibrary.getPlaylistList().map {
 
                 let name = $0.value(forProperty: MPMediaPlaylistPropertyName) as! String
+				let persistentID = PDMMediaLibrary.getPlaylistItem(byPlaylistName: name)?.persistentID
                 
-                let playlist = MTPlaylistData(name: name)
+				let playlist = MTPlaylistData(persistentID: persistentID, name: name)
 
                 playlist.songs = PDMMediaLibrary.getSongsList(byPlaylist: name).map {
                     MTSongData(mediaItem: $0)
@@ -94,10 +95,11 @@ extension DataStore {
             let allSongs   = PDMMediaLibrary.getSongsList()
             
             self.cache.artistList = PDMMediaLibrary.getAlbumArtistList().map {
-                let artist = MTArtistData(name: $0.albumArtist!)
+				let artist = MTArtistData(persistentID: $0.persistentID, name: $0.albumArtist!)
 
                 artist.albums = allAlbums.filter { artist.name == $0.albumArtist }.map {
-                    let album = MTAlbumData(artistName: $0.artist!,
+					let album = MTAlbumData(persistentID: $0.persistentID,
+											artistName: $0.artist!,
                                             albumTitle: $0.albumTitle!,
                                             year: ($0.releaseDate != nil) ? Calendar.current.component(.year, from: $0.releaseDate!) : ALBUMYEAR_DEFAULT)
 

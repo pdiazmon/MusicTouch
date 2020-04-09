@@ -12,9 +12,10 @@ import UIKit
 
 class MTPlaylistData: MTData {
     
-    var name: String
+    var name: String = ""
     var numberOfSongs: Int { get { return songs.count } }
-    var songs: [MTSongData]
+    var songs: [MTSongData] = []
+	
     override public var playTime: (hours: Int, minutes: Int, seconds: Int) { get {
         var secs: Int = 0
         for song in songs {
@@ -23,9 +24,12 @@ class MTPlaylistData: MTData {
         return fromSeconds(seconds: secs)
     } }
     
-	init(name: String) {
+	init(persistentID: MPMediaEntityPersistentID?, name: String) {
+		super.init()
+		
         self.name          = name
         self.songs         = []
+		self.persistentID  = persistentID ?? 0
     }
     
     func title() -> String {
@@ -33,7 +37,7 @@ class MTPlaylistData: MTData {
     }
     
     func image() -> UIImage? {
-		return PDMMediaLibrary.getPlaylistArtworkImage(byPlaylistName: self.name)
+		return PDMMediaLibrary.getPlaylistArtworkImage(byPersistentID: self.persistentID)
     }
     
     func describe(offset: Int) {

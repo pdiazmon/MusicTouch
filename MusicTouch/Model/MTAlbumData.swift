@@ -13,11 +13,11 @@ import UIKit
 let ALBUMYEAR_DEFAULT:Int = 1900
 
 class MTAlbumData: MTData {
-    var albumTitle: String
-    var artistName: String
+    var albumTitle: String = ""
+    var artistName: String = ""
     var numberOfSongs: Int { get { return songs.count } }
-    var year: Int 
-    var songs: [MTSongData]
+    var year: Int = ALBUMYEAR_DEFAULT
+    var songs: [MTSongData] = []
     
     override public var playTime: (hours: Int, minutes: Int, seconds: Int) { get {
         var secs: Int = 0
@@ -27,23 +27,26 @@ class MTAlbumData: MTData {
         return fromSeconds(seconds: secs)
     } }
     
-    init(artistName: String, albumTitle: String, year: Int = ALBUMYEAR_DEFAULT) {
+	init(persistentID: MPMediaEntityPersistentID, artistName: String, albumTitle: String, year: Int = ALBUMYEAR_DEFAULT) {
+		super.init()
+		
         self.artistName    = artistName
         self.albumTitle    = albumTitle
         self.year          = year
         self.songs         = []
+		self.persistentID  = persistentID
     }
     
     func title() -> String {
-        return albumTitle
+		return self.albumTitle
     }
     
     func image() -> UIImage? {
-		return PDMMediaLibrary.getAlbumArtworkImage(byArtistName: self.artistName, byAlbumTitle: self.albumTitle)
+		return PDMMediaLibrary.getAlbumArtworkImage(byPersistentID: self.persistentID)
     }
     
     func describe(offset: Int) {
-        print("\(String(repeating: " ", count: offset))Album: *\(self.albumTitle)*")
+        print("\(String(repeating: " ", count: offset))Album: *\(self.title())*")
         for song in self.songs {
             song.describe(offset: offset + 2)
         }
@@ -52,8 +55,6 @@ class MTAlbumData: MTData {
     func songsCollection() -> MPMediaItemCollection {
 		return MPMediaItemCollection(items: PDMMediaLibrary.getSongsList(byArtist: self.artistName, byAlbum: self.albumTitle))
     }
-    
-
 }
 
 
