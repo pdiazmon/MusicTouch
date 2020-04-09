@@ -36,30 +36,6 @@ public class PDMMediaLibrary {
         }
     }
     
-    /// Returns all the artists in the Media Library
-    /// - Returns: A MPMediaItem array with all the artists in the Media Library. Every MPMediaItem in the array is the artist representative item.
-    class public func getArtistList() -> [MPMediaItem] {
-        var list: [MPMediaItem] = []
-        
-        perform() {
-            // Query for all the artists in the Media Library
-            let query = MPMediaQuery.artists()
-            
-            // Group the query results in different collections by artist name
-            query.groupingType = MPMediaGrouping.artist
-            
-            // Get all the collections returned by the query and add their representative item to a list
-            if let result = query.collections {
-                for res in result {
-                    list.append((res.representativeItem)!)
-                }
-            }
-        }
-        
-        // Sort the list by artist name and return it
-        return list.sorted { $0.artist! < $1.artist! }
-    }
-
     /// Returns all the album artists in the Media Library
     /// - Returns: A MPMediaItem array with all the album artists in the Media Library. Every MPMediaItem in the array is the album artist representative item.
     class public func getAlbumArtistList() -> [MPMediaItem] {
@@ -86,25 +62,19 @@ public class PDMMediaLibrary {
 
     /// Returns all the albums for a given album artist in the Media Library
     /// - Parameters:
-    ///   - byArtist: Artist name
+    ///   - byArtistPersistentID: Artist persistent ID
     /// - Returns: A MPMediaItem array with all the albums for a given album artist
-    class public func getAlbumsList(byArtist: String) -> [MPMediaItem] {
+	class public func getAlbumsList(byArtistPersistentID: MPMediaEntityPersistentID) -> [MPMediaItem] {
         var list: [MPMediaItem] = []
         
         perform() {
             
             var query: MPMediaQuery
             
-            // If an artist is given ...
-            if (byArtist.count > 0) {
-                // Set the filter query for the given artist name
-                let artistFilter = MPMediaPropertyPredicate(value: byArtist, forProperty: MPMediaItemPropertyAlbumArtist, comparisonType: MPMediaPredicateComparison.equalTo)
-                let myFilterSet: Set<MPMediaPropertyPredicate> = [artistFilter]
-                query = MPMediaQuery(filterPredicates: myFilterSet)
-            }
-            else { // An empty artist name has been received, create an empty query
-                query = MPMediaQuery()
-            }
+			// Set the filter query for the given artist persistent ID
+			let artistFilter = MPMediaPropertyPredicate(value: byArtistPersistentID, forProperty: MPMediaItemPropertyAlbumArtistPersistentID, comparisonType: MPMediaPredicateComparison.equalTo)
+			let myFilterSet: Set<MPMediaPropertyPredicate> = [artistFilter]
+			query = MPMediaQuery(filterPredicates: myFilterSet)
             
             // Group the query results in different collections by album title
             query.groupingType = MPMediaGrouping.album
@@ -134,14 +104,6 @@ public class PDMMediaLibrary {
         return (_hour, _min, _sec)
     }
   
-    /// Returns all the albums in the Media Library
-    /// - Returns: A MPMediaItem array with all the albums in the Media Library. Every MPMediaItem in the array is the album representative item.
-    class public func getAlbumsList() -> [MPMediaItem] {
-        
-        // Perform the same query with an empty artist name to get all the albums in the Media Library
-        return getAlbumsList(byArtist: "")
-    }
-    
     /// Returns all the songs in a given playlist
     /// - Parameters:
     ///   - byPlaylist: Playlist name
@@ -300,15 +262,6 @@ public class PDMMediaLibrary {
         else {
             return nil
         }
-    }
-
-    /// Returns an specific playlist's artwork
-    /// - Returns: The playlist's MPMediaItemArtwork Image
-	class public func getPlaylistArtworkImage_old(byPlaylistName: String) -> UIImage? {
-		
-		guard let item = getPlaylistItem(byPlaylistName: byPlaylistName) else { return nil }
-		
-		return item.artwork?.image(at: CGSize.zero)
     }
 
     /// Returns an specific playlist's artwork

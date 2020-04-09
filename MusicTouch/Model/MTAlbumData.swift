@@ -17,7 +17,10 @@ class MTAlbumData: MTData {
     var artistName: String = ""
     var numberOfSongs: Int { get { return songs.count } }
     var year: Int = ALBUMYEAR_DEFAULT
-    var songs: [MTSongData] = []
+	
+	let albumQueue = DispatchQueue(label: "album")
+	
+	lazy var songs: [MTSongData] = []
     
     override public var playTime: (hours: Int, minutes: Int, seconds: Int) { get {
         var secs: Int = 0
@@ -35,6 +38,12 @@ class MTAlbumData: MTData {
         self.year          = year
         self.songs         = []
 		self.persistentID  = persistentID
+		
+		albumQueue.async {
+			self.songs = PDMMediaLibrary.getSongsList(byAlbumPersistentID: self.persistentID)
+						 .sorted { $0.albumTrackNumber < $1.albumTrackNumber }
+				         .map { MTSongData(mediaItem: $0) }
+		}
     }
     
     func title() -> String {

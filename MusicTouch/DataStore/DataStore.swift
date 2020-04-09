@@ -12,8 +12,6 @@ import MediaPlayer
 struct MediaLibraryCache {
   var playlistList: [MTPlaylistData] = []
   var artistList:   [MTArtistData]   = []
-  var albumList:    [MTAlbumData]    = []
-  var songList:     [MTSongData]     = []
 
     func describe() {
         for playlist in playlistList {
@@ -91,46 +89,13 @@ extension DataStore {
         self.artistSemaphore.wait()
         datastoreQueue.async {
             
-            let allAlbums  = PDMMediaLibrary.getAlbumsList()
-            let allSongs   = PDMMediaLibrary.getSongsList()
-            
-			self.cache.artistList = PDMMediaLibrary.getAlbumArtistList().map { 
-				let artist = MTArtistData(persistentID: $0.albumArtistPersistentID,
-										  name: $0.albumArtist!)
-
-                artist.albums = allAlbums.filter { artist.name == $0.albumArtist }.map {
-					let album = MTAlbumData(persistentID: $0.albumPersistentID,
-											artistName: $0.artist!,
-                                            albumTitle: $0.albumTitle!,
-                                            year: ($0.releaseDate != nil) ? Calendar.current.component(.year, from: $0.releaseDate!) : ALBUMYEAR_DEFAULT)
-
-                    album.songs = allSongs.filter { $0.albumArtist == artist.name && $0.albumTitle == album.albumTitle }
-                                          .map { MTSongData(mediaItem: $0) }
-                                          .sorted {
-												if ($0.mediaItem == nil) { return true }
-												else if ($1.mediaItem == nil) { return false }
-												else { return $0.mediaItem!.albumTrackNumber < $1.mediaItem!.albumTrackNumber }
-											}
-                
-                    return album
-                }
-                .sorted {
-                        return $0.year < $1.year
-                }
-                
-                return artist
-            }.sorted {
-                return $0.name < $1.name
-            }
+			self.cache.artistList = PDMMediaLibrary.getAlbumArtistList().map {
+					return MTArtistData(persistentID: $0.albumArtistPersistentID,
+										name: $0.albumArtist!)
+			}.sorted { return $0.name < $1.name }
             
             self.artistSemaphore.signal()
-          
-            // Cache all the albums
-            self.cache.albumList = self.cache.artistList.flatMap { $0.albums }
             self.albumSemaphore.signal()
-          
-            // Cache all the songs
-            self.cache.songList = self.cache.albumList.flatMap { $0.songs }
             self.songSemaphore.signal()
         }
 
@@ -160,8 +125,7 @@ extension DataStore {
     func songList() -> [MTSongData] {
         songSemaphore.wait()
         songSemaphore.signal()
-        return cache.songList
-
+		return self.albumList().flatMap { $0.songs }
     }
     
     /// Returns the albums list stored in the data-store object
@@ -170,7 +134,7 @@ extension DataStore {
     func albumList() -> [MTAlbumData] {
         albumSemaphore.wait()
         albumSemaphore.signal()
-        return cache.albumList
+		return self.cache.artistList.flatMap { $0.albums }
     }
 
     /// Returns the playlists list stored in the data-store object

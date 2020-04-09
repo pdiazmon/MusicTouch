@@ -14,7 +14,10 @@ import UIKit
 class MTArtistData: MTData {
     var name: String = ""
     var numberOfAlbums: Int { get { return albums.count } }
-    var albums: [MTAlbumData] = []
+	
+	var albums: [MTAlbumData] = []
+	
+	let artistQueue = DispatchQueue(label: "artist")
 	
     override public var playTime: (hours: Int, minutes: Int, seconds: Int) { get {
         var secs: Int = 0
@@ -30,6 +33,19 @@ class MTArtistData: MTData {
         self.name           = name
         self.albums         = []
 		self.persistentID   = persistentID
+		
+		artistQueue.async {
+			self.albums = PDMMediaLibrary.getAlbumsList(byArtistPersistentID: self.persistentID)
+				          .map { MTAlbumData(persistentID: $0.albumPersistentID,
+								   artistName: name,
+								   albumTitle: $0.albumTitle ?? "",
+								   year: ($0.releaseDate != nil) ? Calendar.current.component(.year, from: $0.releaseDate!) : ALBUMYEAR_DEFAULT)
+						  }
+				          .sorted {
+								if ($0.year == $1.year) { return $0.albumTitle < $1.albumTitle }
+								else { return $0.year < $1.year}
+						  }
+		}
     }
     
     func title() -> String {
