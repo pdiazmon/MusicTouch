@@ -121,11 +121,11 @@ extension DataStoreMock {
 		_mediaDB._playlistList.append(MTPlaylistData(persistentID: persistentID, name: playlist))
     }
     
-    func newArtist(persistentID: MPMediaEntityPersistentID, artist: String) {
+	func newArtist(persistentID: MPMediaEntityPersistentID, artistPermanentID: MPMediaEntityPersistentID, artist: String) {
 		_mediaDB._artistList.append(MTArtistData(persistentID: persistentID, name: artist))
     }
     
-	func newAlbum(persistentID: MPMediaEntityPersistentID, artist: String, album: String) {
+	func newAlbum(persistentID: MPMediaEntityPersistentID, albumPersistentID: MPMediaEntityPersistentID, artist: String, album: String) {
 		_mediaDB._albumList.append(MTAlbumData(persistentID: persistentID, artistName: artist, albumTitle: album, year: 2018))
     }
     
@@ -140,12 +140,12 @@ extension DataStoreMock {
         newPlaylist(persistentID: 1, playlist: "Mock Playlist 1")
         newPlaylist(persistentID: 2, playlist: "Mock Playlist 2")
         
-        newArtist(persistentID: 3, artist: "Mock Artist 1")
-        newArtist(persistentID: 4, artist: "Mock Artist 2")
+		newArtist(persistentID: 3, artistPermanentID: 1, artist: "Mock Artist 1")
+		newArtist(persistentID: 4, artistPermanentID: 2, artist: "Mock Artist 2")
 
-		newAlbum(persistentID: 5, artist: "Mock Artist 1", album: "Mock Album 1-1")
-        newAlbum(persistentID: 6, artist: "Mock Artist 1", album: "Mock Album 1-2")
-        newAlbum(persistentID: 7, artist: "Mock Artist 2", album: "Mock Album 2-1")
+		newAlbum(persistentID: 5, albumPersistentID: 1, artist: "Mock Artist 1", album: "Mock Album 1-1")
+        newAlbum(persistentID: 6, albumPersistentID: 2, artist: "Mock Artist 1", album: "Mock Album 1-2")
+        newAlbum(persistentID: 7, albumPersistentID: 3, artist: "Mock Artist 2", album: "Mock Album 2-1")
 
         newSong(artist: "Mock Artist 1", album: "Mock Album 1-1", title: "Mock Song 1-1-1")
         newSong(artist: "Mock Artist 1", album: "Mock Album 1-1", title: "Mock Song 1-1-2")

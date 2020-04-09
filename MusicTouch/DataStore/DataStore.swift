@@ -94,11 +94,12 @@ extension DataStore {
             let allAlbums  = PDMMediaLibrary.getAlbumsList()
             let allSongs   = PDMMediaLibrary.getSongsList()
             
-            self.cache.artistList = PDMMediaLibrary.getAlbumArtistList().map {
-				let artist = MTArtistData(persistentID: $0.persistentID, name: $0.albumArtist!)
+			self.cache.artistList = PDMMediaLibrary.getAlbumArtistList().map { 
+				let artist = MTArtistData(persistentID: $0.albumArtistPersistentID,
+										  name: $0.albumArtist!)
 
                 artist.albums = allAlbums.filter { artist.name == $0.albumArtist }.map {
-					let album = MTAlbumData(persistentID: $0.persistentID,
+					let album = MTAlbumData(persistentID: $0.albumPersistentID,
 											artistName: $0.artist!,
                                             albumTitle: $0.albumTitle!,
                                             year: ($0.releaseDate != nil) ? Calendar.current.component(.year, from: $0.releaseDate!) : ALBUMYEAR_DEFAULT)

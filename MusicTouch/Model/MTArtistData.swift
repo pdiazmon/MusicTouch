@@ -37,7 +37,7 @@ class MTArtistData: MTData {
     }
     
     func image() -> UIImage? {
-		return PDMMediaLibrary.getArtistArtworkImage(byPersistentID: self.persistentID)
+		return PDMMediaLibrary.getArtistArtworkImage(byArtistPersistentID: self.persistentID)
     }
     
     func describe(offset: Int) {
@@ -48,7 +48,7 @@ class MTArtistData: MTData {
     }
     
     func songsCollection() -> MPMediaItemCollection {
-		return MPMediaItemCollection(items: PDMMediaLibrary.getSongsList(byArtist: self.name))
+		return MPMediaItemCollection(items: PDMMediaLibrary.getSongsList(byArtistPersistentID: self.persistentID))
     }
     
 }

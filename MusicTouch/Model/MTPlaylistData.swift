@@ -45,7 +45,6 @@ class MTPlaylistData: MTData {
         for song in self.songs {
             song.describe(offset: offset + 2)
         }
-        
     }
 
     func songsCollection() -> MPMediaItemCollection {
