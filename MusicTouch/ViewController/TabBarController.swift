@@ -44,7 +44,8 @@ extension TabBarController: UITabBarControllerDelegate {
         // If the Song button has been clicked
         else if (viewController is SongViewController) {
             // .. prepare the SongViewController to show all the existing songs
-            (viewController as! SongViewController).setSongList([])
+			let vc = (viewController as! SongViewController)
+			vc.configure(songs: [], songsRetriever: vc)
         }
 
     }

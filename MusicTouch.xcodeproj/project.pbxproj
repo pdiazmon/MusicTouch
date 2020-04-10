@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EB0098542440ED6500CE9C1C /* SongsRetrieverProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0098532440ED6500CE9C1C /* SongsRetrieverProtocol.swift */; };
 		EB072E4F205F23490040EA23 /* MTAlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB072E4E205F23490040EA23 /* MTAlbumCell.swift */; };
 		EB101CAF20606854007AFAE7 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB101CAE20606854007AFAE7 /* TabBarController.swift */; };
 		EB2E6DE6205EECB700588315 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2E6DE5205EECB700588315 /* AppDelegate.swift */; };
@@ -90,6 +91,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		EB0098532440ED6500CE9C1C /* SongsRetrieverProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongsRetrieverProtocol.swift; sourceTree = "<group>"; };
 		EB072E4E205F23490040EA23 /* MTAlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTAlbumCell.swift; sourceTree = "<group>"; };
 		EB101CAE20606854007AFAE7 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EB123763243B47A5006FA209 /* MusicTouch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MusicTouch.entitlements; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 			children = (
 				EB87367C20CEEBBC00CF643F /* DatastoreProtocol.swift */,
 				EB7752F620DABFF8009060B6 /* MTDataProtocol.swift */,
+				EB0098532440ED6500CE9C1C /* SongsRetrieverProtocol.swift */,
 				EB7752F820DAC2B3009060B6 /* MTCellDelegateProtocol.swift */,
 			);
 			path = Protocol;
@@ -525,6 +528,7 @@
 				EB2E6E16205EEE6F00588315 /* MTArtistCell.swift in Sources */,
 				EB2E6DE8205EECB700588315 /* ArtistViewController.swift in Sources */,
 				EBBD6E0920E531E20037CD2B /* MTCellLondon.swift in Sources */,
+				EB0098542440ED6500CE9C1C /* SongsRetrieverProtocol.swift in Sources */,
 				EB339E2120607FBE00D7092A /* PlayViewController.swift in Sources */,
 				EB68FBF02065930A00A2CB7E /* MTPlaylistData.swift in Sources */,
 				EB88DCD920E29CD100B2E878 /* MTCellParis.swift in Sources */,

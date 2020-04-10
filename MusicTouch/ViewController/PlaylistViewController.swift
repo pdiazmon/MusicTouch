@@ -102,7 +102,7 @@ extension PlaylistViewController: UITableViewDelegate {
         
         // Get the SongViewController, make it to reload its table and activate it
         if let vc = tabBarController?.customizableViewControllers?[TabBarItem.song.rawValue] as? SongViewController {
-            vc.setSongList(item.songs)
+			vc.configure(songs: item.songs, songsRetriever: item)
             tabBarController?.selectedIndex = TabBarItem.song.rawValue
         }
     }

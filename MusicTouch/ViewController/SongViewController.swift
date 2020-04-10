@@ -9,6 +9,7 @@
 import UIKit
 import MediaPlayer
 import NVActivityIndicatorView
+import UIFontComplete
 
 
 class SongViewController: UIViewController {
@@ -21,6 +22,9 @@ class SongViewController: UIViewController {
     private var songList: [MTSongData] = []
 
     override var prefersStatusBarHidden: Bool { return true }
+	
+	private var vSpinner : UIView?
+	private var songsRetriever: SongsRetrieverProtocol?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,8 +63,8 @@ class SongViewController: UIViewController {
     /// - Parameter index: (Optional) Index of the song to be played in the TableView
     private func startToPlay(shuffle: Bool,  index: Int = -1) {
         
-        // Set the player collection from the datastore songlist
-        app.appPlayer.setCollection(MPMediaItemCollection(items: self.songList.compactMap { $0.mediaItem }))
+		// Use the songsRetriever object to read the songs from the Media Library.
+		app.appPlayer.setCollection(self.songsRetriever!.songsCollection())
         
         if (shuffle) {
             app.appPlayer.shuffleModeOn()
@@ -73,7 +77,7 @@ class SongViewController: UIViewController {
         if (index >= 0) {
             app.appPlayer.setSong(self.songList[index].mediaItem)
         }
-        
+		        
         // Start playing the first song and, also, transition to the Play view
         if let vc = tabBarController?.customizableViewControllers?[TabBarItem.play.rawValue] as? PlayViewController {
             vc.playSong()
@@ -130,7 +134,14 @@ extension SongViewController: UITableViewDelegate {
     ///   - tableView: The TableView itself
     ///   - indexPath: Selected cell index
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        startToPlay(shuffle: false, index: indexPath.row)
+		
+		if (self.songList.count > 500) { self.showSpinner(onView: tableView) }
+		
+		DispatchQueue.main.asyncAfter(deadline: .now()+0.01) {
+			self.startToPlay(shuffle: false, index: indexPath.row)
+			
+			if (self.isSpinnerAnimating()) { self.removeSpinner() }
+		}
     }
 }
 
@@ -158,9 +169,12 @@ extension SongViewController {
     /// Set the song list to be displayed in the view
     ///
     /// - Parameter songs: List of songs
-    func setSongList(_ songs: [MTSongData]) {
+	/// - Parameter mpMediaItemRetriever: Injected object to retrieve from Media Library the MPMediaItem list of songs
+	func configure(songs: [MTSongData], songsRetriever: SongsRetrieverProtocol) {
         self.songList = songs
         self.reload()
+		
+		self.songsRetriever = songsRetriever
     }
     
     /// The ViewController has just appeared on screen. Load its data.
@@ -171,7 +185,7 @@ extension SongViewController {
         super.viewDidAppear(animated)
         
         if (self.app.dataStore.isDataLoaded() && self.songList.count == 0) {
-            self.setSongList(self.app.dataStore.songList())
+			self.configure(songs: self.app.dataStore.songList(), songsRetriever: self)
         }
         else if (!self.app.dataStore.isDataLoaded()) {
 
@@ -185,7 +199,7 @@ extension SongViewController {
             DispatchQueue.main.async {
                 
                 if (self.songList.count == 0) {
-                    self.setSongList(self.app.dataStore.songList())
+					self.configure(songs: self.app.dataStore.songList(), songsRetriever: self)
                 }
                 
                 // stop the animation
@@ -198,4 +212,32 @@ extension SongViewController {
     
 }
 
+extension SongViewController {
+    func showSpinner(onView : UIView) {
+		let size = CGSize(width: 30, height: 30)
 
+		let activityData = ActivityData(size: size,
+										message: "Loading ...",
+										messageFont: UIFont(font: Font.helveticaLight, size: 15),
+										type: .circleStrokeSpin)
+
+		NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
+    }
+    
+    func removeSpinner() {
+        DispatchQueue.main.async {
+			NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
+        }
+    }
+	
+	func isSpinnerAnimating() -> Bool {
+		return NVActivityIndicatorPresenter.sharedInstance.isAnimating
+	}
+}
+
+extension SongViewController: SongsRetrieverProtocol {
+	func songsCollection() -> MPMediaItemCollection {
+		// By default, retrieves the list of all existing songs in the Media Library
+		return MPMediaItemCollection(items: PDMMediaLibrary.getSongsList())
+	}
+}

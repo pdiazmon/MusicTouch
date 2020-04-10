@@ -15,5 +15,4 @@ protocol MTDataProtocol {
     func image() -> UIImage?
     
     func describe(offset: Int)
-    func songsCollection() -> MPMediaItemCollection
 }

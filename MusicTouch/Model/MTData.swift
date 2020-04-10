@@ -10,7 +10,7 @@ import Foundation
 import MediaPlayer
 import UIKit
 
-typealias MTData = MTDataRoot & MTDataProtocol
+typealias MTData = MTDataRoot & MTDataProtocol & SongsRetrieverProtocol
 
 class MTDataRoot {
     public var playTime: (hours: Int, minutes: Int, seconds: Int) { get { return (0,0,0) } }
