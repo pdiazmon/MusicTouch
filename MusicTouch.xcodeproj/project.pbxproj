@@ -207,8 +207,6 @@
 				EBC7D15720FA09AF00C5BCE0 /* Factory */,
 				EB34A34A20C058880055A7AC /* UI */,
 				EBD391E4207E72C500E2E47A /* Extension */,
-				EB2E6E26205EFCD800588315 /* Cell */,
-				EB2E6E25205EFCC900588315 /* ViewController */,
 				EB2E6E1E205EFCAB00588315 /* DataStore */,
 				EB2E6E17205EFC5200588315 /* Model */,
 				EB87367920CEEB8F00CF643F /* Protocol */,
@@ -301,6 +299,8 @@
 			children = (
 				EB34A34B20C058AF0055A7AC /* VolumeView.swift */,
 				EBF67542210102CB00B35ED7 /* MTAudioEqualizer.swift */,
+				EB2E6E25205EFCC900588315 /* ViewController */,
+				EB2E6E26205EFCD800588315 /* Cell */,
 			);
 			path = UI;
 			sourceTree = "<group>";
