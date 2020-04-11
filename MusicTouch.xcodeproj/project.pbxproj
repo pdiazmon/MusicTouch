@@ -95,7 +95,6 @@
 		EB0098532440ED6500CE9C1C /* SongsRetrieverProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongsRetrieverProtocol.swift; sourceTree = "<group>"; };
 		EB072E4E205F23490040EA23 /* MTAlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTAlbumCell.swift; sourceTree = "<group>"; };
 		EB101CAE20606854007AFAE7 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; wrapsLines = 0; };
-		EB123763243B47A5006FA209 /* MusicTouch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MusicTouch.entitlements; sourceTree = "<group>"; };
 		EB2E6DE2205EECB700588315 /* MusicTouch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicTouch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB2E6DE5205EECB700588315 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EB2E6DE7205EECB700588315 /* ArtistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistViewController.swift; sourceTree = "<group>"; wrapsLines = 0; };
@@ -202,7 +201,6 @@
 		EB2E6DE4205EECB700588315 /* MusicTouch */ = {
 			isa = PBXGroup;
 			children = (
-				EB123763243B47A5006FA209 /* MusicTouch.entitlements */,
 				EB2E6DE5205EECB700588315 /* AppDelegate.swift */,
 				EB339E1E2060716A00D7092A /* Constant.swift */,
 				EB8EB2AB243E39850086781D /* MediaLibrary */,
