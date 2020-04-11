@@ -66,16 +66,6 @@ extension DataStore {
 				let persistentID = PDMMediaLibrary.getPlaylistItem(byPlaylistName: name)?.persistentID
                 
 				let playlist = MTPlaylistData(persistentID: persistentID, name: name)
-
-                playlist.songs = PDMMediaLibrary.getSongsList(byPlaylist: name).map {
-                    MTSongData(mediaItem: $0)
-                }.sorted {
-                    if $0.albumTitle() == $1.albumTitle() {
-                        return $0.albumTrackNumber() < $1.albumTrackNumber()
-                    } else {
-                        return $0.albumTitle() < $1.albumTitle()
-                    }
-                }
                 
                 return playlist
             }

@@ -13,8 +13,10 @@ import UIKit
 class MTPlaylistData: MTData {
     
     var name: String = ""
-    var numberOfSongs: Int { get { return songs.count } }
+	var numberOfSongs: Int { get { return PDMMediaLibrary.getSongsList(byPlaylist: name).count } }
     var songs: [MTSongData] = []
+	
+	private let playlistQueue = DispatchQueue(label: "playlist")
 	
     override public var playTime: (hours: Int, minutes: Int, seconds: Int) { get {
         var secs: Int = 0
@@ -30,6 +32,15 @@ class MTPlaylistData: MTData {
         self.name          = name
         self.songs         = []
 		self.persistentID  = persistentID ?? 0
+		
+		playlistQueue.async {
+			self.songs = PDMMediaLibrary.getSongsList(byPlaylist: name).map {
+				MTSongData(mediaItem: $0)
+			}.sorted {
+				if ($0.albumTitle() == $1.albumTitle()) { return $0.albumTrackNumber() < $1.albumTrackNumber() }
+				else { return $0.albumTitle() < $1.albumTitle() }
+			}
+		}
     }
     
     func title() -> String {
