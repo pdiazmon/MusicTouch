@@ -23,7 +23,6 @@ class SongViewController: UIViewController {
 
     override var prefersStatusBarHidden: Bool { return true }
 	
-	private var vSpinner : UIView?
 	private var songsRetriever: SongsRetrieverProtocol?
 
     override func viewDidLoad() {
@@ -62,7 +61,22 @@ class SongViewController: UIViewController {
     /// - Parameter shuffle: start playing in shuffle mode (true) or in queue mode (false)
     /// - Parameter index: (Optional) Index of the song to be played in the TableView
     private func startToPlay(shuffle: Bool,  index: Int = -1) {
-        
+		
+		var preparingPlay: Bool = false
+		let preparingPlaySemaphore = DispatchSemaphore(value: 1)
+		
+		DispatchQueue.main.asyncAfter(deadline: .now()+0.005) {
+			if (preparingPlay) {
+				self.showSpinner(onView: self.songsTableView)
+				preparingPlaySemaphore.wait()
+				self.removeSpinner()
+				preparingPlaySemaphore.signal()
+			}
+		}
+
+		preparingPlaySemaphore.wait()
+		preparingPlay = true
+
 		// Use the songsRetriever object to read the songs from the Media Library.
 		app.appPlayer.setCollection(self.songsRetriever!.songsCollection())
         
@@ -84,6 +98,10 @@ class SongViewController: UIViewController {
             tabBarController?.tabBar.items![TabBarItem.play.rawValue].isEnabled = true
             tabBarController?.selectedIndex                                     = TabBarItem.play.rawValue
         }
+		
+		preparingPlay = false
+		preparingPlaySemaphore.signal()
+
     }
 }
 
@@ -134,14 +152,7 @@ extension SongViewController: UITableViewDelegate {
     ///   - tableView: The TableView itself
     ///   - indexPath: Selected cell index
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-		
-		if (self.songList.count > 500) { self.showSpinner(onView: tableView) }
-		
-		DispatchQueue.main.asyncAfter(deadline: .now()+0.01) {
-			self.startToPlay(shuffle: false, index: indexPath.row)
-			
-			if (self.isSpinnerAnimating()) { self.removeSpinner() }
-		}
+		self.startToPlay(shuffle: false, index: indexPath.row)
     }
 }
 
