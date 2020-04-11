@@ -16,6 +16,6 @@ jobs:
     - name: Clean
       run: xcodebuild clean 
     - name: Build
-      run: xcodebuild build -project MusicTouch.xcodeproj -scheme MusicTouch
+      run: xcodebuild build -project MusicTouch.xcodeproj -scheme MusicTouch -allowProvisioningUpdates
     - name: Run tests
       run: xcodebuild test -project MusicTouch.xcodeproj -scheme MusicTouch -destination "platform=iOS Simulator,name=iPhone 11 Pro"
