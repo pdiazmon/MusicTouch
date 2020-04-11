@@ -27,19 +27,19 @@ class MTArtistData: MTData {
         return fromSeconds(seconds: secs)
     } }
     
-	init(persistentID: MPMediaEntityPersistentID, name: String) {
-		super.init()
+	init(persistentID: MPMediaEntityPersistentID, name: String, mediaLibrary: MediaLibraryProtocol) {
+		super.init(persistentID: persistentID, mediaLibrary: mediaLibrary)
 		
         self.name           = name
         self.albums         = []
-		self.persistentID   = persistentID
 		
 		artistQueue.async {
-			self.albums = PDMMediaLibrary.getAlbumsList(byArtistPersistentID: self.persistentID)
+			self.albums = mediaLibrary.getAlbumsList(byArtistPersistentID: self.persistentID)
 				          .map { MTAlbumData(persistentID: $0.albumPersistentID,
 								   artistName: name,
 								   albumTitle: $0.albumTitle ?? "",
-								   year: ($0.releaseDate != nil) ? Calendar.current.component(.year, from: $0.releaseDate!) : ALBUMYEAR_DEFAULT)
+								   year: ($0.releaseDate != nil) ? Calendar.current.component(.year, from: $0.releaseDate!) : ALBUMYEAR_DEFAULT,
+								   mediaLibrary: mediaLibrary)
 						  }
 				          .sorted {
 								if ($0.year == $1.year) { return $0.albumTitle < $1.albumTitle }
@@ -53,7 +53,7 @@ class MTArtistData: MTData {
     }
     
     func image() -> UIImage? {
-		return PDMMediaLibrary.getArtistArtworkImage(byArtistPersistentID: self.persistentID)
+		return mediaLibrary.getArtistArtworkImage(byArtistPersistentID: self.persistentID)
     }
     
     func describe(offset: Int) {
@@ -64,7 +64,7 @@ class MTArtistData: MTData {
     }
     
     func songsCollection() -> MPMediaItemCollection {
-		return MPMediaItemCollection(items: PDMMediaLibrary.getSongsList(byArtistPersistentID: self.persistentID))
+		return MPMediaItemCollection(items: mediaLibrary.getSongsList(byArtistPersistentID: self.persistentID))
     }
     
 }

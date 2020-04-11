@@ -249,6 +249,6 @@ extension SongViewController {
 extension SongViewController: SongsRetrieverProtocol {
 	func songsCollection() -> MPMediaItemCollection {
 		// By default, retrieves the list of all existing songs in the Media Library
-		return MPMediaItemCollection(items: PDMMediaLibrary.getSongsList())
+		return MPMediaItemCollection(items: app.dataStore.getSongsList())
 	}
 }

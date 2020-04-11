@@ -58,7 +58,7 @@ class AlbumViewController: UIViewController {
     private func startToPlay(shuffle: Bool) {
         
         // Set the player collection from the songlist
-		app.appPlayer.setCollection(MPMediaItemCollection(items: PDMMediaLibrary.getSongsList()))
+		app.appPlayer.setCollection(MPMediaItemCollection(items: app.dataStore.getSongsList()))
         
         if (shuffle) {
             app.appPlayer.shuffleModeOn()

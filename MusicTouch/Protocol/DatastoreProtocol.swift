@@ -7,25 +7,11 @@
 //
 
 import Foundation
-import MediaPlayer
+// import MediaPlayer
 
-protocol DataStoreProtocol {
-    
-//    func refreshArtistList()
-    
-//    func refreshPlaylistList()
-    
-//    func refreshAlbumList(byArtist: String)
-    
-//    func refreshSongList(byArtist: String, byAlbum: String)
-    
-//    func refreshSongList(byPlaylist: String)
-    
-//    func refreshSongListFromAlbumList()
+protocol DataStoreProtocol: MediaLibraryProtocol {
     
     func songList() -> [MTSongData]
-    
-//    func songCollection() -> MPMediaItemCollection
     
     func albumList() -> [MTAlbumData]
     

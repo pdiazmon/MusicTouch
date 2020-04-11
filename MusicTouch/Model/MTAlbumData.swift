@@ -30,19 +30,18 @@ class MTAlbumData: MTData {
         return fromSeconds(seconds: secs)
     } }
     
-	init(persistentID: MPMediaEntityPersistentID, artistName: String, albumTitle: String, year: Int = ALBUMYEAR_DEFAULT) {
-		super.init()
+	init(persistentID: MPMediaEntityPersistentID, artistName: String, albumTitle: String, year: Int = ALBUMYEAR_DEFAULT, mediaLibrary: MediaLibraryProtocol) {
+		super.init(persistentID: persistentID, mediaLibrary: mediaLibrary)
 		
         self.artistName    = artistName
         self.albumTitle    = albumTitle
         self.year          = year
         self.songs         = []
-		self.persistentID  = persistentID
 		
 		albumQueue.async {
-			self.songs = PDMMediaLibrary.getSongsList(byAlbumPersistentID: self.persistentID)
+			self.songs = mediaLibrary.getSongsList(byAlbumPersistentID: self.persistentID)
 						 .sorted { $0.albumTrackNumber < $1.albumTrackNumber }
-				         .map { MTSongData(mediaItem: $0) }
+					     .map { MTSongData(mediaItem: $0, mediaLibrary: self.mediaLibrary) }
 		}
     }
     
@@ -51,7 +50,7 @@ class MTAlbumData: MTData {
     }
     
     func image() -> UIImage? {
-		return PDMMediaLibrary.getAlbumArtworkImage(byAlbumPersistentID: self.persistentID)
+		return mediaLibrary.getAlbumArtworkImage(byAlbumPersistentID: self.persistentID)
     }
     
     func describe(offset: Int) {
@@ -62,7 +61,7 @@ class MTAlbumData: MTData {
     }
     
     func songsCollection() -> MPMediaItemCollection {
-		return MPMediaItemCollection(items: PDMMediaLibrary.getSongsList(byAlbumPersistentID: self.persistentID))
+		return MPMediaItemCollection(items: mediaLibrary.getSongsList(byAlbumPersistentID: self.persistentID))
     }
 }
 

@@ -9,12 +9,12 @@
 import Foundation
 import MediaPlayer
 
-public class PDMMediaLibrary {
+public class PDMMediaLibrary: MediaLibraryProtocol {
     
     public init() {}
     
     /// As every query to the Media Library must previously check the application authorization, it should be performed within this function to avoid repeating code
-    class private func perform(_ block: @escaping () -> Void) {
+    private func perform(_ block: @escaping () -> Void) {
         
         switch (MPMediaLibrary.authorizationStatus()) {
             
@@ -38,7 +38,7 @@ public class PDMMediaLibrary {
     
     /// Returns all the album artists in the Media Library
     /// - Returns: A MPMediaItem array with all the album artists in the Media Library. Every MPMediaItem in the array is the album artist representative item.
-    class public func getAlbumArtistList() -> [MPMediaItem] {
+    public func getAlbumArtistList() -> [MPMediaItem] {
         var list: [MPMediaItem] = []
         
         perform() {
@@ -64,7 +64,7 @@ public class PDMMediaLibrary {
     /// - Parameters:
     ///   - byArtistPersistentID: Artist persistent ID
     /// - Returns: A MPMediaItem array with all the albums for a given album artist
-	class public func getAlbumsList(byArtistPersistentID: MPMediaEntityPersistentID) -> [MPMediaItem] {
+	public func getAlbumsList(byArtistPersistentID: MPMediaEntityPersistentID) -> [MPMediaItem] {
         var list: [MPMediaItem] = []
         
         perform() {
@@ -95,7 +95,7 @@ public class PDMMediaLibrary {
     /// - Parameters:
     ///   - seconds: Playlist in seconds
     /// - Returns: Playtime in hours, minutes and seconds
-    class private func playTimeFrom(seconds: Int) -> (hours: Int, minutes: Int, senconds: Int) {
+    private func playTimeFrom(seconds: Int) -> (hours: Int, minutes: Int, senconds: Int) {
         let _hour = Int(seconds / 3600)
         let rem = seconds % 3600
         let _min = Int(rem / 60)
@@ -108,7 +108,7 @@ public class PDMMediaLibrary {
     /// - Parameters:
     ///   - byPlaylist: Playlist name
     /// - Returns: A MPMediaItem array with all the songs in the given playlist
-    class public func getSongsList(byPlaylist: String) -> [MPMediaItem] {
+    public func getSongsList(byPlaylist: String) -> [MPMediaItem] {
         
 		// Set the filter for the playlist name
 		let playlistFilter = MPMediaPropertyPredicate(value: byPlaylist, forProperty: MPMediaPlaylistPropertyName)
@@ -120,28 +120,28 @@ public class PDMMediaLibrary {
 		return getSongList(byFilterSet: myFilterSet)
     }
     
-	class public func getSongsList(byAlbumPersistentID: MPMediaEntityPersistentID) -> [MPMediaItem] {
+	public func getSongsList(byAlbumPersistentID: MPMediaEntityPersistentID) -> [MPMediaItem] {
 		// Set the filter
 		let albumFilter = MPMediaPropertyPredicate(value: byAlbumPersistentID, forProperty: MPMediaItemPropertyAlbumPersistentID, comparisonType: .equalTo)
 
 		return getSongList(byFilter: albumFilter)
 	}
 
-	class public func getSongsList(byArtistPersistentID: MPMediaEntityPersistentID) -> [MPMediaItem] {
+	public func getSongsList(byArtistPersistentID: MPMediaEntityPersistentID) -> [MPMediaItem] {
 		// Set the filter
 		let artistFilter = MPMediaPropertyPredicate(value: byArtistPersistentID, forProperty: MPMediaItemPropertyAlbumArtistPersistentID, comparisonType: .equalTo)
 
 		return getSongList(byFilter: artistFilter)
 	}
 	
-	class private func getSongList(byFilter: MPMediaPropertyPredicate) -> [MPMediaItem] {
+	private func getSongList(byFilter: MPMediaPropertyPredicate) -> [MPMediaItem] {
 		// Set the filter
 		let myFilterSet: Set<MPMediaPropertyPredicate> = [byFilter]
 		
 		return getSongList(byFilterSet: myFilterSet)
 	}
 
-	class private func getSongList(byFilterSet: Set<MPMediaPropertyPredicate>) -> [MPMediaItem] {
+	private func getSongList(byFilterSet: Set<MPMediaPropertyPredicate>) -> [MPMediaItem] {
 		var query: MPMediaQuery?
         
         perform() {
@@ -165,7 +165,7 @@ public class PDMMediaLibrary {
 	
     /// Returns all the songs in the Media Library
     /// - Returns: A MPMediaItem array with all the songs
-    class public func getSongsList() -> [MPMediaItem] {
+    public func getSongsList() -> [MPMediaItem] {
 		let songFilter = MPMediaPropertyPredicate(value: MPMediaType.music.rawValue,
 		                                          forProperty: MPMediaItemPropertyMediaType,
 		                                          comparisonType: MPMediaPredicateComparison.equalTo)
@@ -174,7 +174,7 @@ public class PDMMediaLibrary {
 	
     /// Returns all the created playlist in the Media Library
     /// - Returns: A MPMediaCollection array with all the playlists
-    class public func getPlaylistList() -> [MPMediaItemCollection] {
+    public func getPlaylistList() -> [MPMediaItemCollection] {
         
         var list: [MPMediaItemCollection] = []
 
@@ -193,7 +193,7 @@ public class PDMMediaLibrary {
 
     /// Returns an specific playlist's item
     /// - Returns: A MPMediaItem with the playlist
-	class public func getPlaylistItem(byPlaylistName: String?) -> MPMediaItem? {
+	public func getPlaylistItem(byPlaylistName: String?) -> MPMediaItem? {
 		
 		guard let playlistName = byPlaylistName else { return nil }
         
@@ -204,9 +204,11 @@ public class PDMMediaLibrary {
 
 		let myFilterSet: Set<MPMediaPropertyPredicate> = [playlistFilter]
 	
-		// Perform the query
-		query = MPMediaQuery(filterPredicates: myFilterSet)
-
+		perform() {
+			// Perform the query
+			query = MPMediaQuery(filterPredicates: myFilterSet)
+		}
+			
 		if let resultQ = query, let resultI = resultQ.items {
 			return resultI.first
         }
@@ -215,7 +217,7 @@ public class PDMMediaLibrary {
         }
     }
 
-	class public func getPlaylistItem(byPlaylistPersistentID: MPMediaEntityPersistentID) -> MPMediaItem? {
+	public func getPlaylistItem(byPlaylistPersistentID: MPMediaEntityPersistentID) -> MPMediaItem? {
 		let filter = MPMediaPropertyPredicate(value: byPlaylistPersistentID, forProperty: MPMediaItemPropertyPersistentID, comparisonType: MPMediaPredicateComparison.equalTo)
 
 		return getMediaItem(byFilter: filter)
@@ -223,7 +225,7 @@ public class PDMMediaLibrary {
 
     /// Returns an specific artist's item
     /// - Returns: A MPMediaItem with the artist
-	class public func getArtistItem(byArtistPersistentID: MPMediaEntityPersistentID) -> MPMediaItem? {
+	public func getArtistItem(byArtistPersistentID: MPMediaEntityPersistentID) -> MPMediaItem? {
 		let filter = MPMediaPropertyPredicate(value: byArtistPersistentID, forProperty: MPMediaItemPropertyAlbumArtistPersistentID, comparisonType: MPMediaPredicateComparison.equalTo)
 
 		return getMediaItem(byFilter: filter)
@@ -231,7 +233,7 @@ public class PDMMediaLibrary {
 
     /// Returns an specific album's item
     /// - Returns: A MPMediaItem with the album
-	class public func getAlbumItem(byAlbumPersistentID: MPMediaEntityPersistentID) -> MPMediaItem? {
+	public func getAlbumItem(byAlbumPersistentID: MPMediaEntityPersistentID) -> MPMediaItem? {
 		let filter = MPMediaPropertyPredicate(value: byAlbumPersistentID, forProperty: MPMediaItemPropertyAlbumPersistentID, comparisonType: MPMediaPredicateComparison.equalTo)
 
 		return getMediaItem(byFilter: filter)
@@ -239,7 +241,7 @@ public class PDMMediaLibrary {
 
     /// Returns an specific song's item
     /// - Returns: A MPMediaItem with the song
-	class public func getSongItem(byPersistentID: MPMediaEntityPersistentID) -> MPMediaItem? {
+	public func getSongItem(byPersistentID: MPMediaEntityPersistentID) -> MPMediaItem? {
 		let filter = MPMediaPropertyPredicate(value: byPersistentID, forProperty: MPMediaItemPropertyPersistentID, comparisonType: MPMediaPredicateComparison.equalTo)
 
 		return getMediaItem(byFilter: filter)
@@ -247,15 +249,17 @@ public class PDMMediaLibrary {
 	
     /// Returns an specific media item
     /// - Returns: A MPMediaItem
-	class public func getMediaItem(byFilter: MPMediaPropertyPredicate) -> MPMediaItem? {
+	public func getMediaItem(byFilter: MPMediaPropertyPredicate) -> MPMediaItem? {
 		
 		var query: MPMediaQuery?
 		
 		let myFilterSet: Set<MPMediaPropertyPredicate> = [byFilter]
 	
-		// Perform the query
-		query = MPMediaQuery(filterPredicates: myFilterSet)
-
+		perform() {
+			// Perform the query
+			query = MPMediaQuery(filterPredicates: myFilterSet)
+		}
+		
 		if let resultQ = query, let resultI = resultQ.items {
 			return resultI.first
         }
@@ -266,7 +270,7 @@ public class PDMMediaLibrary {
 
     /// Returns an specific playlist's artwork
     /// - Returns: The playlist's MPMediaItemArtwork Image
-	class public func getPlaylistArtworkImage(byPersistentID: MPMediaEntityPersistentID) -> UIImage? {
+	public func getPlaylistArtworkImage(byPersistentID: MPMediaEntityPersistentID) -> UIImage? {
 		
 		guard let item = getPlaylistItem(byPlaylistPersistentID: byPersistentID) else { return nil }
 		
@@ -275,7 +279,7 @@ public class PDMMediaLibrary {
 
     /// Returns an specific artist's artwork
     /// - Returns: The artist's MPMediaItemArtwork Image
-	class public func getArtistArtworkImage(byArtistPersistentID: MPMediaEntityPersistentID) -> UIImage? {
+	public func getArtistArtworkImage(byArtistPersistentID: MPMediaEntityPersistentID) -> UIImage? {
 		
 		guard let item = getArtistItem(byArtistPersistentID: byArtistPersistentID) else { return nil }
 		
@@ -284,7 +288,7 @@ public class PDMMediaLibrary {
 
     /// Returns an specific album's artwork
     /// - Returns: The album's MPMediaItemArtwork Image
-	class public func getAlbumArtworkImage(byAlbumPersistentID: MPMediaEntityPersistentID) -> UIImage? {
+	public func getAlbumArtworkImage(byAlbumPersistentID: MPMediaEntityPersistentID) -> UIImage? {
 		
 		guard let item = getAlbumItem(byAlbumPersistentID: byAlbumPersistentID) else { return nil }
 		
@@ -293,7 +297,7 @@ public class PDMMediaLibrary {
 
     /// Returns an specific song's artwork
     /// - Returns: The song's MPMediaItemArtwork Image
-	class public func getSongArtworkImage(byPersistentID: MPMediaEntityPersistentID) -> UIImage? {
+	public func getSongArtworkImage(byPersistentID: MPMediaEntityPersistentID) -> UIImage? {
 		
 		guard let item = getSongItem(byPersistentID: byPersistentID) else { return nil }
 		

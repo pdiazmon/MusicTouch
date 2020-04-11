@@ -16,8 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Following app attributes are shared within the app
     var appPlayer            = PDMPlayer()
     var appStatus: AppStatus = .foreground
+	let mediaLibrary: MediaLibraryProtocol = PDMMediaLibrary()
 
-    lazy var dataStore: DataStoreProtocol = DataStore()
+	lazy var dataStore: DataStoreProtocol = DataStore(mediaLibrary: self.mediaLibrary)
 
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -36,12 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         else {
             MTCellFactory.shared.style = .paris
         }
-        
-        if CommandLine.arguments.contains("-test") {
-            dataStore = DataStoreMock()
-            (dataStore as! DataStoreMock).defaultInitialize()
-        }
-        
+
         return true
     }
 

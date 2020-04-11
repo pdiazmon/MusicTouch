@@ -62,9 +62,9 @@
             filePath = "MusicTouch/Model/MTPlaylistData.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "38"
-            endingLineNumber = "38"
-            landmarkName = "init(persistentID:name:)"
+            startingLineNumber = "37"
+            endingLineNumber = "37"
+            landmarkName = "init(persistentID:name:mediaLibrary:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -43,6 +43,7 @@
 		EB88740420ADE8A50075D9A4 /* volume.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = EB8873FF20ADE8A50075D9A4 /* volume.jpeg */; };
 		EB88DCD920E29CD100B2E878 /* MTCellParis.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB88DCD820E29CD100B2E878 /* MTCellParis.swift */; };
 		EB88DCDB20E29F4700B2E878 /* MTCellFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB88DCDA20E29F4700B2E878 /* MTCellFactory.swift */; };
+		EB8AAC6224421B2400D20974 /* MediaLibraryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8AAC6124421B2400D20974 /* MediaLibraryProtocol.swift */; };
 		EB8EB2AD243E39D40086781D /* PDMMediaLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8EB2AC243E39D40086781D /* PDMMediaLibrary.swift */; };
 		EB9251B820B48D9600839E9B /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9251B720B48D9600839E9B /* UIImageView.swift */; };
 		EB9A1AAB243FA33400B53E43 /* UIFontComplete in Frameworks */ = {isa = PBXBuildFile; productRef = EB9A1AAA243FA33400B53E43 /* UIFontComplete */; };
@@ -133,6 +134,7 @@
 		EB8873FF20ADE8A50075D9A4 /* volume.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = volume.jpeg; sourceTree = "<group>"; };
 		EB88DCD820E29CD100B2E878 /* MTCellParis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTCellParis.swift; sourceTree = "<group>"; };
 		EB88DCDA20E29F4700B2E878 /* MTCellFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTCellFactory.swift; sourceTree = "<group>"; };
+		EB8AAC6124421B2400D20974 /* MediaLibraryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaLibraryProtocol.swift; sourceTree = "<group>"; };
 		EB8EB2AC243E39D40086781D /* PDMMediaLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDMMediaLibrary.swift; sourceTree = "<group>"; };
 		EB9251B720B48D9600839E9B /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		EBAB5DD4205F2A7D00FD3FF8 /* SongViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongViewController.swift; sourceTree = "<group>"; wrapsLines = 0; };
@@ -308,6 +310,7 @@
 		EB87367920CEEB8F00CF643F /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
+				EB8AAC6124421B2400D20974 /* MediaLibraryProtocol.swift */,
 				EB87367C20CEEBBC00CF643F /* DatastoreProtocol.swift */,
 				EB7752F620DABFF8009060B6 /* MTDataProtocol.swift */,
 				EB0098532440ED6500CE9C1C /* SongsRetrieverProtocol.swift */,
@@ -536,6 +539,7 @@
 				EB7752F720DABFF8009060B6 /* MTDataProtocol.swift in Sources */,
 				EB101CAF20606854007AFAE7 /* TabBarController.swift in Sources */,
 				EB8EB2AD243E39D40086781D /* PDMMediaLibrary.swift in Sources */,
+				EB8AAC6224421B2400D20974 /* MediaLibraryProtocol.swift in Sources */,
 				EB9251B820B48D9600839E9B /* UIImageView.swift in Sources */,
 				EB7752F520DAA504009060B6 /* MTCell.swift in Sources */,
 				EBD391E6207E72E400E2E47A /* UIImage.swift in Sources */,

@@ -13,7 +13,7 @@ import UIKit
 class MTPlaylistData: MTData {
     
     var name: String = ""
-	var numberOfSongs: Int { get { return PDMMediaLibrary.getSongsList(byPlaylist: name).count } }
+	var numberOfSongs: Int { get { return mediaLibrary.getSongsList(byPlaylist: name).count } }
     var songs: [MTSongData] = []
 	
 	private let playlistQueue = DispatchQueue(label: "playlist")
@@ -26,16 +26,15 @@ class MTPlaylistData: MTData {
         return fromSeconds(seconds: secs)
     } }
     
-	init(persistentID: MPMediaEntityPersistentID?, name: String) {
-		super.init()
+	init(persistentID: MPMediaEntityPersistentID?, name: String, mediaLibrary: MediaLibraryProtocol) {
+		super.init(persistentID: persistentID ?? 0, mediaLibrary: mediaLibrary)
 		
         self.name          = name
         self.songs         = []
-		self.persistentID  = persistentID ?? 0
 		
 		playlistQueue.async {
-			self.songs = PDMMediaLibrary.getSongsList(byPlaylist: name).map {
-				MTSongData(mediaItem: $0)
+			self.songs = mediaLibrary.getSongsList(byPlaylist: name).map {
+				MTSongData(mediaItem: $0, mediaLibrary: mediaLibrary)
 			}.sorted {
 				if ($0.albumTitle() == $1.albumTitle()) { return $0.albumTrackNumber() < $1.albumTrackNumber() }
 				else { return $0.albumTitle() < $1.albumTitle() }
@@ -48,7 +47,7 @@ class MTPlaylistData: MTData {
     }
     
     func image() -> UIImage? {
-		return PDMMediaLibrary.getPlaylistArtworkImage(byPersistentID: self.persistentID)
+		return mediaLibrary.getPlaylistArtworkImage(byPersistentID: self.persistentID)
     }
     
     func describe(offset: Int) {
@@ -59,7 +58,7 @@ class MTPlaylistData: MTData {
     }
 
     func songsCollection() -> MPMediaItemCollection {
-		return MPMediaItemCollection(items: PDMMediaLibrary.getSongsList(byPlaylist: self.name))
+		return MPMediaItemCollection(items: mediaLibrary.getSongsList(byPlaylist: self.name))
     }
 
 }

@@ -19,7 +19,7 @@ class MTSongData: MTData {
 	
     var mediaItem: MPMediaItem? {
 		get {
-			return PDMMediaLibrary.getSongItem(byPersistentID: self.persistentID)
+			return mediaLibrary.getSongItem(byPersistentID: self.persistentID)
 		}
 	}
 
@@ -27,15 +27,14 @@ class MTSongData: MTData {
 		return fromSeconds(seconds: Int(self._playbackDuration!) )
     } }
     
-    init(mediaItem: MPMediaItem) {
-		super.init()
+	init(mediaItem: MPMediaItem, mediaLibrary: MediaLibraryProtocol) {
+		super.init(persistentID: mediaItem.persistentID, mediaLibrary: mediaLibrary)
 		
 		self._albumArtist       = mediaItem.albumArtist
 		self._albumTitle        = mediaItem.albumTitle
 		self._songTitle         = mediaItem.title
 		self._albumTrackNumber  = mediaItem.albumTrackNumber
 		self._playbackDuration  = mediaItem.playbackDuration
-		self.persistentID       = mediaItem.persistentID
     }
     
     func title() -> String {
@@ -59,7 +58,7 @@ class MTSongData: MTData {
 	}
 	
     func image() -> UIImage? {
-		return PDMMediaLibrary.getSongArtworkImage(byPersistentID: self.persistentID)
+		return mediaLibrary.getSongArtworkImage(byPersistentID: self.persistentID)
     }
 
     func describe(offset: Int) {

@@ -118,19 +118,19 @@ class DataStoreMock: DataStoreProtocol {
 
 extension DataStoreMock {
 	func newPlaylist(persistentID: MPMediaEntityPersistentID, playlist: String) {
-		_mediaDB._playlistList.append(MTPlaylistData(persistentID: persistentID, name: playlist))
+		_mediaDB._playlistList.append(MTPlaylistData(persistentID: persistentID, name: playlist, mediaLibrary: self))
     }
     
 	func newArtist(persistentID: MPMediaEntityPersistentID, artistPermanentID: MPMediaEntityPersistentID, artist: String) {
-		_mediaDB._artistList.append(MTArtistData(persistentID: persistentID, name: artist))
+		_mediaDB._artistList.append(MTArtistData(persistentID: persistentID, name: artist, mediaLibrary: self))
     }
     
 	func newAlbum(persistentID: MPMediaEntityPersistentID, albumPersistentID: MPMediaEntityPersistentID, artist: String, album: String) {
-		_mediaDB._albumList.append(MTAlbumData(persistentID: persistentID, artistName: artist, albumTitle: album, year: 2018))
+		_mediaDB._albumList.append(MTAlbumData(persistentID: persistentID, artistName: artist, albumTitle: album, year: 2018, mediaLibrary: self))
     }
     
     func newSong(artist: String, album: String, title: String) {
-        _mediaDB._songList = _mediaDB._songList + [MTSongData(mediaItem: MPMediaItemMock(artist: artist, album: album, title: title))]
+		_mediaDB._songList = _mediaDB._songList + [MTSongData(mediaItem: MPMediaItemMock(artist: artist, album: album, title: title), mediaLibrary: self)]
     }
 }
 
@@ -155,4 +155,34 @@ extension DataStoreMock {
         newSong(artist: "Mock Artist 2", album: "Mock Album 2-1", title: "Mock Song 2-1-1")
 
     }
+}
+
+extension DataStoreMock
+{
+	func getPlaylistList() -> [MPMediaItemCollection] { return [] }
+	
+	func getAlbumArtistList() -> [MPMediaItem] { return [] }
+	
+	func getSongsList() -> [MPMediaItem] { return [] }
+
+	func getPlaylistItem(byPlaylistName: String?) -> MPMediaItem? { return nil }
+	
+	func getSongsList(byAlbumPersistentID: MPMediaEntityPersistentID) -> [MPMediaItem] { return [] }
+	
+	func getAlbumArtworkImage(byAlbumPersistentID: MPMediaEntityPersistentID) -> UIImage? { return nil }
+	
+	func getSongItem(byPersistentID: MPMediaEntityPersistentID) -> MPMediaItem? { return nil }
+	
+	func getSongArtworkImage(byPersistentID: MPMediaEntityPersistentID) -> UIImage? { return nil }
+	
+	func getAlbumsList(byArtistPersistentID: MPMediaEntityPersistentID) -> [MPMediaItem] { return [] }
+	
+	func getArtistArtworkImage(byArtistPersistentID: MPMediaEntityPersistentID) -> UIImage? { return nil }
+	
+	func getSongsList(byArtistPersistentID: MPMediaEntityPersistentID) -> [MPMediaItem] { return [] }
+	
+	func getSongsList(byPlaylist: String) -> [MPMediaItem] { return [] }
+	
+	func getPlaylistArtworkImage(byPersistentID: MPMediaEntityPersistentID) -> UIImage? { return nil }
+	
 }

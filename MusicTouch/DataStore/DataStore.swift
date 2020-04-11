@@ -45,8 +45,12 @@ class DataStore: DataStoreProtocol {
     
     // Default size for artwork items
     let size = 250.0
+	
+	var mediaLibrary: MediaLibraryProtocol
 
-    init() {
+	init(mediaLibrary: MediaLibraryProtocol) {
+		self.mediaLibrary = mediaLibrary
+		
         fillCache()
     }
 }
@@ -60,12 +64,12 @@ extension DataStore {
         datastoreQueue.async {
             self.cache.playlistList = []
             
-            self.cache.playlistList = PDMMediaLibrary.getPlaylistList().map {
+			self.cache.playlistList = self.mediaLibrary.getPlaylistList().map {
 
                 let name = $0.value(forProperty: MPMediaPlaylistPropertyName) as! String
-				let persistentID = PDMMediaLibrary.getPlaylistItem(byPlaylistName: name)?.persistentID
+				let persistentID = self.mediaLibrary.getPlaylistItem(byPlaylistName: name)?.persistentID
                 
-				let playlist = MTPlaylistData(persistentID: persistentID, name: name)
+				let playlist = MTPlaylistData(persistentID: persistentID, name: name, mediaLibrary: self)
                 
                 return playlist
             }
@@ -79,9 +83,10 @@ extension DataStore {
         self.artistSemaphore.wait()
         datastoreQueue.async {
             
-			self.cache.artistList = PDMMediaLibrary.getAlbumArtistList().map {
+			self.cache.artistList = self.mediaLibrary.getAlbumArtistList().map {
 					return MTArtistData(persistentID: $0.albumArtistPersistentID,
-										name: $0.albumArtist!)
+										name: $0.albumArtist!,
+										mediaLibrary: self)
 			}.sorted { return $0.name < $1.name }
             
             self.artistSemaphore.signal()
@@ -145,4 +150,34 @@ extension DataStore {
         return cache.artistList
     }
 
+}
+
+extension DataStore {
+	
+	func getPlaylistList() -> [MPMediaItemCollection] { return mediaLibrary.getPlaylistList() }
+	
+	func getAlbumArtistList() -> [MPMediaItem] { return mediaLibrary.getAlbumArtistList() }
+	
+	func getSongsList() -> [MPMediaItem] { return mediaLibrary.getSongsList() }
+
+	func getPlaylistItem(byPlaylistName: String?) -> MPMediaItem? { return mediaLibrary.getPlaylistItem(byPlaylistName: byPlaylistName) }
+	
+	func getSongsList(byAlbumPersistentID: MPMediaEntityPersistentID) -> [MPMediaItem] { return mediaLibrary.getSongsList(byAlbumPersistentID: byAlbumPersistentID) }
+	
+	func getAlbumArtworkImage(byAlbumPersistentID: MPMediaEntityPersistentID) -> UIImage? { return mediaLibrary.getAlbumArtworkImage(byAlbumPersistentID: byAlbumPersistentID) }
+	
+	func getSongItem(byPersistentID: MPMediaEntityPersistentID) -> MPMediaItem? { return mediaLibrary.getSongItem(byPersistentID: byPersistentID) }
+	
+	func getSongArtworkImage(byPersistentID: MPMediaEntityPersistentID) -> UIImage? { return mediaLibrary.getSongArtworkImage(byPersistentID: byPersistentID) }
+	
+	func getAlbumsList(byArtistPersistentID: MPMediaEntityPersistentID) -> [MPMediaItem] { return mediaLibrary.getAlbumsList(byArtistPersistentID: byArtistPersistentID) }
+	
+	func getArtistArtworkImage(byArtistPersistentID: MPMediaEntityPersistentID) -> UIImage? { return mediaLibrary.getArtistArtworkImage(byArtistPersistentID: byArtistPersistentID) }
+	
+	func getSongsList(byArtistPersistentID: MPMediaEntityPersistentID) -> [MPMediaItem] { return mediaLibrary.getSongsList(byArtistPersistentID: byArtistPersistentID) }
+	
+	func getSongsList(byPlaylist: String) -> [MPMediaItem] { return mediaLibrary.getSongsList(byPlaylist: byPlaylist) }
+	
+	func getPlaylistArtworkImage(byPersistentID: MPMediaEntityPersistentID) -> UIImage? { return mediaLibrary.getPlaylistArtworkImage(byPersistentID: byPersistentID) }
+	
 }
