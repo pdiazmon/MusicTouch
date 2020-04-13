@@ -27,7 +27,7 @@ class PlayViewController: UIViewController {
     @IBOutlet weak var blurEffectView: UIVisualEffectView!
     @IBOutlet weak var shuffleImg: UIImageView!
     
-    private var app:                     AppDelegate = UIApplication.shared.delegate as! AppDelegate
+//    private var app:                     AppDelegate = UIApplication.shared.delegate as! AppDelegate
     private var volumeSlider:            UISlider?
     private var timerIsOn:               Bool = false
     private var timer:                   Timer?
@@ -43,6 +43,8 @@ class PlayViewController: UIViewController {
     private var audioEqualizer: MTAudioEqualizer?
     
     override var prefersStatusBarHidden: Bool { return true }
+	
+	var controller: PlayController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,8 +78,12 @@ extension PlayViewController {
   
     /// Add and initialize objects to the view
     func viewSetup() {
+		
+		guard let controller = self.controller else { return }
         
         self.view.addSubview(volumeBoxView)
+		
+		controller.setup()
                 
         // Set the progress bar to zero
         self.progress.progress = 0.0
@@ -94,18 +100,11 @@ extension PlayViewController {
                                                selector: #selector(volumeChanged),
                                                name: NSNotification.Name(rawValue: "AVSystemController_SystemVolumeDidChangeNotification"),
                                                object: nil)
-
-        // Add an observer: when the playing song changes over the self.app.appPlayer object
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(updateView),
-                                               name: NSNotification.Name.MPMusicPlayerControllerNowPlayingItemDidChange,
-                                               object: self.app.appPlayer.getPlayer())
-        self.app.appPlayer.getPlayer().beginGeneratingPlaybackNotifications()
         
         // Add an audio equalizer simulation
         self.audioEqualizer = MTAudioEqualizer(frame: CGRect.zero, color: UIColor.white, padding: 0)
         self.view.addSubview(self.audioEqualizer!)
-        if (self.app.appPlayer.isPlaying()) {
+        if (controller.isPlaying()) {
             self.audioEqualizer?.startAnimating()
         }
         
@@ -154,7 +153,10 @@ extension PlayViewController {
     
     /// Play the current song
     func playSong() {
-        self.app.appPlayer.playSong()
+		
+		guard let controller = self.controller else { return }
+        
+		controller.playSong()
         
         // If the timer is not running, start it
         if (!timerIsOn) {
@@ -167,7 +169,8 @@ extension PlayViewController {
     
     /// Pause the current song
     func pauseSong() {
-        self.app.appPlayer.pauseSong()
+		guard let controller = self.controller else { return }
+        controller.pauseSong()
         self.audioEqualizer?.stopAnimating()
     }
   
@@ -220,9 +223,11 @@ extension PlayViewController {
     /// - Parameter image: Artwork image
     /// - Returns: Average color
     func getAverageColor(image: UIImage) -> UIColor? {
+		
+		guard let controller = self.controller else { return nil }
         
         // Get the album unique id
-        let id = AlbumID(artist: self.app.appPlayer.nowPlayingArtist(), album: self.app.appPlayer.nowPlayingAlbumTitle())
+        let id = AlbumID(artist: controller.nowPlayingArtist(), album: controller.nowPlayingAlbumTitle())
         
         // If the current album average color is stored in the cache, return it
         if let cacheValue = averageColorCache[id.hashValue] {
@@ -241,25 +246,27 @@ extension PlayViewController {
     
     /// When the playing song changes, changes the view objects accordingly
     @objc func updateView() {
+		
+		guard let controller = self.controller else { return }
       
         DispatchQueue.main.async {
             
-            if (self.app.appPlayer.isPlaying()) { self.audioEqualizer?.stopAnimating() }
+            if (controller.isPlaying()) { self.audioEqualizer?.stopAnimating() }
 
             // Song title
-            self.songLbl.text = self.app.appPlayer.nowPlayingTitle()
+            self.songLbl.text = controller.nowPlayingTitle()
             
             // If album title has not changed, we assume that either artist and artwork haven't changed
-            if (self.albumLbl.text  != self.app.appPlayer.nowPlayingAlbumTitle()) {
+            if (self.albumLbl.text  != controller.nowPlayingAlbumTitle()) {
              
                 // Album title
-                self.albumLbl.text  = self.app.appPlayer.nowPlayingAlbumTitle()
+                self.albumLbl.text  = controller.nowPlayingAlbumTitle()
                 
                 // Artist name
-                self.artistLbl.text = self.app.appPlayer.nowPlayingArtist()
+				self.artistLbl.text = controller.nowPlayingArtist()
 
                 // Artwork image
-                if let artwork = self.app.appPlayer.nowPlayingArtwork() {
+				if let artwork = controller.nowPlayingArtwork() {
                     self.artworkImg.image    = artwork.image(at: CGSize(width: 150, height: 150))
                     self.backgroundImg.image = self.artworkImg.image
                     
@@ -272,9 +279,9 @@ extension PlayViewController {
             }
             
             // Show the shuffle icon if shuffle play mode is on
-            self.shuffleImg.isHidden = !self.app.appPlayer.isShuffleOn()
+            self.shuffleImg.isHidden = !controller.isShuffleOn()
             
-            if (self.app.appPlayer.isPlaying()) { self.audioEqualizer?.startAnimating() }
+            if (controller.isPlaying()) { self.audioEqualizer?.startAnimating() }
 
         }
     }
@@ -282,13 +289,15 @@ extension PlayViewController {
     /// While timer run, update the progress objects accordingly
     @objc func updateProgress() {
         
+		guard let controller = self.controller else { return }
+		
         // If the music is not playing or the app is in background, we don't need to update them
-        guard (self.app.appPlayer.isPlaying() && app.appStatus == .foreground) else { return }
+        guard (controller.isPlaying() && controller.appStatus() == .foreground) else { return }
         
         // Update the progress bar
-        let currentPlaybackTime = app.appPlayer.nowPlayingPlaybackTime()
+        let currentPlaybackTime = controller.nowPlayingPlaybackTime()
         DispatchQueue.main.async {
-            self.progress.setProgress(Float(currentPlaybackTime / self.app.appPlayer.nowPlayingDuration()), animated: true)
+            self.progress.setProgress(Float(currentPlaybackTime / controller.nowPlayingDuration()), animated: true)
         }
         
         // Update the progress time label
@@ -300,8 +309,8 @@ extension PlayViewController {
         
         // Update the remaining time label
         DispatchQueue.main.async {
-            minutes = Int((self.app.appPlayer.nowPlayingDuration() - currentPlaybackTime) / 60)
-            seconds = Int((self.app.appPlayer.nowPlayingDuration() - currentPlaybackTime).truncatingRemainder(dividingBy: 60))
+            minutes = Int((controller.nowPlayingDuration() - currentPlaybackTime) / 60)
+            seconds = Int((controller.nowPlayingDuration() - currentPlaybackTime).truncatingRemainder(dividingBy: 60))
             
             self.durationLbl.text = String(format: "-%0i:%02i", minutes, seconds)
         }
@@ -311,6 +320,8 @@ extension PlayViewController {
     ///
     /// - Parameter recognizer: Gesture recognizer object
     @IBAction func tapPlayPause(_ recognizer: UIGestureRecognizer) {
+		
+		guard let controller = self.controller else { return }
         
         // If the tap has began (the finger is still touching the screen
         if (recognizer.state == .began) {
@@ -319,11 +330,11 @@ extension PlayViewController {
             self.artworkImg.layer.shadowOpacity = 0.5
 
             // If the music was playing, pause it
-            if (app.appPlayer.isPlaying()) {
+            if (controller.isPlaying()) {
                 pauseSong()
             }
             // If the music was paused, play it
-            else if (app.appPlayer.isPaused()) {
+            else if (controller.isPaused()) {
                 playSong()
             }
         }
@@ -416,16 +427,18 @@ extension PlayViewController {
     /// - Parameter gesture: Swipe gesture recognizer
     @IBAction func handleGesture(_ gesture: UISwipeGestureRecognizer) {
         let flipDuration = 0.4
+		
+		guard let controller = self.controller else { return }
         
         // If the swipe is from right to left, play the previous song
-		if (gesture.direction == UISwipeGestureRecognizer.Direction.right && !app.appPlayer.isPlayingFirst()) {
-            app.appPlayer.playPrevious()
+		if (gesture.direction == UISwipeGestureRecognizer.Direction.right && !controller.isPlayingFirst()) {
+            controller.playPrevious()
           
             animatePreviousSong(flipDuration)
         }
         // If the swipe is from left to right, play the next song
-		else if (gesture.direction == UISwipeGestureRecognizer.Direction.left && !app.appPlayer.isPlayingLast()) {
-            app.appPlayer.playNext()
+		else if (gesture.direction == UISwipeGestureRecognizer.Direction.left && !controller.isPlayingLast()) {
+            controller.playNext()
           
             animateNextSong(flipDuration)
         }        

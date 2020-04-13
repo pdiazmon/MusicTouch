@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import MediaPlayer
+//import MediaPlayer
 import NVActivityIndicatorView
 
 class AlbumViewController: UIViewController {
@@ -15,8 +15,7 @@ class AlbumViewController: UIViewController {
     @IBOutlet weak var albumsTableView: UITableView!
     @IBOutlet weak var playButtonsStack: UIStackView!
     
-    private var app = UIApplication.shared.delegate as! AppDelegate
-    private var albumList: [MTAlbumData] = []
+	var controller: AlbumController?
     
     override var prefersStatusBarHidden: Bool { return true }
 
@@ -42,38 +41,20 @@ class AlbumViewController: UIViewController {
     ///
     /// - Parameter sender: button itself
     @IBAction func playAllPressed(_ sender: UIButton) {
-        startToPlay(shuffle: false)
+		guard let controller = self.controller else { return }
+		
+		controller.startToPlay(shuffle: false)
     }
     
     /// Shffle button press event handler
     ///
     /// - Parameter sender: button itself
     @IBAction func shufflePressed(_ sender: UIButton) {
-        startToPlay(shuffle: true)
+		guard let controller = self.controller else { return }
+		
+		controller.startToPlay(shuffle: true)
     }
     
-    /// Shows the player view and start playing all the listed albums songs
-    ///
-    /// - Parameter shuffle: start playing in shuffle mode (true) or in queue mode (false)
-    private func startToPlay(shuffle: Bool) {
-        
-        // Set the player collection from the songlist
-		app.appPlayer.setCollection(MPMediaItemCollection(items: app.dataStore.getSongsList()))
-        
-        if (shuffle) {
-            app.appPlayer.shuffleModeOn()
-        }
-        else {
-            app.appPlayer.shuffleModeOff()
-        }
-        
-        // Start playing the first song and, also, transition to the Play view
-       if let vc = tabBarController?.customizableViewControllers?[TabBarItem.play.rawValue] as? PlayViewController {
-            vc.playSong()
-            tabBarController?.tabBar.items![TabBarItem.play.rawValue].isEnabled = true
-            tabBarController?.selectedIndex                                     = TabBarItem.play.rawValue
-        }
-    }
 }
 
 // MARK: UITableViewDataSource
@@ -91,7 +72,9 @@ extension AlbumViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellAlbum") as! MTCell
         
         // Get the nth item from the data-store album list
-        let item = self.albumList[indexPath.row]
+		guard let controller = self.controller,
+			  let item = controller.getItem(byIndex: indexPath.row)
+		else { return cell }
         
         // Create the delegate
         if (cell.delegate == nil) { cell.delegate = MTAlbumCell() }
@@ -110,7 +93,9 @@ extension AlbumViewController: UITableViewDataSource {
     ///   - section: Section identifier within the TableView
     /// - Returns: Number of cells in the section
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.albumList.count
+		guard let controller = self.controller else { return 0 }
+		
+		return controller.numberOfItems()
     }
 }
 
@@ -124,17 +109,10 @@ extension AlbumViewController: UITableViewDelegate {
     ///   - tableView: The TableView itself
     ///   - indexPath: Selected cell index
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+		
+		guard let controller = self.controller else { return }
         
-         guard (indexPath.row < self.albumList.count) else { return }
-        
-        // Extract the item from the album list with the selected cell index
-        let item = self.albumList[indexPath.row]
-        
-        // Get the SongViewController, make it to reload its table and activate it
-        if let vc = tabBarController?.customizableViewControllers?[TabBarItem.song.rawValue] as? SongViewController {
-			vc.configure(songs: item.songs, songsRetriever: item)
-            tabBarController?.selectedIndex = TabBarItem.song.rawValue
-        }
+		controller.showSongsView(itemIndex: indexPath.row)
     }
     
     
@@ -146,12 +124,14 @@ extension AlbumViewController: UITableViewDelegate {
     /// - Returns: A 'shuffle' action configuration
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 
-        guard (indexPath.row < self.albumList.count) else { return UISwipeActionsConfiguration(actions: []) }
+		guard let controller = self.controller,
+			  controller.indexWithinBounds(index: indexPath.row)
+		else { return UISwipeActionsConfiguration(actions: []) }
 
         // Create the contextual action
         let shuffleAction = UIContextualAction(style: .normal, title:  "Shuffle", handler: { (ac: UIContextualAction, view: UIView, success: (Bool) -> Void) in
             
-            self.swipeHandlerAux(indexPath: indexPath, shuffle: true)
+			controller.swipeHandler(indexPath: indexPath, shuffle: true)
             
             success(true)
         })
@@ -170,12 +150,14 @@ extension AlbumViewController: UITableViewDelegate {
     /// - Returns: A 'play' action configuration
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration?
     {
-        guard (indexPath.row < self.albumList.count) else { return UISwipeActionsConfiguration(actions: []) }
+		guard let controller = self.controller,
+		 	  controller.indexWithinBounds(index: indexPath.row)
+		else { return UISwipeActionsConfiguration(actions: []) }
 
         // Create the contextual action
         let playAction = UIContextualAction(style: .normal, title:  "Play", handler: { (ac: UIContextualAction, view: UIView, success: (Bool) -> Void) in
             
-            self.swipeHandlerAux(indexPath: indexPath, shuffle: false)
+			controller.swipeHandler(indexPath: indexPath, shuffle: false)
             
             success(true)
         })
@@ -193,69 +175,29 @@ extension AlbumViewController {
     /// Enable/disable play buttons depending on list emptyness
     func layout() {
         for button in self.playButtonsStack.arrangedSubviews {
-            if let button = (button as? UIButton) {
-                button.isEnabled = self.albumList.count > 0
+			if let button = (button as? UIButton), let controller = self.controller {
+				button.isEnabled = (controller.numberOfItems() > 0)
             }
         }
     }
-    
-    /// Handles the swipe event over a cell
-    ///
-    /// - Parameters:
-    ///   - indexPath: Swiped cell index
-    ///   - shuffle: true if shuffle mode has been selected, false in other case
-    func swipeHandlerAux(indexPath: IndexPath, shuffle: Bool) {
-        
-        guard (indexPath.row < self.albumList.count) else { return }
-        
-        // Get the selected album
-        let item = self.albumList[indexPath.row]
-        
-        // Set the player collection from the songlist
-		app.appPlayer.setCollection(item.songsCollection())
-        
-        // Sets the shuffle mode
-        if (shuffle) {
-            self.app.appPlayer.shuffleModeOn()
-        }
-        else {
-            self.app.appPlayer.shuffleModeOff()
-        }
-        
-        // Wait and start playing the first song and, also, transition to the Play view
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            
-            if let vc = self.tabBarController?.customizableViewControllers?[TabBarItem.play.rawValue] as? PlayViewController {
-                vc.playSong()
-
-                self.tabBarController?.tabBar.items![TabBarItem.play.rawValue].isEnabled = true
-                self.tabBarController?.selectedIndex                                     = TabBarItem.play.rawValue
-            }
-        }
-    }
-    
 }
 
 // MARK: Activity animation
 extension AlbumViewController {
     
-    func setAlbumList(_ albums: [MTAlbumData]) {
-        self.albumList = albums
-        self.reload()
-    }
-    
-
     /// The ViewController has just appeared on screen. Load its data.
     ///
     /// - Parameter animated: If true, the view was added to the window using an animation.
     override func viewDidAppear(_ animated: Bool) {
 
         super.viewDidAppear(animated)
+		
+		guard let controller = self.controller else { return }
         
-        if (self.app.dataStore.isDataLoaded() && self.albumList.count == 0) {
-            self.setAlbumList(self.app.dataStore.albumList())
+		if (controller.isDataLoaded() && controller.numberOfItems() == 0) {
+			controller.initializeList()
         }
-        else if (!self.app.dataStore.isDataLoaded()) {
+		else if (!controller.isDataLoaded()) {
             // create an activity animation
             let activity = NVActivityIndicatorViewFactory.shared.getNewLoading(frame: self.albumsTableView.frame)
             
@@ -265,8 +207,8 @@ extension AlbumViewController {
             // Asynchronously, in background, load the albums data into the datastore
             DispatchQueue.main.async {
                 // Store all the albums from the music library into the data-store
-                if (self.albumList.count == 0) {
-                    self.setAlbumList(self.app.dataStore.albumList())
+				if (controller.numberOfItems() == 0) {
+					controller.initializeList()
                 }
                 
                 // stop the animation
@@ -277,7 +219,7 @@ extension AlbumViewController {
     }
     
     /// Forces the TableView to reload its data
-    func reload() {
+    func reloadData() {
         if let tv = self.albumsTableView {
             tv.reloadData()
             layout()

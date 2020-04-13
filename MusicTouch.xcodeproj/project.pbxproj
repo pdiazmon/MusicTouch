@@ -10,6 +10,10 @@
 		EB0098542440ED6500CE9C1C /* SongsRetrieverProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB0098532440ED6500CE9C1C /* SongsRetrieverProtocol.swift */; };
 		EB072E4F205F23490040EA23 /* MTAlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB072E4E205F23490040EA23 /* MTAlbumCell.swift */; };
 		EB101CAF20606854007AFAE7 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB101CAE20606854007AFAE7 /* TabBarController.swift */; };
+		EB2869272444BD3700F483C3 /* ArtistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2869262444BD3700F483C3 /* ArtistController.swift */; };
+		EB2869292444C4DC00F483C3 /* AlbumController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2869282444C4DC00F483C3 /* AlbumController.swift */; };
+		EB28692B2444CAF500F483C3 /* SongController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB28692A2444CAF500F483C3 /* SongController.swift */; };
+		EB29735E244463A1002A884B /* PlaylistController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB29735D244463A1002A884B /* PlaylistController.swift */; };
 		EB2E6DE6205EECB700588315 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2E6DE5205EECB700588315 /* AppDelegate.swift */; };
 		EB2E6DE8205EECB700588315 /* ArtistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2E6DE7205EECB700588315 /* ArtistViewController.swift */; };
 		EB2E6DEA205EECB700588315 /* AlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB2E6DE9205EECB700588315 /* AlbumViewController.swift */; };
@@ -26,6 +30,7 @@
 		EB34A34C20C058AF0055A7AC /* VolumeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB34A34B20C058AF0055A7AC /* VolumeView.swift */; };
 		EB3739562090D8B200BC4988 /* QueueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3739552090D8B200BC4988 /* QueueViewController.swift */; };
 		EB3739582090DF7800BC4988 /* QueueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3739572090DF7800BC4988 /* QueueCell.swift */; };
+		EB40F3352444D8800010F08F /* PlayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB40F3342444D8800010F08F /* PlayController.swift */; };
 		EB57DAF5243FA21200A06506 /* NVActivityIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = EB57DAF4243FA21200A06506 /* NVActivityIndicatorView */; };
 		EB68FBF02065930A00A2CB7E /* MTPlaylistData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB68FBEF2065930A00A2CB7E /* MTPlaylistData.swift */; };
 		EB68FBF2206593DB00A2CB7E /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB68FBF1206593DB00A2CB7E /* PlaylistViewController.swift */; };
@@ -95,6 +100,10 @@
 		EB0098532440ED6500CE9C1C /* SongsRetrieverProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongsRetrieverProtocol.swift; sourceTree = "<group>"; };
 		EB072E4E205F23490040EA23 /* MTAlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTAlbumCell.swift; sourceTree = "<group>"; };
 		EB101CAE20606854007AFAE7 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; wrapsLines = 0; };
+		EB2869262444BD3700F483C3 /* ArtistController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistController.swift; sourceTree = "<group>"; };
+		EB2869282444C4DC00F483C3 /* AlbumController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumController.swift; sourceTree = "<group>"; };
+		EB28692A2444CAF500F483C3 /* SongController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongController.swift; sourceTree = "<group>"; };
+		EB29735D244463A1002A884B /* PlaylistController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistController.swift; sourceTree = "<group>"; };
 		EB2E6DE2205EECB700588315 /* MusicTouch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicTouch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB2E6DE5205EECB700588315 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EB2E6DE7205EECB700588315 /* ArtistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistViewController.swift; sourceTree = "<group>"; wrapsLines = 0; };
@@ -117,6 +126,7 @@
 		EB34A34B20C058AF0055A7AC /* VolumeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeView.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EB3739552090D8B200BC4988 /* QueueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueViewController.swift; sourceTree = "<group>"; };
 		EB3739572090DF7800BC4988 /* QueueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueCell.swift; sourceTree = "<group>"; wrapsLines = 0; };
+		EB40F3342444D8800010F08F /* PlayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayController.swift; sourceTree = "<group>"; };
 		EB68FBEF2065930A00A2CB7E /* MTPlaylistData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTPlaylistData.swift; sourceTree = "<group>"; };
 		EB68FBF1206593DB00A2CB7E /* PlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewController.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EB7752F020DAA030009060B6 /* MTData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTData.swift; sourceTree = "<group>"; };
@@ -176,6 +186,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		EB29735F244463A9002A884B /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				EB29735D244463A1002A884B /* PlaylistController.swift */,
+				EB2869262444BD3700F483C3 /* ArtistController.swift */,
+				EB2869282444C4DC00F483C3 /* AlbumController.swift */,
+				EB28692A2444CAF500F483C3 /* SongController.swift */,
+				EB40F3342444D8800010F08F /* PlayController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
 		EB2E6DD9205EECB700588315 = {
 			isa = PBXGroup;
 			children = (
@@ -205,6 +227,7 @@
 				EB339E1E2060716A00D7092A /* Constant.swift */,
 				EB8EB2AB243E39850086781D /* MediaLibrary */,
 				EBC7D15720FA09AF00C5BCE0 /* Factory */,
+				EB29735F244463A9002A884B /* Controller */,
 				EB34A34A20C058880055A7AC /* UI */,
 				EBD391E4207E72C500E2E47A /* Extension */,
 				EB2E6E1E205EFCAB00588315 /* DataStore */,
@@ -430,7 +453,6 @@
 				TargetAttributes = {
 					EB2E6DE1205EECB700588315 = {
 						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Automatic;
 					};
 					EB2E6DF7205EECB700588315 = {
 						CreatedOnToolsVersion = 9.2;
@@ -504,6 +526,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB28692B2444CAF500F483C3 /* SongController.swift in Sources */,
 				EBC7D15920FA09D200C5BCE0 /* NVActivityIndicatorViewFactory.swift in Sources */,
 				EBC7D15B20FA329F00C5BCE0 /* CGRect.swift in Sources */,
 				EB87367F20CEECB100CF643F /* DatastoreMock.swift in Sources */,
@@ -515,10 +538,12 @@
 				EBF2BD2B206597040051C7F5 /* MTPlaylistCell.swift in Sources */,
 				EB88DCDB20E29F4700B2E878 /* MTCellFactory.swift in Sources */,
 				EB339E1F2060716A00D7092A /* Constant.swift in Sources */,
+				EB29735E244463A1002A884B /* PlaylistController.swift in Sources */,
 				EB2E6DEA205EECB700588315 /* AlbumViewController.swift in Sources */,
 				EB7752F920DAC2B4009060B6 /* MTCellDelegateProtocol.swift in Sources */,
 				EB2E6DE6205EECB700588315 /* AppDelegate.swift in Sources */,
 				EBF67543210102CB00B35ED7 /* MTAudioEqualizer.swift in Sources */,
+				EB40F3352444D8800010F08F /* PlayController.swift in Sources */,
 				EB87367D20CEEBBC00CF643F /* DatastoreProtocol.swift in Sources */,
 				EB34A34C20C058AF0055A7AC /* VolumeView.swift in Sources */,
 				EBFD73922066DBA60056FB12 /* DataStore.swift in Sources */,
@@ -529,8 +554,10 @@
 				EB2E6DE8205EECB700588315 /* ArtistViewController.swift in Sources */,
 				EBBD6E0920E531E20037CD2B /* MTCellLondon.swift in Sources */,
 				EB0098542440ED6500CE9C1C /* SongsRetrieverProtocol.swift in Sources */,
+				EB2869292444C4DC00F483C3 /* AlbumController.swift in Sources */,
 				EB339E2120607FBE00D7092A /* PlayViewController.swift in Sources */,
 				EB68FBF02065930A00A2CB7E /* MTPlaylistData.swift in Sources */,
+				EB2869272444BD3700F483C3 /* ArtistController.swift in Sources */,
 				EB88DCD920E29CD100B2E878 /* MTCellParis.swift in Sources */,
 				EBAB5DD5205F2A7D00FD3FF8 /* SongViewController.swift in Sources */,
 				EB7752F720DABFF8009060B6 /* MTDataProtocol.swift in Sources */,
@@ -709,7 +736,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MusicTouch/MusicTouch.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S3P397D556;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -724,6 +751,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = pdiazmon.MusicTouch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -735,7 +763,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MusicTouch/MusicTouch.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S3P397D556;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -750,6 +778,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = pdiazmon.MusicTouch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

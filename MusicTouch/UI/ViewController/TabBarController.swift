@@ -19,6 +19,34 @@ class TabBarController: UITabBarController {
 
         // Do any additional setup after loading the view.
         self.delegate = self
+		
+		for view in self.customizableViewControllers! {
+			if (view is PlaylistViewController) {
+				let vc = (view as! PlaylistViewController)
+				
+				vc.controller = PlaylistController(tabBarController: self, viewController: vc)
+			}
+			else if (view is ArtistViewController) {
+				let vc = (view as! ArtistViewController)
+				
+				vc.controller = ArtistController(tabBarController: self, viewController: vc)
+			}
+			else if (view is AlbumViewController) {
+				let vc = (view as! AlbumViewController)
+				
+				vc.controller = AlbumController(tabBarController: self, viewController: vc)
+			}
+			else if (view is SongViewController) {
+				let vc = (view as! SongViewController)
+				
+				vc.controller = SongController(tabBarController: self, viewController: vc)
+			}
+			else if (view is PlayViewController) {
+				let vc = (view as! PlayViewController)
+				
+				vc.controller = PlayController(tabBarController: self, viewController: vc)
+			}
+		}
     }
 
     override func didReceiveMemoryWarning() {
@@ -39,13 +67,16 @@ extension TabBarController: UITabBarControllerDelegate {
         // If the Album button has been clicked
         if (viewController is AlbumViewController) {
             // .. prepare the AlbumViewController to show all the existing albums
-            (viewController as! AlbumViewController).setAlbumList([])
+			if let vc = (viewController as? AlbumViewController), let controller = vc.controller {
+				controller.setAlbumList([])
+			}
         }
         // If the Song button has been clicked
         else if (viewController is SongViewController) {
             // .. prepare the SongViewController to show all the existing songs
-			let vc = (viewController as! SongViewController)
-			vc.configure(songs: [], songsRetriever: vc)
+			if let vc = (viewController as? SongViewController), let controller = vc.controller {
+				controller.configureByDefault()
+			}
         }
 
     }

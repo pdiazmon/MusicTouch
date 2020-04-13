@@ -17,14 +17,10 @@ class SongViewController: UIViewController {
     @IBOutlet weak var songsTableView: UITableView!
     @IBOutlet weak var playButtonsStack: UIStackView!
     
-    private let app = UIApplication.shared.delegate as! AppDelegate
-    
-    private var songList: [MTSongData] = []
+	var controller: SongController?
 
     override var prefersStatusBarHidden: Bool { return true }
 	
-	private var songsRetriever: SongsRetrieverProtocol?
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -65,6 +61,8 @@ class SongViewController: UIViewController {
 		var preparingPlay: Bool = false
 		let preparingPlaySemaphore = DispatchSemaphore(value: 1)
 		
+		guard let controller = self.controller else { return }
+		
 		DispatchQueue.main.asyncAfter(deadline: .now()+0.005) {
 			if (preparingPlay) {
 				self.showSpinner(onView: self.songsTableView)
@@ -77,27 +75,7 @@ class SongViewController: UIViewController {
 		preparingPlaySemaphore.wait()
 		preparingPlay = true
 
-		// Use the songsRetriever object to read the songs from the Media Library.
-		app.appPlayer.setCollection(self.songsRetriever!.songsCollection())
-        
-        if (shuffle) {
-            app.appPlayer.shuffleModeOn()
-        }
-        else {
-            app.appPlayer.shuffleModeOff()
-        }
-        
-        // If an index has been informed, get the nth song from the data-store list
-        if (index >= 0) {
-            app.appPlayer.setSong(self.songList[index].mediaItem)
-        }
-		        
-        // Start playing the first song and, also, transition to the Play view
-        if let vc = tabBarController?.customizableViewControllers?[TabBarItem.play.rawValue] as? PlayViewController {
-            vc.playSong()
-            tabBarController?.tabBar.items![TabBarItem.play.rawValue].isEnabled = true
-            tabBarController?.selectedIndex                                     = TabBarItem.play.rawValue
-        }
+		controller.startToPlay(shuffle: shuffle, index: index)
 		
 		preparingPlay = false
 		preparingPlaySemaphore.signal()
@@ -120,7 +98,9 @@ extension SongViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CellSong") as! MTCell
         
         // Get the nth item from the album list
-        let item = self.songList[indexPath.row]
+		guard let controller = self.controller,
+			  let item = controller.getItem(byIndex: indexPath.row)
+		else { return cell }
         
         // Create the delegate
         if (cell.delegate == nil) { cell.delegate = MTSongCell() }
@@ -139,7 +119,9 @@ extension SongViewController: UITableViewDataSource {
     ///   - section: Section identifier within the TableView
     /// - Returns: Number of cells in the section
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.songList.count
+		guard let controller = self.controller else { return 0 }
+		
+		return controller.numberOfItems()
     }
 }
 
@@ -161,31 +143,20 @@ extension SongViewController: UITableViewDelegate {
 extension SongViewController {
     
     /// Forces the TableView to reload its data
-    public func reload() {
+    public func reloadData() {
         self.songsTableView?.reloadData()
         layout()
     }
     
     /// Enable/disable play buttons depending on list emptyness
     func layout() {
-        if let stack = self.playButtonsStack {
+		if let stack = self.playButtonsStack, let controller = self.controller {
             for button in stack.arrangedSubviews {
                 if let button = (button as? UIButton) {
-                    button.isEnabled = self.songList.count > 0
+					button.isEnabled = (controller.numberOfItems() > 0)
                 }
             }
         }
-    }
-    
-    /// Set the song list to be displayed in the view
-    ///
-    /// - Parameter songs: List of songs
-	/// - Parameter mpMediaItemRetriever: Injected object to retrieve from Media Library the MPMediaItem list of songs
-	func configure(songs: [MTSongData], songsRetriever: SongsRetrieverProtocol) {
-        self.songList = songs
-        self.reload()
-		
-		self.songsRetriever = songsRetriever
     }
     
     /// The ViewController has just appeared on screen. Load its data.
@@ -194,11 +165,13 @@ extension SongViewController {
     override func viewDidAppear(_ animated: Bool) {
         
         super.viewDidAppear(animated)
+		
+		guard let controller = self.controller else { return }
         
-        if (self.app.dataStore.isDataLoaded() && self.songList.count == 0) {
-			self.configure(songs: self.app.dataStore.songList(), songsRetriever: self)
+		if (controller.isDataLoaded() && controller.numberOfItems() == 0) {
+			controller.configureByDefault()
         }
-        else if (!self.app.dataStore.isDataLoaded()) {
+		else if (!controller.isDataLoaded()) {
 
             // create an activity animation
             let activity = NVActivityIndicatorViewFactory.shared.getNewLoading(frame: self.songsTableView.frame)
@@ -209,8 +182,8 @@ extension SongViewController {
             // Asynchronously, in background, load the albums data
             DispatchQueue.main.async {
                 
-                if (self.songList.count == 0) {
-					self.configure(songs: self.app.dataStore.songList(), songsRetriever: self)
+				if (controller.numberOfItems() == 0) {
+					controller.configureByDefault()
                 }
                 
                 // stop the animation
@@ -246,9 +219,3 @@ extension SongViewController {
 	}
 }
 
-extension SongViewController: SongsRetrieverProtocol {
-	func songsCollection() -> MPMediaItemCollection {
-		// By default, retrieves the list of all existing songs in the Media Library
-		return MPMediaItemCollection(items: app.dataStore.getSongsList())
-	}
-}
