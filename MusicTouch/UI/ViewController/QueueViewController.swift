@@ -11,8 +11,10 @@ import UIKit
 class QueueViewController: UIViewController {
     
     @IBOutlet weak var queueTable: UITableView!
+	
+	var controller: QueueController?
     
-    private var app = UIApplication.shared.delegate as! AppDelegate
+//    private var app = UIApplication.shared.delegate as! AppDelegate
     override var prefersStatusBarHidden: Bool { return true }
     
     public var backgroundColor: UIColor? {
@@ -25,12 +27,11 @@ class QueueViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+		self.controller = QueueController(viewController: self)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     
@@ -41,6 +42,7 @@ class QueueViewController: UIViewController {
         // Take out the current view from the stack and return to the previous one
         dismiss(animated: true, completion: nil)
     }
+	
 }
 
 // MARK: UITableViewDataSource
@@ -58,7 +60,9 @@ extension QueueViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell") as! QueueCell
         
         // Get the nth item from the song list
-        let item = app.appPlayer.getCollection().items[indexPath.row]
+		guard let controller = self.controller,
+			  let item = controller.getItem(byIndex: indexPath.row)
+		else { return cell }
         
         // Render the new cell with the item information
         cell.render(item: item, color: self.backgroundColor)
@@ -74,7 +78,9 @@ extension QueueViewController: UITableViewDataSource {
     ///   - section: Section identifier within the TableView
     /// - Returns: Number of cells in the section
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return app.appPlayer.getCollection().items.count
+		guard let controller = self.controller else { return 0 }
+		
+		return controller.numberOfItems()
     }
 
 }

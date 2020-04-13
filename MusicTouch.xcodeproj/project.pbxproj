@@ -31,6 +31,7 @@
 		EB3739562090D8B200BC4988 /* QueueViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3739552090D8B200BC4988 /* QueueViewController.swift */; };
 		EB3739582090DF7800BC4988 /* QueueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3739572090DF7800BC4988 /* QueueCell.swift */; };
 		EB40F3352444D8800010F08F /* PlayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB40F3342444D8800010F08F /* PlayController.swift */; };
+		EB40F3372444E0B20010F08F /* QueueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB40F3362444E0B20010F08F /* QueueController.swift */; };
 		EB57DAF5243FA21200A06506 /* NVActivityIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = EB57DAF4243FA21200A06506 /* NVActivityIndicatorView */; };
 		EB68FBF02065930A00A2CB7E /* MTPlaylistData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB68FBEF2065930A00A2CB7E /* MTPlaylistData.swift */; };
 		EB68FBF2206593DB00A2CB7E /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB68FBF1206593DB00A2CB7E /* PlaylistViewController.swift */; };
@@ -127,6 +128,7 @@
 		EB3739552090D8B200BC4988 /* QueueViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueViewController.swift; sourceTree = "<group>"; };
 		EB3739572090DF7800BC4988 /* QueueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueCell.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EB40F3342444D8800010F08F /* PlayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayController.swift; sourceTree = "<group>"; };
+		EB40F3362444E0B20010F08F /* QueueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueController.swift; sourceTree = "<group>"; };
 		EB68FBEF2065930A00A2CB7E /* MTPlaylistData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTPlaylistData.swift; sourceTree = "<group>"; };
 		EB68FBF1206593DB00A2CB7E /* PlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewController.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EB7752F020DAA030009060B6 /* MTData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTData.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				EB2869282444C4DC00F483C3 /* AlbumController.swift */,
 				EB28692A2444CAF500F483C3 /* SongController.swift */,
 				EB40F3342444D8800010F08F /* PlayController.swift */,
+				EB40F3362444E0B20010F08F /* QueueController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -559,6 +562,7 @@
 				EB68FBF02065930A00A2CB7E /* MTPlaylistData.swift in Sources */,
 				EB2869272444BD3700F483C3 /* ArtistController.swift in Sources */,
 				EB88DCD920E29CD100B2E878 /* MTCellParis.swift in Sources */,
+				EB40F3372444E0B20010F08F /* QueueController.swift in Sources */,
 				EBAB5DD5205F2A7D00FD3FF8 /* SongViewController.swift in Sources */,
 				EB7752F720DABFF8009060B6 /* MTDataProtocol.swift in Sources */,
 				EB101CAF20606854007AFAE7 /* TabBarController.swift in Sources */,
