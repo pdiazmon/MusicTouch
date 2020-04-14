@@ -12,13 +12,16 @@ import MediaPlayer
 
 class PlayController {
 	
-	private var app: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-	var tabBarController: UITabBarController?
-	weak var viewController: PlayViewController?
+	private var tabBarController: UITabBarController?
+	private weak var viewController: PlayViewController?
+	private var player: PlayerProtocol
+	private var app: ApplicationProtocol
 	
-	init(tabBarController: UITabBarController, viewController: PlayViewController) {
+	init(tabBarController: UITabBarController, viewController: PlayViewController, player: PlayerProtocol, app: ApplicationProtocol) {
 		self.tabBarController = tabBarController
 		self.viewController   = viewController
+		self.player           = player
+		self.app              = app
 	}
 	
 	func setup() {
@@ -26,8 +29,8 @@ class PlayController {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(updateView),
                                                name: NSNotification.Name.MPMusicPlayerControllerNowPlayingItemDidChange,
-                                               object: self.app.appPlayer.getPlayer())
-        self.app.appPlayer.getPlayer().beginGeneratingPlaybackNotifications()
+                                               object: self.player.getPlayer())
+        self.player.getPlayer().beginGeneratingPlaybackNotifications()
 
 	}
 	
@@ -37,67 +40,71 @@ class PlayController {
 		vc.updateView()
 	}
 	
+	func getPlayer() -> PlayerProtocol {
+		return self.player
+	}
+	
 	func isPlaying() -> Bool {
-		return self.app.appPlayer.isPlaying()
+		return self.player.isPlaying()
 	}
 	
 	func isPaused() -> Bool {
-		return self.app.appPlayer.isPaused()
+		return self.player.isPaused()
 	}
 	
 	func isPlayingLast() -> Bool {
-		return app.appPlayer.isPlayingLast()
+		return self.player.isPlayingLast()
 	}
 	
 	func isPlayingFirst() -> Bool {
-		   return app.appPlayer.isPlayingFirst()
+		   return self.player.isPlayingFirst()
 	   }
 	
 	func playSong() {
-		return self.app.appPlayer.playSong()
+		return self.player.playSong()
 	}
 	
 	func pauseSong() {
-		return self.app.appPlayer.pauseSong()
+		return self.player.pauseSong()
 	}
 	
 	func nowPlayingArtist() -> String? {
-		return self.app.appPlayer.nowPlayingArtist()
+		return self.player.nowPlayingArtist()
 	}
 	
 	func nowPlayingAlbumTitle() -> String? {
-		return self.app.appPlayer.nowPlayingAlbumTitle()
+		return self.player.nowPlayingAlbumTitle()
 	}
 	
 	func nowPlayingTitle() -> String? {
-		return self.app.appPlayer.nowPlayingTitle()
+		return self.player.nowPlayingTitle()
 	}
 	
 	func nowPlayingArtwork() -> MPMediaItemArtwork? {
-		return self.app.appPlayer.nowPlayingArtwork()
+		return self.player.nowPlayingArtwork()
 	}
 	
 	func isShuffleOn() -> Bool {
-		return self.app.appPlayer.isShuffleOn()
+		return self.player.isShuffleOn()
 	}
 	
 	func nowPlayingPlaybackTime() -> TimeInterval {
-		return app.appPlayer.nowPlayingPlaybackTime()
+		return self.player.nowPlayingPlaybackTime()
 	}
 	
 	func nowPlayingDuration() -> TimeInterval {
-		return app.appPlayer.nowPlayingDuration()
+		return self.player.nowPlayingDuration()
 	}
 	
 	func playPrevious() {
-		app.appPlayer.playPrevious()
+		self.player.playPrevious()
 	}
 	
 	func playNext() {
-		app.appPlayer.playNext()
+		self.player.playNext()
 	}
 	
 	func appStatus() -> AppStatus {
-		return app.appStatus
+		return self.app.getAppStatus()
 	}
 }

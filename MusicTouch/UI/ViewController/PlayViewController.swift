@@ -27,7 +27,6 @@ class PlayViewController: UIViewController {
     @IBOutlet weak var blurEffectView: UIVisualEffectView!
     @IBOutlet weak var shuffleImg: UIImageView!
     
-//    private var app:                     AppDelegate = UIApplication.shared.delegate as! AppDelegate
     private var volumeSlider:            UISlider?
     private var timerIsOn:               Bool = false
     private var timer:                   Timer?
@@ -67,8 +66,16 @@ class PlayViewController: UIViewController {
     ///   - sender: Object performing the segue transition
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Set the background color for the queue list as the artwork image average color
-        if let queue = segue.destination as? QueueViewController {
-            queue.backgroundColor = self.progress.progressTintColor
+        if let queue = segue.destination as? QueueViewController,
+		   let backgroundColor = self.progress.progressTintColor,
+		   let controller = self.controller {
+			
+			if let queueController = queue.controller {
+				queueController.configure(backgroundColor: backgroundColor)
+			}
+			else {
+				queue.controller = QueueController(viewController: queue, player: controller.getPlayer(), backgroundColor: backgroundColor)
+			}
         }
     }
 }

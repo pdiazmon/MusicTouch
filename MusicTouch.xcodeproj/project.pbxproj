@@ -32,6 +32,8 @@
 		EB3739582090DF7800BC4988 /* QueueCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB3739572090DF7800BC4988 /* QueueCell.swift */; };
 		EB40F3352444D8800010F08F /* PlayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB40F3342444D8800010F08F /* PlayController.swift */; };
 		EB40F3372444E0B20010F08F /* QueueController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB40F3362444E0B20010F08F /* QueueController.swift */; };
+		EB537F2424460AEF00A1CB94 /* PlayerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB537F2324460AEF00A1CB94 /* PlayerProtocol.swift */; };
+		EB537F262446108D00A1CB94 /* ApplicationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB537F252446108D00A1CB94 /* ApplicationProtocol.swift */; };
 		EB57DAF5243FA21200A06506 /* NVActivityIndicatorView in Frameworks */ = {isa = PBXBuildFile; productRef = EB57DAF4243FA21200A06506 /* NVActivityIndicatorView */; };
 		EB68FBF02065930A00A2CB7E /* MTPlaylistData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB68FBEF2065930A00A2CB7E /* MTPlaylistData.swift */; };
 		EB68FBF2206593DB00A2CB7E /* PlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB68FBF1206593DB00A2CB7E /* PlaylistViewController.swift */; };
@@ -129,6 +131,8 @@
 		EB3739572090DF7800BC4988 /* QueueCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueCell.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EB40F3342444D8800010F08F /* PlayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayController.swift; sourceTree = "<group>"; };
 		EB40F3362444E0B20010F08F /* QueueController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueController.swift; sourceTree = "<group>"; };
+		EB537F2324460AEF00A1CB94 /* PlayerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerProtocol.swift; sourceTree = "<group>"; };
+		EB537F252446108D00A1CB94 /* ApplicationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationProtocol.swift; sourceTree = "<group>"; };
 		EB68FBEF2065930A00A2CB7E /* MTPlaylistData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTPlaylistData.swift; sourceTree = "<group>"; };
 		EB68FBF1206593DB00A2CB7E /* PlaylistViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaylistViewController.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		EB7752F020DAA030009060B6 /* MTData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MTData.swift; sourceTree = "<group>"; };
@@ -339,6 +343,8 @@
 				EB7752F620DABFF8009060B6 /* MTDataProtocol.swift */,
 				EB0098532440ED6500CE9C1C /* SongsRetrieverProtocol.swift */,
 				EB7752F820DAC2B3009060B6 /* MTCellDelegateProtocol.swift */,
+				EB537F2324460AEF00A1CB94 /* PlayerProtocol.swift */,
+				EB537F252446108D00A1CB94 /* ApplicationProtocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -561,6 +567,7 @@
 				EB339E2120607FBE00D7092A /* PlayViewController.swift in Sources */,
 				EB68FBF02065930A00A2CB7E /* MTPlaylistData.swift in Sources */,
 				EB2869272444BD3700F483C3 /* ArtistController.swift in Sources */,
+				EB537F2424460AEF00A1CB94 /* PlayerProtocol.swift in Sources */,
 				EB88DCD920E29CD100B2E878 /* MTCellParis.swift in Sources */,
 				EB40F3372444E0B20010F08F /* QueueController.swift in Sources */,
 				EBAB5DD5205F2A7D00FD3FF8 /* SongViewController.swift in Sources */,
@@ -570,6 +577,7 @@
 				EB8AAC6224421B2400D20974 /* MediaLibraryProtocol.swift in Sources */,
 				EB9251B820B48D9600839E9B /* UIImageView.swift in Sources */,
 				EB7752F520DAA504009060B6 /* MTCell.swift in Sources */,
+				EB537F262446108D00A1CB94 /* ApplicationProtocol.swift in Sources */,
 				EBD391E6207E72E400E2E47A /* UIImage.swift in Sources */,
 				EB072E4F205F23490040EA23 /* MTAlbumCell.swift in Sources */,
 				EB2E6E1B205EFC5200588315 /* MTAlbumData.swift in Sources */,

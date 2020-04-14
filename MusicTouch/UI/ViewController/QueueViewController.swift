@@ -14,7 +14,6 @@ class QueueViewController: UIViewController {
 	
 	var controller: QueueController?
     
-//    private var app = UIApplication.shared.delegate as! AppDelegate
     override var prefersStatusBarHidden: Bool { return true }
     
     public var backgroundColor: UIColor? {
@@ -26,8 +25,6 @@ class QueueViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-		self.controller = QueueController(viewController: self)
     }
 
     override func didReceiveMemoryWarning() {

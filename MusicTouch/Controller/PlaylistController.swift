@@ -11,15 +11,17 @@ import UIKit
 
 class PlaylistController {
 	
-	private let app = UIApplication.shared.delegate as! AppDelegate
+	private var tabBarController: UITabBarController?
+	private var playlistList: [MTPlaylistData] = []
+	private weak var viewController: PlaylistViewController?
+	private var dataStore: DataStoreProtocol
+	private var player: PlayerProtocol
 	
-	var tabBarController: UITabBarController?
-	var playlistList: [MTPlaylistData] = []
-	weak var viewController: PlaylistViewController?
-	
-	init(tabBarController: UITabBarController, viewController: PlaylistViewController) {
+	init(tabBarController: UITabBarController, viewController: PlaylistViewController, dataStore: DataStoreProtocol, player: PlayerProtocol) {
 		self.tabBarController = tabBarController
 		self.viewController   = viewController
+		self.dataStore        = dataStore
+		self.player           = player
 	}
 	
     /// Set the playlists list to be shown
@@ -31,11 +33,11 @@ class PlaylistController {
     }
 	
 	func initializeList() {
-		self.setPlaylistList(self.app.dataStore.playlistList())
+		self.setPlaylistList(self.dataStore.playlistList())
 	}
 	
 	func isDataLoaded() -> Bool {
-		return self.app.dataStore.isDataLoaded()
+		return self.dataStore.isDataLoaded()
 	}
 	
 	func getItem(byIndex: Int) -> MTPlaylistData? {
@@ -73,14 +75,14 @@ class PlaylistController {
         guard let item = self.getItem(byIndex: indexPath.row) else { return }
         
         // Set the player collection
-		app.appPlayer.setCollection(item.songsCollection())
+		self.player.setCollection(item.songsCollection())
         
         // Sets the shuffle mode
         if (shuffle) {
-            app.appPlayer.shuffleModeOn()
+            self.player.shuffleModeOn()
         }
         else {
-            app.appPlayer.shuffleModeOff()
+            self.player.shuffleModeOff()
         }
         
         // Wait and start playing the first song and, also, transition to the Play view

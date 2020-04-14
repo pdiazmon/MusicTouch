@@ -12,15 +12,17 @@ import MediaPlayer
 
 class AlbumController {
 	
-	private let app = UIApplication.shared.delegate as! AppDelegate
+	private var tabBarController: UITabBarController?
+	private var albumList: [MTAlbumData] = []
+	private weak var viewController: AlbumViewController?
+	private var dataStore: DataStoreProtocol
+	private var player: PlayerProtocol
 	
-	var tabBarController: UITabBarController?
-	var albumList: [MTAlbumData] = []
-	weak var viewController: AlbumViewController?
-	
-	init(tabBarController: UITabBarController, viewController: AlbumViewController) {
+	init(tabBarController: UITabBarController, viewController: AlbumViewController, dataStore: DataStoreProtocol, player: PlayerProtocol) {
 		self.tabBarController = tabBarController
 		self.viewController   = viewController
+		self.dataStore        = dataStore
+		self.player           = player
 	}
 	
     /// Shows the player view and start playing all the listed artists songs
@@ -29,13 +31,13 @@ class AlbumController {
     func startToPlay(shuffle: Bool) {
         
         // Set the player collection
-		app.appPlayer.setCollection(MPMediaItemCollection(items: app.dataStore.getSongsList()))
+		self.player.setCollection(MPMediaItemCollection(items: self.dataStore.getSongsList()))
         
         if (shuffle) {
-            app.appPlayer.shuffleModeOn()
+			self.player.shuffleModeOn()
         }
         else {
-            app.appPlayer.shuffleModeOff()
+			self.player.shuffleModeOff()
         }
         
         // Start playing the first song and, also, transition to the Play view
@@ -87,14 +89,14 @@ class AlbumController {
 		guard let item = self.getItem(byIndex: indexPath.row) else { return }
         
         // Set the player collection from the songlist
-        app.appPlayer.setCollection(item.songsCollection())
+		self.player.setCollection(item.songsCollection())
         
         // Sets the shuffle mode
         if (shuffle) {
-            app.appPlayer.shuffleModeOn()
+			self.player.shuffleModeOn()
         }
         else {
-            app.appPlayer.shuffleModeOff()
+            self.player.shuffleModeOff()
         }
         
         // Wait and start playing the first song and, also, transition to the Play view
@@ -110,7 +112,7 @@ class AlbumController {
     }
 
 	func initializeList() {
-		self.setAlbumList(self.app.dataStore.albumList())
+		self.setAlbumList(self.dataStore.albumList())
 	}
 
     /// Set the playlists list to be shown
@@ -122,7 +124,7 @@ class AlbumController {
     }
 	
 	func isDataLoaded() -> Bool {
-		return self.app.dataStore.isDataLoaded()
+		return self.dataStore.isDataLoaded()
 	}
 
 }

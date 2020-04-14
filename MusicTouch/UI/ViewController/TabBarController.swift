@@ -13,6 +13,7 @@ import NVActivityIndicatorView
 class TabBarController: UITabBarController {
     
     private let dataStore = (UIApplication.shared.delegate as! AppDelegate).dataStore
+	private let player    = (UIApplication.shared.delegate as! AppDelegate).appPlayer
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,27 +25,28 @@ class TabBarController: UITabBarController {
 			if (view is PlaylistViewController) {
 				let vc = (view as! PlaylistViewController)
 				
-				vc.controller = PlaylistController(tabBarController: self, viewController: vc)
+				vc.controller = PlaylistController(tabBarController: self, viewController: vc, dataStore: self.dataStore, player: self.player)
 			}
 			else if (view is ArtistViewController) {
 				let vc = (view as! ArtistViewController)
 				
-				vc.controller = ArtistController(tabBarController: self, viewController: vc)
+				vc.controller = ArtistController(tabBarController: self, viewController: vc, dataStore: self.dataStore, player: self.player)
 			}
 			else if (view is AlbumViewController) {
 				let vc = (view as! AlbumViewController)
 				
-				vc.controller = AlbumController(tabBarController: self, viewController: vc)
+				vc.controller = AlbumController(tabBarController: self, viewController: vc, dataStore: self.dataStore, player: self.player)
 			}
 			else if (view is SongViewController) {
 				let vc = (view as! SongViewController)
 				
-				vc.controller = SongController(tabBarController: self, viewController: vc)
+				vc.controller = SongController(tabBarController: self, viewController: vc, dataStore: self.dataStore, player: self.player)
 			}
 			else if (view is PlayViewController) {
 				let vc = (view as! PlayViewController)
+				let thisApp: AppDelegate = UIApplication.shared.delegate as! AppDelegate
 				
-				vc.controller = PlayController(tabBarController: self, viewController: vc)
+				vc.controller = PlayController(tabBarController: self, viewController: vc, player: self.player, app: thisApp)
 			}
 		}
     }

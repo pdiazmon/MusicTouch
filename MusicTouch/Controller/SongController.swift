@@ -12,16 +12,18 @@ import MediaPlayer
 
 class SongController {
 	
-	private let app = UIApplication.shared.delegate as! AppDelegate
-	
-	var tabBarController: UITabBarController?
-	var songList: [MTSongData] = []
-	weak var viewController: SongViewController?
+	private var tabBarController: UITabBarController?
+	private var songList: [MTSongData] = []
+	private weak var viewController: SongViewController?
 	private var songsRetriever: SongsRetrieverProtocol?
+	private var dataStore: DataStoreProtocol
+	private var player: PlayerProtocol
 	
-	init(tabBarController: UITabBarController, viewController: SongViewController) {
+	init(tabBarController: UITabBarController, viewController: SongViewController, dataStore: DataStoreProtocol, player: PlayerProtocol) {
 		self.tabBarController = tabBarController
 		self.viewController   = viewController
+		self.dataStore        = dataStore
+		self.player           = player
 	}
 	
     /// Shows the player view and start playing all the listed artists songs
@@ -32,18 +34,18 @@ class SongController {
 		guard let retriever = self.songsRetriever else { return }
         
 		// Use the songsRetriever object to read the songs from the Media Library.
-		app.appPlayer.setCollection(retriever.songsCollection())
+		self.player.setCollection(retriever.songsCollection())
         
         if (shuffle) {
-            app.appPlayer.shuffleModeOn()
+            self.player.shuffleModeOn()
         }
         else {
-            app.appPlayer.shuffleModeOff()
+            self.player.shuffleModeOff()
         }
         
         // If an index has been informed, get the nth song from the data-store list
         if (index >= 0) {
-            app.appPlayer.setSong(self.songList[index].mediaItem)
+            self.player.setSong(self.songList[index].mediaItem)
         }
 		        
         // Start playing the first song and, also, transition to the Play view
@@ -70,7 +72,7 @@ class SongController {
 	}
 	
 	func initializeList() {
-		self.setSongsList(self.app.dataStore.songList())
+		self.setSongsList(self.dataStore.songList())
 	}
 
     /// Set the playlists list to be shown
@@ -82,7 +84,7 @@ class SongController {
     }
 	
 	func isDataLoaded() -> Bool {
-		return self.app.dataStore.isDataLoaded()
+		return self.dataStore.isDataLoaded()
 	}
 
 	func configure(songs: [MTSongData], songsRetriever: SongsRetrieverProtocol) {
@@ -92,7 +94,7 @@ class SongController {
 	}
 	
 	func configureByDefault() {
-		self.configure(songs: self.app.dataStore.songList(), songsRetriever: self)
+		self.configure(songs: self.dataStore.songList(), songsRetriever: self)
 	}
 	
 }
@@ -100,6 +102,6 @@ class SongController {
 extension SongController: SongsRetrieverProtocol {
 	func songsCollection() -> MPMediaItemCollection {
 		// By default, retrieves the list of all existing songs in the Media Library
-		return MPMediaItemCollection(items: app.dataStore.getSongsList())
+		return MPMediaItemCollection(items: self.dataStore.getSongsList())
 	}
 }

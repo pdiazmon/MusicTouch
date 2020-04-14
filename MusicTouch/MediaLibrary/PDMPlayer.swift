@@ -14,7 +14,7 @@ enum PlayStatus {
     case pause
 }
 
-public class PDMPlayer {
+public class PDMPlayer: PlayerProtocol {
     private var player:          MPMusicPlayerController
     private var playStatus:      PlayStatus
     private var songsCollection: MPMediaItemCollection = MPMediaItemCollection(items: [])

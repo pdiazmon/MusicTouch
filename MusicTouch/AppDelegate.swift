@@ -89,3 +89,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+extension AppDelegate: ApplicationProtocol {
+	func getAppStatus() -> AppStatus {
+		return self.appStatus
+	}
+}
+

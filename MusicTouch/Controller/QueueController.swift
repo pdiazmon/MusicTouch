@@ -11,20 +11,25 @@ import UIKit
 import MediaPlayer
 
 class QueueController {
-	private var app = UIApplication.shared.delegate as! AppDelegate
-	
-	weak var viewController: QueueViewController?
+	private weak var viewController: QueueViewController?
+	private var player: PlayerProtocol
 
-	init(viewController: QueueViewController) {
-		self.viewController = viewController
+	init(viewController: QueueViewController, player: PlayerProtocol, backgroundColor: UIColor) {
+		self.viewController                  = viewController
+		self.player                          = player
+		self.viewController?.backgroundColor = backgroundColor
 	}
 	
 	func getItem(byIndex: Int) -> MPMediaItem? {
-		return app.appPlayer.getCollection().items[byIndex]
+		return self.player.getCollection().items[byIndex]
 	}
 	
 	func numberOfItems() -> Int {
-		return app.appPlayer.getCollection().items.count
+		return self.player.getCollection().items.count
+	}
+	
+	func configure(backgroundColor: UIColor) {
+		self.viewController?.backgroundColor = backgroundColor
 	}
 
 }
