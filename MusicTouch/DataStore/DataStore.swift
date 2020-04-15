@@ -153,6 +153,16 @@ extension DataStore {
 }
 
 extension DataStore {
+	func add(playlist: MTPlaylistData) {
+		self.cache.playlistList.append(playlist)
+	}
+	
+	func add(artist: MTArtistData) {
+		self.cache.artistList.append(artist)
+	}
+}
+
+extension DataStore {
 	
 	func getPlaylistList() -> [MPMediaItemCollection] { return mediaLibrary.getPlaylistList() }
 	

@@ -43,7 +43,6 @@
 		EB7752F720DABFF8009060B6 /* MTDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7752F620DABFF8009060B6 /* MTDataProtocol.swift */; };
 		EB7752F920DAC2B4009060B6 /* MTCellDelegateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7752F820DAC2B3009060B6 /* MTCellDelegateProtocol.swift */; };
 		EB87367D20CEEBBC00CF643F /* DatastoreProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB87367C20CEEBBC00CF643F /* DatastoreProtocol.swift */; };
-		EB87367F20CEECB100CF643F /* DatastoreMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB87367E20CEECB100CF643F /* DatastoreMock.swift */; };
 		EB88740020ADE8A50075D9A4 /* artists.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = EB8873FB20ADE8A40075D9A4 /* artists.jpeg */; };
 		EB88740120ADE8A50075D9A4 /* albums.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = EB8873FC20ADE8A40075D9A4 /* albums.jpeg */; };
 		EB88740220ADE8A50075D9A4 /* songs.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = EB8873FD20ADE8A50075D9A4 /* songs.jpeg */; };
@@ -55,6 +54,7 @@
 		EB8EB2AD243E39D40086781D /* PDMMediaLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB8EB2AC243E39D40086781D /* PDMMediaLibrary.swift */; };
 		EB9251B820B48D9600839E9B /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB9251B720B48D9600839E9B /* UIImageView.swift */; };
 		EB9A1AAB243FA33400B53E43 /* UIFontComplete in Frameworks */ = {isa = PBXBuildFile; productRef = EB9A1AAA243FA33400B53E43 /* UIFontComplete */; };
+		EBA5697D2446196F00241AD5 /* DatastoreMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB87367E20CEECB100CF643F /* DatastoreMock.swift */; };
 		EBAB5DD5205F2A7D00FD3FF8 /* SongViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAB5DD4205F2A7D00FD3FF8 /* SongViewController.swift */; };
 		EBAB5DD7205F2BA800FD3FF8 /* MTSongCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAB5DD6205F2BA800FD3FF8 /* MTSongCell.swift */; };
 		EBBD6E0920E531E20037CD2B /* MTCellLondon.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBBD6E0820E531E20037CD2B /* MTCellLondon.swift */; };
@@ -281,8 +281,8 @@
 		EB2E6E1E205EFCAB00588315 /* DataStore */ = {
 			isa = PBXGroup;
 			children = (
-				EBFD73912066DBA60056FB12 /* DataStore.swift */,
 				EB87367E20CEECB100CF643F /* DatastoreMock.swift */,
+				EBFD73912066DBA60056FB12 /* DataStore.swift */,
 			);
 			path = DataStore;
 			sourceTree = "<group>";
@@ -469,7 +469,6 @@
 					};
 					EB2E6E02205EECB700588315 = {
 						CreatedOnToolsVersion = 9.2;
-						ProvisioningStyle = Automatic;
 						TestTargetID = EB2E6DE1205EECB700588315;
 					};
 				};
@@ -538,7 +537,6 @@
 				EB28692B2444CAF500F483C3 /* SongController.swift in Sources */,
 				EBC7D15920FA09D200C5BCE0 /* NVActivityIndicatorViewFactory.swift in Sources */,
 				EBC7D15B20FA329F00C5BCE0 /* CGRect.swift in Sources */,
-				EB87367F20CEECB100CF643F /* DatastoreMock.swift in Sources */,
 				EB68FBF2206593DB00A2CB7E /* PlaylistViewController.swift in Sources */,
 				EB7752F120DAA030009060B6 /* MTData.swift in Sources */,
 				EB7752F320DAA308009060B6 /* MTSongData.swift in Sources */,
@@ -559,6 +557,7 @@
 				EB3739562090D8B200BC4988 /* QueueViewController.swift in Sources */,
 				EB3739582090DF7800BC4988 /* QueueCell.swift in Sources */,
 				EBF25318243E3DE300B84F3A /* PDMPlayer.swift in Sources */,
+				EBA5697D2446196F00241AD5 /* DatastoreMock.swift in Sources */,
 				EB2E6E16205EEE6F00588315 /* MTArtistCell.swift in Sources */,
 				EB2E6DE8205EECB700588315 /* ArtistViewController.swift in Sources */,
 				EBBD6E0920E531E20037CD2B /* MTCellLondon.swift in Sources */,
@@ -805,7 +804,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = S3P397D556;
 				INFOPLIST_FILE = MusicTouchTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -831,7 +830,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = S3P397D556;
 				INFOPLIST_FILE = MusicTouchTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -853,6 +852,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S3P397D556;
 				INFOPLIST_FILE = MusicTouchUITests/Info.plist;
@@ -864,6 +865,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = pdiazmon.MusicTouchUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = MusicTouch;
@@ -874,6 +877,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = S3P397D556;
 				INFOPLIST_FILE = MusicTouchUITests/Info.plist;
@@ -885,6 +890,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = pdiazmon.MusicTouchUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=macosx*]" = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = MusicTouch;

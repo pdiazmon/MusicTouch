@@ -10,6 +10,8 @@ import Foundation
 // import MediaPlayer
 
 protocol DataStoreProtocol: MediaLibraryProtocol {
+	
+	func fillCache()
     
     func songList() -> [MTSongData]
     
@@ -20,4 +22,9 @@ protocol DataStoreProtocol: MediaLibraryProtocol {
     func artistList() -> [MTArtistData]
     
     func isDataLoaded() -> Bool
+	
+	func add(playlist: MTPlaylistData)
+	
+	func add(artist: MTArtistData)
+	
 }

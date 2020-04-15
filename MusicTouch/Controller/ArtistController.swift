@@ -16,9 +16,9 @@ class ArtistController {
 	private var artistList: [MTArtistData] = []
 	private weak var viewController: ArtistViewController?
 	private var dataStore: DataStoreProtocol
-	private var player: PlayerProtocol
+	private var player: PlayerProtocol?
 	
-	init(tabBarController: UITabBarController, viewController: ArtistViewController, dataStore: DataStoreProtocol, player: PlayerProtocol) {
+	init(tabBarController: UITabBarController?, viewController: ArtistViewController?, dataStore: DataStoreProtocol, player: PlayerProtocol?) {
 		self.tabBarController = tabBarController
 		self.viewController   = viewController
 		self.dataStore        = dataStore
@@ -29,15 +29,17 @@ class ArtistController {
     ///
     /// - Parameter shuffle: start playing in shuffle mode (true) or in queue mode (false)
     func startToPlay(shuffle: Bool) {
+		
+		guard let player = self.player else { return }
         
         // Set the player collection
-		self.player.setCollection(MPMediaItemCollection(items: self.dataStore.getSongsList()))
+		player.setCollection(MPMediaItemCollection(items: self.dataStore.getSongsList()))
         
         if (shuffle) {
-			self.player.shuffleModeOn()
+			player.shuffleModeOn()
         }
         else {
-			self.player.shuffleModeOff()
+			player.shuffleModeOff()
         }
         
         // Start playing the first song and, also, transition to the Play view
@@ -85,16 +87,17 @@ class ArtistController {
     func swipeHandler(indexPath: IndexPath, shuffle: Bool) {
         
 		guard let item = self.getItem(byIndex: indexPath.row) else { return }
+		guard let player = self.player else { return }
         
         // Set the player collection from the songlist
-		self.player.setCollection(item.songsCollection())
+		player.setCollection(item.songsCollection())
         
         // Sets the shuffle mode
         if (shuffle) {
-			self.player.shuffleModeOn()
+			player.shuffleModeOn()
         }
         else {
-			self.player.shuffleModeOff()
+			player.shuffleModeOff()
         }
         
         // Wait and start playing the first song and, also, transition to the Play view

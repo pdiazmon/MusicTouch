@@ -15,9 +15,9 @@ class PlaylistController {
 	private var playlistList: [MTPlaylistData] = []
 	private weak var viewController: PlaylistViewController?
 	private var dataStore: DataStoreProtocol
-	private var player: PlayerProtocol
+	private var player: PlayerProtocol?
 	
-	init(tabBarController: UITabBarController, viewController: PlaylistViewController, dataStore: DataStoreProtocol, player: PlayerProtocol) {
+	init(tabBarController: UITabBarController?, viewController: PlaylistViewController?, dataStore: DataStoreProtocol, player: PlayerProtocol?) {
 		self.tabBarController = tabBarController
 		self.viewController   = viewController
 		self.dataStore        = dataStore
@@ -73,16 +73,17 @@ class PlaylistController {
     func swipeHandler(indexPath: IndexPath, shuffle: Bool) {
         
         guard let item = self.getItem(byIndex: indexPath.row) else { return }
+		guard let player = self.player else { return }
         
         // Set the player collection
-		self.player.setCollection(item.songsCollection())
+		player.setCollection(item.songsCollection())
         
         // Sets the shuffle mode
         if (shuffle) {
-            self.player.shuffleModeOn()
+            player.shuffleModeOn()
         }
         else {
-            self.player.shuffleModeOff()
+            player.shuffleModeOff()
         }
         
         // Wait and start playing the first song and, also, transition to the Play view

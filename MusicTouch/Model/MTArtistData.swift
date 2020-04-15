@@ -67,5 +67,9 @@ class MTArtistData: MTData {
 		return MPMediaItemCollection(items: mediaLibrary.getSongsList(byArtistPersistentID: self.persistentID))
     }
     
+	func add(album: MTAlbumData) {
+		self.albums.append(album)
+	}
+	
 }
 

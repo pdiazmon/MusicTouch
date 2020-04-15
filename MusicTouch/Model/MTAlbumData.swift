@@ -63,6 +63,11 @@ class MTAlbumData: MTData {
     func songsCollection() -> MPMediaItemCollection {
 		return MPMediaItemCollection(items: mediaLibrary.getSongsList(byAlbumPersistentID: self.persistentID))
     }
+	
+	func add(song: MTSongData) {
+		self.songs.append(song)
+	}
+
 }
 
 
