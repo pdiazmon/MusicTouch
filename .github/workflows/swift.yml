@@ -19,4 +19,3 @@ jobs:
       run: xcodebuild build -project MusicTouch.xcodeproj -scheme MusicTouch CODE_SIGNING_REQUIRED=NO -allowProvisioningUpdates
     - name: Run tests
       run: xcodebuild test -project MusicTouch.xcodeproj -scheme MusicTouch -destination "platform=iOS Simulator,name=iPhone 11 Pro" CODE_SIGNING_REQUIRED=NO -allowProvisioningUpdates
-
