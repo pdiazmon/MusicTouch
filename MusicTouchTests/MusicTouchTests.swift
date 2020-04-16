@@ -69,23 +69,42 @@ class MusicTouchTests: XCTestCase {
 		
 		fillAlbums(dataStore: ds)
 
-		XCTAssertEqual(ds.albumList().count, 4)
+		var albumList = ds.albumList().sorted { $0.persistentID < $1.persistentID }
 		
-		let artist = ds.artistList().last!
+		XCTAssertEqual(albumList.count, 4)
+		
+		XCTAssertEqual(albumList[0].persistentID, 1)
+		XCTAssertEqual(albumList[0].albumTitle, "Album 1")
+		XCTAssertEqual(albumList[0].artistName, "Artist 1")
+		
+		XCTAssertEqual(albumList[1].persistentID, 2)
+		XCTAssertEqual(albumList[1].albumTitle, "Album 2")
+		XCTAssertEqual(albumList[1].artistName, "Artist 1")
+		
+		XCTAssertEqual(albumList[2].persistentID, 3)
+		XCTAssertEqual(albumList[2].albumTitle, "Album 3")
+		XCTAssertEqual(albumList[2].artistName, "Artist 3")
+		
+		XCTAssertEqual(albumList[3].persistentID, 4)
+		XCTAssertEqual(albumList[3].albumTitle, "Album 4")
+		XCTAssertEqual(albumList[3].artistName, "Artist 3")
+		
+		
+		let artist = ds.artistList()
+					   .sorted { $0.persistentID < $1.persistentID }
+			           .last!
 		let newAlbum = MTAlbumData(persistentID: 5, artistName: artist.name, albumTitle: "Album 5", mediaLibrary: ds)
 		artist.add(album: newAlbum)
-		XCTAssertEqual(ds.albumList().count, 5)
+
+		albumList = ds.albumList().sorted { $0.persistentID < $1.persistentID }
 		
-		XCTAssertEqual(ds.albumList()[0].albumTitle, "Album 1")
-		XCTAssertEqual(ds.albumList()[0].artistName, "Artist 1")
-		XCTAssertEqual(ds.albumList()[1].albumTitle, "Album 2")
-		XCTAssertEqual(ds.albumList()[1].artistName, "Artist 1")
-		XCTAssertEqual(ds.albumList()[2].albumTitle, "Album 3")
-		XCTAssertEqual(ds.albumList()[2].artistName, "Artist 3")
-		XCTAssertEqual(ds.albumList()[3].albumTitle, "Album 4")
-		XCTAssertEqual(ds.albumList()[3].artistName, "Artist 3")
+		XCTAssertEqual(albumList.count, 5)
+		
+		XCTAssertEqual(albumList.last!.persistentID, 5)
+		XCTAssertEqual(albumList.last!.albumTitle, "Album 5")
 		
 		XCTAssertTrue(ds.isDataLoaded())
+		
 	}
 
 	func testPlaylistController() {
@@ -169,11 +188,13 @@ extension MusicTouchTests {
 	func fillAlbums(dataStore: DataStoreProtocol) {
 		fillArtists(dataStore: dataStore)
 		
-		var artist = dataStore.artistList().first!
+		let artistList = dataStore.artistList().sorted { $0.persistentID < $1.persistentID }
+		
+		var artist = artistList.first!
 		artist.add(album: MTAlbumData(persistentID: 1, artistName: artist.name, albumTitle: "Album 1", mediaLibrary: dataStore))
 		artist.add(album: MTAlbumData(persistentID: 2, artistName: artist.name, albumTitle: "Album 2", mediaLibrary: dataStore))
 		
-		artist = dataStore.artistList().last!
+		artist = artistList.last!
 		artist.add(album: MTAlbumData(persistentID: 3, artistName: artist.name, albumTitle: "Album 3", mediaLibrary: dataStore))
 		artist.add(album: MTAlbumData(persistentID: 4, artistName: artist.name, albumTitle: "Album 4", mediaLibrary: dataStore))
 	}

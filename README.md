@@ -1,4 +1,6 @@
 # MusicTouch
+<img src="https://app.bitrise.io/app/f2d811688644c564/status.svg?token=1i_8RElOZE6rTzC1HUgDAQ&branch=develop">
+
 MusicTouch is my first-real app in Swift.
 
 It meets an own need for a music player managed by gestures. Perfect for moments when you are driving and you can not look at the iPhone screen to stop/play music, swipe to the next/previous song, increase/decrease the volume, etc.
