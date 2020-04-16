@@ -1,0 +1,22 @@
+name: Swift
+
+on:
+  push:
+    branches: [ develop ]
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  build:
+
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Clean
+      run: xcodebuild clean 
+    - name: Build
+      run: xcodebuild build -project MusicTouch.xcodeproj -scheme MusicTouch CODE_SIGNING_REQUIRED=NO
+    - name: Run tests
+      run: xcodebuild test -project MusicTouch.xcodeproj -scheme MusicTouch -destination "platform=iOS Simulator,name=iPhone 11 Pro" CODE_SIGNING_REQUIRED=NO
+
