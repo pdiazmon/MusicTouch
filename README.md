@@ -1,5 +1,6 @@
 # MusicTouch
-<img src="https://app.bitrise.io/app/f2d811688644c564/status.svg?token=1i_8RElOZE6rTzC1HUgDAQ&branch=develop">
+Develop: <img src="https://app.bitrise.io/app/f2d811688644c564/status.svg?token=1i_8RElOZE6rTzC1HUgDAQ&branch=develop">
+Master:  <img src="https://app.bitrise.io/app/f2d811688644c564/status.svg?token=1i_8RElOZE6rTzC1HUgDAQ&branch=master">
 
 MusicTouch is my first-real app in Swift.
 
