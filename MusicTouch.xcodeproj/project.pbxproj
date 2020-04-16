@@ -338,8 +338,8 @@
 		EB87367920CEEB8F00CF643F /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				EB8AAC6124421B2400D20974 /* MediaLibraryProtocol.swift */,
 				EB87367C20CEEBBC00CF643F /* DatastoreProtocol.swift */,
+				EB8AAC6124421B2400D20974 /* MediaLibraryProtocol.swift */,
 				EB7752F620DABFF8009060B6 /* MTDataProtocol.swift */,
 				EB0098532440ED6500CE9C1C /* SongsRetrieverProtocol.swift */,
 				EB7752F820DAC2B3009060B6 /* MTCellDelegateProtocol.swift */,
