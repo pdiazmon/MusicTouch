@@ -22,6 +22,8 @@ class PlaylistController {
 		self.viewController   = viewController
 		self.dataStore        = dataStore
 		self.player           = player
+		
+		self.initializeList()
 	}
 	
     /// Set the playlists list to be shown
@@ -32,7 +34,7 @@ class PlaylistController {
         viewController?.reloadData()
     }
 	
-	func initializeList() {
+	private func initializeList() {
 		self.setPlaylistList(self.dataStore.playlistList())
 	}
 	

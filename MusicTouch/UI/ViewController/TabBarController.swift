@@ -7,8 +7,6 @@
 //
 
 import UIKit
-import NVActivityIndicatorView
-
 
 class TabBarController: UITabBarController {
     
@@ -18,7 +16,6 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
         self.delegate = self
 		
 		for view in self.customizableViewControllers! {
@@ -70,7 +67,7 @@ extension TabBarController: UITabBarControllerDelegate {
         if (viewController is AlbumViewController) {
             // .. prepare the AlbumViewController to show all the existing albums
 			if let vc = (viewController as? AlbumViewController), let controller = vc.controller {
-				controller.setAlbumList([])
+				controller.configureByDefault()
 			}
         }
         // If the Song button has been clicked

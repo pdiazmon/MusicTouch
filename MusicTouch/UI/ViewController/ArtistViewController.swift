@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import NVActivityIndicatorView
 
 class ArtistViewController: UIViewController {
 
@@ -20,8 +19,6 @@ class ArtistViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view, typically from a nib.
 
         // Register the correct CellView class
         self.artistTable.register(MTCellFactory.shared.classForCoder(), forCellReuseIdentifier: "CellArtist")
@@ -176,28 +173,7 @@ extension ArtistViewController {
     /// - Parameter animated: If true, the view was added to the window using an animation.
     override func viewDidAppear(_ animated: Bool) {
         
-        super.viewDidAppear(animated)
-		
-		guard let controller = self.controller else { return }
-		guard (controller.numberOfItems() == 0) else { return }
-        
-        // create an activity animation
-        let activity = NVActivityIndicatorViewFactory.shared.getNewLoading(frame: self.artistTable.frame)
-        
-        self.view.addSubview(activity)
-        activity.startAnimating()
-        
-        // Asynchronously, in background, load the albums data into the datastore
-        DispatchQueue.main.async {
-            
-            // Load the artists list
-			controller.initializeList()
-            
-            // stop the animation
-            activity.stopAnimating()
-            activity.removeFromSuperview()
-        }
-        
+        super.viewDidAppear(animated)		
     }
     
     /// Forces the TableView to reload its data

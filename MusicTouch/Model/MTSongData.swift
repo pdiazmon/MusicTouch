@@ -42,19 +42,19 @@ class MTSongData: MTData {
     }
 	
 	func albumArtist() -> String {
-		return (self._albumArtist == nil) ? "" : self._albumArtist!
+		return self._albumArtist ?? ""
 	}
 	
 	func albumTitle() -> String {
-		return (self._albumTitle == nil) ? "" : self._albumTitle!
+		return self._albumTitle ?? ""
 	}
 
 	func albumTrackNumber() -> Int {
-		return (self._albumTrackNumber != nil) ? self._albumTrackNumber! : 0
+		return self._albumTrackNumber ?? 0
 	}
 	
 	func songTitle() -> String {
-		return (self._songTitle == nil) ? "" : self._songTitle!
+		return self._songTitle ?? ""
 	}
 	
     func image() -> UIImage? {

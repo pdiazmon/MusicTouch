@@ -7,8 +7,6 @@
 //
 
 import UIKit
-//import MediaPlayer
-import NVActivityIndicatorView
 
 class AlbumViewController: UIViewController {
 
@@ -21,7 +19,6 @@ class AlbumViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
         layout()
         
@@ -190,32 +187,7 @@ extension AlbumViewController {
     /// - Parameter animated: If true, the view was added to the window using an animation.
     override func viewDidAppear(_ animated: Bool) {
 
-        super.viewDidAppear(animated)
-		
-		guard let controller = self.controller else { return }
-        
-		if (controller.isDataLoaded() && controller.numberOfItems() == 0) {
-			controller.initializeList()
-        }
-		else if (!controller.isDataLoaded()) {
-            // create an activity animation
-            let activity = NVActivityIndicatorViewFactory.shared.getNewLoading(frame: self.albumsTableView.frame)
-            
-            self.view.addSubview(activity)
-            activity.startAnimating()
-
-            // Asynchronously, in background, load the albums data into the datastore
-            DispatchQueue.main.async {
-                // Store all the albums from the music library into the data-store
-				if (controller.numberOfItems() == 0) {
-					controller.initializeList()
-                }
-                
-                // stop the animation
-                activity.stopAnimating()
-                activity.removeFromSuperview()
-            }
-        }
+        super.viewDidAppear(animated)		
     }
     
     /// Forces the TableView to reload its data

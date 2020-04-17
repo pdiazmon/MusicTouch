@@ -23,6 +23,8 @@ class AlbumController {
 		self.viewController   = viewController
 		self.dataStore        = dataStore
 		self.player           = player
+		
+		self.initializeList()
 	}
 	
     /// Shows the player view and start playing all the listed artists songs
@@ -114,8 +116,12 @@ class AlbumController {
         }
     }
 
-	func initializeList() {
+	private func initializeList() {
 		self.setAlbumList(self.dataStore.albumList())
+	}
+	
+	func configureByDefault() {
+		self.initializeList()
 	}
 
     /// Set the playlists list to be shown

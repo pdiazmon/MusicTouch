@@ -7,8 +7,6 @@
 //
 
 import UIKit
-//import MediaPlayer
-import NVActivityIndicatorView
 
 class PlaylistViewController: UIViewController {
     
@@ -18,19 +16,9 @@ class PlaylistViewController: UIViewController {
     
     override var prefersStatusBarHidden: Bool { return true }
     
-    var activity: NVActivityIndicatorView!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-        
-        // create an activity animation
-        activity = NVActivityIndicatorViewFactory.shared.getNewLoading(frame: self.playlistTableView.frame)
-        self.view.addSubview(activity)
-        activity.startAnimating()
-        
-        
         // Register the correct CellView class
         self.playlistTableView.register(MTCellFactory.shared.classForCoder(), forCellReuseIdentifier: "CellPlaylist")
         
@@ -160,38 +148,12 @@ extension PlaylistViewController {
     
     override func viewDidAppear(_ animated: Bool) {
 
-        super.viewDidAppear(animated)
-		
-		guard let controller = self.controller else { return }
-        
-		if (controller.isDataLoaded() && controller.numberOfItems() == 0) {
-			controller.initializeList()
-            
-            if (self.activity.isAnimating) {
-                self.activity.stopAnimating()
-                self.activity.removeFromSuperview()
-            }
-        }
-		else if (!controller.isDataLoaded()) {
-            
-            // Asynchronously, in background, load the playlist data
-            DispatchQueue.main.async {
-                
-                // Load all the playlist data
-				if (controller.numberOfItems() == 0) {
-					controller.initializeList()
-                }
-                
-                // stop the animation
-                if (self.activity.isAnimating) {
-                    self.activity.stopAnimating()
-                    self.activity.removeFromSuperview()
-                }
-            }
-        }
+        super.viewDidAppear(animated)		
     }
 	
 	func reloadData() {
+		guard let _ = self.playlistTableView else { return }
+		
 		self.playlistTableView.reloadData()
 	}
 

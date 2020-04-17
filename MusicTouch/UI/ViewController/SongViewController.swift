@@ -8,7 +8,6 @@
 
 import UIKit
 import MediaPlayer
-import NVActivityIndicatorView
 import UIFontComplete
 
 
@@ -58,28 +57,9 @@ class SongViewController: UIViewController {
     /// - Parameter index: (Optional) Index of the song to be played in the TableView
     private func startToPlay(shuffle: Bool,  index: Int = -1) {
 		
-		var preparingPlay: Bool = false
-		let preparingPlaySemaphore = DispatchSemaphore(value: 1)
-		
 		guard let controller = self.controller else { return }
-		
-		DispatchQueue.main.asyncAfter(deadline: .now()+0.005) {
-			if (preparingPlay) {
-				self.showSpinner(onView: self.songsTableView)
-				preparingPlaySemaphore.wait()
-				self.removeSpinner()
-				preparingPlaySemaphore.signal()
-			}
-		}
-
-		preparingPlaySemaphore.wait()
-		preparingPlay = true
 
 		controller.startToPlay(shuffle: shuffle, index: index)
-		
-		preparingPlay = false
-		preparingPlaySemaphore.signal()
-
     }
 }
 
@@ -165,57 +145,6 @@ extension SongViewController {
     override func viewDidAppear(_ animated: Bool) {
         
         super.viewDidAppear(animated)
-		
-		guard let controller = self.controller else { return }
-        
-		if (controller.isDataLoaded() && controller.numberOfItems() == 0) {
-			controller.configureByDefault()
-        }
-		else if (!controller.isDataLoaded()) {
-
-            // create an activity animation
-            let activity = NVActivityIndicatorViewFactory.shared.getNewLoading(frame: self.songsTableView.frame)
-            
-            self.view.addSubview(activity)
-            activity.startAnimating()
-            
-            // Asynchronously, in background, load the albums data
-            DispatchQueue.main.async {
-                
-				if (controller.numberOfItems() == 0) {
-					controller.configureByDefault()
-                }
-                
-                // stop the animation
-                activity.stopAnimating()
-                activity.removeFromSuperview()
-            }
-        }
-        
     }
     
 }
-
-extension SongViewController {
-    func showSpinner(onView : UIView) {
-		let size = CGSize(width: 30, height: 30)
-
-		let activityData = ActivityData(size: size,
-										message: "Loading ...",
-										messageFont: UIFont(font: Font.helveticaLight, size: 15),
-										type: .circleStrokeSpin)
-
-		NVActivityIndicatorPresenter.sharedInstance.startAnimating(activityData)
-    }
-    
-    func removeSpinner() {
-        DispatchQueue.main.async {
-			NVActivityIndicatorPresenter.sharedInstance.stopAnimating()
-        }
-    }
-	
-	func isSpinnerAnimating() -> Bool {
-		return NVActivityIndicatorPresenter.sharedInstance.isAnimating
-	}
-}
-

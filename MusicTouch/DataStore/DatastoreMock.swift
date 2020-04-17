@@ -52,6 +52,10 @@ class DataStoreMock: DataStoreProtocol {
     private var _songList:             [MTSongData] = [] 
 
     private var _mediaDB = MediaDB()
+	
+	init() {
+		fillCache()
+	}
     
     func refreshArtistList() {
         _artistList = _mediaDB._artistList
@@ -99,7 +103,7 @@ class DataStoreMock: DataStoreProtocol {
     }
     
     func albumList() -> [MTAlbumData] {
-		return _mediaDB._artistList.flatMap { $0.albums }
+		return _mediaDB._albumList
     }
     
     func playlistList() -> [MTPlaylistData] {
@@ -126,19 +130,27 @@ class DataStoreMock: DataStoreProtocol {
 	}
 	
 	func fillCache() {
-		_mediaDB._playlistList.append(MTPlaylistData(persistentID: 1, name: "Mock Playlist 1", mediaLibrary: self))
-		_mediaDB._playlistList.append(MTPlaylistData(persistentID: 1, name: "Mock Playlist 2", mediaLibrary: self))
+		_mediaDB._playlistList.append(MTPlaylistData(persistentID: 1, name: "Playlist 1", mediaLibrary: self))
+		_mediaDB._playlistList.append(MTPlaylistData(persistentID: 2, name: "Playlist 2", mediaLibrary: self))
+		_mediaDB._playlistList.append(MTPlaylistData(persistentID: 3, name: "Playlist 3", mediaLibrary: self))
         
-		_mediaDB._artistList.append(MTArtistData(persistentID: 3, name: "Mock Artist 1", mediaLibrary: self))
-		_mediaDB._artistList.append(MTArtistData(persistentID: 4, name: "Mock Artist 1", mediaLibrary: self))
-
-		var artist = _mediaDB._artistList.first!
-		artist.add(album: MTAlbumData(persistentID: 5, artistName: artist.name, albumTitle: "Mock Album 1", mediaLibrary: self))
-		artist.add(album: MTAlbumData(persistentID: 6, artistName: artist.name, albumTitle: "Mock Album 2", mediaLibrary: self))
+		_mediaDB._artistList.append(MTArtistData(persistentID: 4, name: "Artist 1", mediaLibrary: self))
+		_mediaDB._artistList.append(MTArtistData(persistentID: 5, name: "Artist 2", mediaLibrary: self))
+		_mediaDB._artistList.append(MTArtistData(persistentID: 6, name: "Artist 3", mediaLibrary: self))
 		
-		artist = _mediaDB._artistList.last!
-		artist.add(album: MTAlbumData(persistentID: 7, artistName: artist.name, albumTitle: "Mock Album 3", mediaLibrary: self))
-		artist.add(album: MTAlbumData(persistentID: 8, artistName: artist.name, albumTitle: "Mock Album 4", mediaLibrary: self))
+		_mediaDB._albumList.append(MTAlbumData(persistentID: 7, artistName: "Artist 1", albumTitle: "Album 1", mediaLibrary: self))
+		_mediaDB._albumList.append(MTAlbumData(persistentID: 8, artistName: "Artist 1", albumTitle: "Album 2", mediaLibrary: self))
+		_mediaDB._albumList.append(MTAlbumData(persistentID: 9, artistName: "Artist 3", albumTitle: "Album 3", mediaLibrary: self))
+		_mediaDB._albumList.append(MTAlbumData(persistentID: 10, artistName: "Artist 3", albumTitle: "Album 4", mediaLibrary: self))
+		
+
+//		var artist = _mediaDB._artistList.first!
+//		artist.add(album: MTAlbumData(persistentID: 7, artistName: artist.name, albumTitle: "Album 1", mediaLibrary: self))
+//		artist.add(album: MTAlbumData(persistentID: 8, artistName: artist.name, albumTitle: "Album 2", mediaLibrary: self))
+//		
+//		artist = _mediaDB._artistList.last!
+//		artist.add(album: MTAlbumData(persistentID: 7, artistName: artist.name, albumTitle: "Mock Album 3", mediaLibrary: self))
+//		artist.add(album: MTAlbumData(persistentID: 8, artistName: artist.name, albumTitle: "Mock Album 4", mediaLibrary: self))
 		
 //        newSong(artist: "Mock Artist 1", album: "Mock Album 1-1", title: "Mock Song 1-1-1")
 //        newSong(artist: "Mock Artist 1", album: "Mock Album 1-1", title: "Mock Song 1-1-2")
@@ -173,6 +185,8 @@ extension DataStoreMock {
 extension DataStoreMock
 {
 	func getPlaylistList() -> [MPMediaItemCollection] { return [] }
+	
+	func getAlbumList() -> [MPMediaItem] { return [] }
 	
 	func getAlbumArtistList() -> [MPMediaItem] { return [] }
 	

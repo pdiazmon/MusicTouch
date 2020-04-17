@@ -8,44 +8,45 @@
 
 import Foundation
 import MediaPlayer
-import UIKit
-
 
 class MTArtistData: MTData {
     var name: String = ""
-    var numberOfAlbums: Int { get { return albums.count } }
+	var numberOfAlbums: Int {
+		get {
+			return self.getAlbumsListFromMediaLibrary().count
+		}
+	}
 	
-	var albums: [MTAlbumData] = []
+	var albums: [MTAlbumData] {
+		get {
+			return self.getAlbumsListFromMediaLibrary()
+					   .map { MTAlbumData(persistentID: $0.albumPersistentID,
+										  artistName: name,
+										  albumTitle: $0.albumTitle ?? "",
+										  year: ($0.releaseDate != nil) ? Calendar.current.component(.year, from: $0.releaseDate!) : ALBUMYEAR_DEFAULT,
+										  mediaLibrary: mediaLibrary)
+					   }
+					   .sorted {
+							if ($0.year == $1.year) { return $0.albumTitle < $1.albumTitle }
+							else { return $0.year < $1.year}
+					   }
+			}
+	}
 	
-	let artistQueue = DispatchQueue(label: "artist")
-	
-    override public var playTime: (hours: Int, minutes: Int, seconds: Int) { get {
-        var secs: Int = 0
-        for album in albums {
-            secs += album.toSeconds()
-        }
-        return fromSeconds(seconds: secs)
-    } }
+    override public var playTime: (hours: Int, minutes: Int, seconds: Int) {
+		get {
+			var secs: Int = 0
+			for album in albums {
+				secs += album.toSeconds()
+			}
+			return fromSeconds(seconds: secs)
+		}
+	}
     
 	init(persistentID: MPMediaEntityPersistentID, name: String, mediaLibrary: MediaLibraryProtocol) {
 		super.init(persistentID: persistentID, mediaLibrary: mediaLibrary)
 		
-        self.name           = name
-        self.albums         = []
-		
-		artistQueue.async {
-			self.albums = mediaLibrary.getAlbumsList(byArtistPersistentID: self.persistentID)
-				          .map { MTAlbumData(persistentID: $0.albumPersistentID,
-								   artistName: name,
-								   albumTitle: $0.albumTitle ?? "",
-								   year: ($0.releaseDate != nil) ? Calendar.current.component(.year, from: $0.releaseDate!) : ALBUMYEAR_DEFAULT,
-								   mediaLibrary: mediaLibrary)
-						  }
-				          .sorted {
-								if ($0.year == $1.year) { return $0.albumTitle < $1.albumTitle }
-								else { return $0.year < $1.year}
-						  }
-		}
+        self.name = name
     }
     
     func title() -> String {
@@ -64,11 +65,11 @@ class MTArtistData: MTData {
     }
     
     func songsCollection() -> MPMediaItemCollection {
-		return MPMediaItemCollection(items: mediaLibrary.getSongsList(byArtistPersistentID: self.persistentID))
+		return MPMediaItemCollection(items: getAlbumsListFromMediaLibrary())
     }
     
-	func add(album: MTAlbumData) {
-		self.albums.append(album)
+	private func getAlbumsListFromMediaLibrary() -> [MPMediaItem] {
+		return mediaLibrary.getAlbumsList(byArtistPersistentID: self.persistentID)
 	}
 	
 }

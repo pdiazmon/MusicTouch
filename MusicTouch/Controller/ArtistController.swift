@@ -23,6 +23,8 @@ class ArtistController {
 		self.viewController   = viewController
 		self.dataStore        = dataStore
 		self.player           = player
+		
+		self.initializeList()
 	}
 	
     /// Shows the player view and start playing all the listed artists songs
@@ -112,7 +114,7 @@ class ArtistController {
         }
     }
 
-	func initializeList() {
+	private func initializeList() {
 		self.setArtistList(self.dataStore.artistList())
 	}
 

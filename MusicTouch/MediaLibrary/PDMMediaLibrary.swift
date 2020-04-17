@@ -35,6 +35,31 @@ public class PDMMediaLibrary: MediaLibraryProtocol {
             break
         }
     }
+	
+    /// Returns all the albums in the Media Library
+    /// - Returns: A MPMediaItem array with all the albumss in the Media Library. Every MPMediaItem in the array is the album representative item.
+    public func getAlbumList() -> [MPMediaItem] {
+        var list: [MPMediaItem] = []
+        
+        perform() {
+            // Query for all the songs in the Media Library
+			let query = MPMediaQuery.albums()
+            
+            // Group the query results in different collections by album artist name
+			query.groupingType = MPMediaGrouping.album
+            
+            // Get all the collections returned by the query and add their representative item to a list
+            if let result = query.collections {
+                for res in result {
+                    list.append((res.representativeItem)!)
+                }
+            }
+        }
+        
+        // Sort the list by album artist name and return it
+		return list.sorted { $0.albumTitle! < $1.albumTitle! }
+    }
+
     
     /// Returns all the album artists in the Media Library
     /// - Returns: A MPMediaItem array with all the album artists in the Media Library. Every MPMediaItem in the array is the album artist representative item.

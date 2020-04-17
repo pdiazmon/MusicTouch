@@ -25,99 +25,51 @@ class MusicTouchTests: XCTestCase {
     func testPlaylistData() {
 		let ds = DataStoreMock()
 		
-		XCTAssertFalse(ds.isDataLoaded())
-		
-		fillPlaylists(dataStore: ds)
 		XCTAssertEqual(ds.playlistList().count, 3)
-		
-		ds.newPlaylist(persistentID: 4, playlist: "Playlist 4")
-		XCTAssertEqual(ds.playlistList().count, 4)
 		
 		XCTAssertEqual(ds.playlistList()[0].name, "Playlist 1")
 		XCTAssertEqual(ds.playlistList()[1].name, "Playlist 2")
 		XCTAssertEqual(ds.playlistList()[2].name, "Playlist 3")
-		XCTAssertEqual(ds.playlistList()[3].name, "Playlist 4")
-		
-		XCTAssertTrue(ds.isDataLoaded())
     }
 	
 	func testArtistData() {
 		let ds = DataStoreMock()
 		
-		XCTAssertFalse(ds.isDataLoaded())
-
-		ds.newArtist(persistentID: 1, artistPermanentID: 1, artist: "Artist 1")
-		ds.newArtist(persistentID: 2, artistPermanentID: 2, artist: "Artist 2")
-		ds.newArtist(persistentID: 3, artistPermanentID: 3, artist: "Artist 3")
 		XCTAssertEqual(ds.artistList().count, 3)
-		
-		ds.newArtist(persistentID: 4, artistPermanentID: 4, artist: "Artist 4")
-		XCTAssertEqual(ds.artistList().count, 4)
 		
 		XCTAssertEqual(ds.artistList()[0].name, "Artist 1")
 		XCTAssertEqual(ds.artistList()[1].name, "Artist 2")
 		XCTAssertEqual(ds.artistList()[2].name, "Artist 3")
-		XCTAssertEqual(ds.artistList()[3].name, "Artist 4")
-		
-		XCTAssertTrue(ds.isDataLoaded())
 	}
 
 	func testAlbumData() {
 		let ds = DataStoreMock()
 		
-		XCTAssertFalse(ds.isDataLoaded())
-		
-		fillAlbums(dataStore: ds)
-
-		var albumList = ds.albumList().sorted { $0.persistentID < $1.persistentID }
+		let albumList = ds.albumList().sorted { $0.persistentID < $1.persistentID }
 		
 		XCTAssertEqual(albumList.count, 4)
 		
-		XCTAssertEqual(albumList[0].persistentID, 1)
+		XCTAssertEqual(albumList[0].persistentID, 7)
 		XCTAssertEqual(albumList[0].albumTitle, "Album 1")
 		XCTAssertEqual(albumList[0].artistName, "Artist 1")
 		
-		XCTAssertEqual(albumList[1].persistentID, 2)
+		XCTAssertEqual(albumList[1].persistentID, 8)
 		XCTAssertEqual(albumList[1].albumTitle, "Album 2")
 		XCTAssertEqual(albumList[1].artistName, "Artist 1")
 		
-		XCTAssertEqual(albumList[2].persistentID, 3)
+		XCTAssertEqual(albumList[2].persistentID, 9)
 		XCTAssertEqual(albumList[2].albumTitle, "Album 3")
 		XCTAssertEqual(albumList[2].artistName, "Artist 3")
 		
-		XCTAssertEqual(albumList[3].persistentID, 4)
+		XCTAssertEqual(albumList[3].persistentID, 10)
 		XCTAssertEqual(albumList[3].albumTitle, "Album 4")
 		XCTAssertEqual(albumList[3].artistName, "Artist 3")
-		
-		
-		let artist = ds.artistList()
-					   .sorted { $0.persistentID < $1.persistentID }
-			           .last!
-		let newAlbum = MTAlbumData(persistentID: 5, artistName: artist.name, albumTitle: "Album 5", mediaLibrary: ds)
-		artist.add(album: newAlbum)
-
-		albumList = ds.albumList().sorted { $0.persistentID < $1.persistentID }
-		
-		XCTAssertEqual(albumList.count, 5)
-		
-		XCTAssertEqual(albumList.last!.persistentID, 5)
-		XCTAssertEqual(albumList.last!.albumTitle, "Album 5")
-		
-		XCTAssertTrue(ds.isDataLoaded())
-		
 	}
 
 	func testPlaylistController() {
 		let ds = DataStoreMock()
 		let controller = PlaylistController(tabBarController: nil, viewController: nil, dataStore: ds, player: nil)
 
-		XCTAssertFalse(ds.isDataLoaded())
-
-		fillPlaylists(dataStore: ds)
-		controller.initializeList()
-		
-		XCTAssertTrue(ds.isDataLoaded())
-		
 		XCTAssertEqual(controller.getItem(byIndex: 0)?.name, "Playlist 1")
 		
 		XCTAssertTrue(controller.indexWithinBounds(index: 2))
@@ -129,12 +81,6 @@ class MusicTouchTests: XCTestCase {
 	func testArtistController() {
 		let ds = DataStoreMock()
 		let controller = ArtistController(tabBarController: nil, viewController: nil, dataStore: ds, player: nil)
-		
-		XCTAssertFalse(ds.isDataLoaded())
-		fillArtists(dataStore: ds)
-		controller.initializeList()
-		
-		XCTAssertTrue(ds.isDataLoaded())
 		
 		XCTAssertEqual(controller.getItem(byIndex: 0)?.name, "Artist 1")
 
@@ -148,12 +94,6 @@ class MusicTouchTests: XCTestCase {
 		let ds = DataStoreMock()
 		let controller = AlbumController(tabBarController: nil, viewController: nil, dataStore: ds, player: nil)
 
-		XCTAssertFalse(ds.isDataLoaded())
-		fillAlbums(dataStore: ds)
-		controller.initializeList()
-		
-		XCTAssertTrue(ds.isDataLoaded())
-		
 		XCTAssertEqual(controller.getItem(byIndex: 0)?.albumTitle, "Album 1")
 		
 		XCTAssertTrue(controller.indexWithinBounds(index: 3))
@@ -170,33 +110,4 @@ class MusicTouchTests: XCTestCase {
         }
     }
     
-}
-
-extension MusicTouchTests {
-	func fillPlaylists(dataStore: DataStoreProtocol) {
-		dataStore.add(playlist: MTPlaylistData(persistentID: 1, name: "Playlist 1", mediaLibrary: dataStore))
-		dataStore.add(playlist: MTPlaylistData(persistentID: 2, name: "Playlist 2", mediaLibrary: dataStore))
-		dataStore.add(playlist: MTPlaylistData(persistentID: 3, name: "Playlist 3", mediaLibrary: dataStore))
-	}
-	
-	func fillArtists(dataStore: DataStoreProtocol) {
-		dataStore.add(artist: MTArtistData(persistentID: 1, name: "Artist 1", mediaLibrary: dataStore))
-		dataStore.add(artist: MTArtistData(persistentID: 2, name: "Artist 2", mediaLibrary: dataStore))
-		dataStore.add(artist: MTArtistData(persistentID: 3, name: "Artist 3", mediaLibrary: dataStore))
-	}
-	
-	func fillAlbums(dataStore: DataStoreProtocol) {
-		fillArtists(dataStore: dataStore)
-		
-		let artistList = dataStore.artistList().sorted { $0.persistentID < $1.persistentID }
-		
-		var artist = artistList.first!
-		artist.add(album: MTAlbumData(persistentID: 1, artistName: artist.name, albumTitle: "Album 1", mediaLibrary: dataStore))
-		artist.add(album: MTAlbumData(persistentID: 2, artistName: artist.name, albumTitle: "Album 2", mediaLibrary: dataStore))
-		
-		artist = artistList.last!
-		artist.add(album: MTAlbumData(persistentID: 3, artistName: artist.name, albumTitle: "Album 3", mediaLibrary: dataStore))
-		artist.add(album: MTAlbumData(persistentID: 4, artistName: artist.name, albumTitle: "Album 4", mediaLibrary: dataStore))
-	}
-	
 }

@@ -19,6 +19,8 @@ protocol MediaLibraryProtocol {
 	// Get Collections of items
 	func getPlaylistList() -> [MPMediaItemCollection]
 	
+	func getAlbumList() -> [MPMediaItem]
+	
 	func getAlbumArtistList() -> [MPMediaItem]
 
 	func getAlbumsList(byArtistPersistentID: MPMediaEntityPersistentID) -> [MPMediaItem]

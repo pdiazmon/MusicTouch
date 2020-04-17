@@ -8,19 +8,22 @@
 
 import Foundation
 import MediaPlayer
-import UIKit
 
-let ALBUMYEAR_DEFAULT:Int = 1900
+let ALBUMYEAR_DEFAULT: Int = 1900
 
 class MTAlbumData: MTData {
     var albumTitle: String = ""
     var artistName: String = ""
-    var numberOfSongs: Int { get { return songs.count } }
+	var numberOfSongs: Int { get { return self.getSongsListFromMEdiaLibrary().count } }
     var year: Int = ALBUMYEAR_DEFAULT
 	
-	let albumQueue = DispatchQueue(label: "album")
-	
-	lazy var songs: [MTSongData] = []
+	var songs: [MTSongData] {
+		get {
+			return self.getSongsListFromMEdiaLibrary()
+					   .sorted { $0.albumTrackNumber < $1.albumTrackNumber }
+					   .map { MTSongData(mediaItem: $0, mediaLibrary: self.mediaLibrary) }
+		}
+	}
     
     override public var playTime: (hours: Int, minutes: Int, seconds: Int) { get {
         var secs: Int = 0
@@ -36,13 +39,6 @@ class MTAlbumData: MTData {
         self.artistName    = artistName
         self.albumTitle    = albumTitle
         self.year          = year
-        self.songs         = []
-		
-		albumQueue.async {
-			self.songs = mediaLibrary.getSongsList(byAlbumPersistentID: self.persistentID)
-						 .sorted { $0.albumTrackNumber < $1.albumTrackNumber }
-					     .map { MTSongData(mediaItem: $0, mediaLibrary: self.mediaLibrary) }
-		}
     }
     
     func title() -> String {
@@ -61,13 +57,13 @@ class MTAlbumData: MTData {
     }
     
     func songsCollection() -> MPMediaItemCollection {
-		return MPMediaItemCollection(items: mediaLibrary.getSongsList(byAlbumPersistentID: self.persistentID))
+		return MPMediaItemCollection(items: getSongsListFromMEdiaLibrary())
     }
 	
-	func add(song: MTSongData) {
-		self.songs.append(song)
+	private func getSongsListFromMEdiaLibrary() -> [MPMediaItem] {
+		return self.mediaLibrary.getSongsList(byAlbumPersistentID: self.persistentID)
 	}
-
+	
 }
 
 

@@ -24,6 +24,8 @@ class SongController {
 		self.viewController   = viewController
 		self.dataStore        = dataStore
 		self.player           = player
+		
+		self.configureByDefault()
 	}
 	
     /// Shows the player view and start playing all the listed artists songs
@@ -71,7 +73,7 @@ class SongController {
 		return self.songList.count
 	}
 	
-	func initializeList() {
+	private func initializeList() {
 		self.setSongsList(self.dataStore.songList())
 	}
 

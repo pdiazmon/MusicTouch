@@ -13,10 +13,17 @@ import UIKit
 class MTPlaylistData: MTData {
     
     var name: String = ""
-	var numberOfSongs: Int { get { return mediaLibrary.getSongsList(byPlaylist: name).count } }
-    var songs: [MTSongData] = []
-	
-	private let playlistQueue = DispatchQueue(label: "playlist")
+	var numberOfSongs: Int { get { return self.getSongsListFromMediaLibrary().count } }
+	var songs: [MTSongData] {
+		get {
+			return self.getSongsListFromMediaLibrary()
+					   .map { MTSongData(mediaItem: $0, mediaLibrary: mediaLibrary) }
+			           .sorted {
+							if ($0.albumTitle() == $1.albumTitle()) { return $0.albumTrackNumber() < $1.albumTrackNumber() }
+							else { return $0.albumTitle() < $1.albumTitle() }
+						}
+			}
+	}
 	
     override public var playTime: (hours: Int, minutes: Int, seconds: Int) { get {
         var secs: Int = 0
@@ -29,17 +36,7 @@ class MTPlaylistData: MTData {
 	init(persistentID: MPMediaEntityPersistentID?, name: String, mediaLibrary: MediaLibraryProtocol) {
 		super.init(persistentID: persistentID ?? 0, mediaLibrary: mediaLibrary)
 		
-        self.name          = name
-        self.songs         = []
-		
-		playlistQueue.async {
-			self.songs = mediaLibrary.getSongsList(byPlaylist: name).map {
-				MTSongData(mediaItem: $0, mediaLibrary: mediaLibrary)
-			}.sorted {
-				if ($0.albumTitle() == $1.albumTitle()) { return $0.albumTrackNumber() < $1.albumTrackNumber() }
-				else { return $0.albumTitle() < $1.albumTitle() }
-			}
-		}
+        self.name = name
     }
     
     func title() -> String {
@@ -58,7 +55,10 @@ class MTPlaylistData: MTData {
     }
 
     func songsCollection() -> MPMediaItemCollection {
-		return MPMediaItemCollection(items: mediaLibrary.getSongsList(byPlaylist: self.name))
+		return MPMediaItemCollection(items: getSongsListFromMediaLibrary())
     }
 
+	private func getSongsListFromMediaLibrary() -> [MPMediaItem] {
+		return mediaLibrary.getSongsList(byPlaylist: self.name)
+	}
 }
