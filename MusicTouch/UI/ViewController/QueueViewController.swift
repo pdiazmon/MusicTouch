@@ -62,7 +62,7 @@ extension QueueViewController: UITableViewDataSource {
 		else { return cell }
         
         // Render the new cell with the item information
-        cell.render(item: item, color: self.backgroundColor)
+		cell.render(item: item, color: self.backgroundColor, player: controller.getPlayer())
         cell.selectionStyle = .none
         
         return cell

@@ -81,6 +81,14 @@ public class PDMPlayer: PlayerProtocol {
         guard (song != nil) else { return }
         self.player.nowPlayingItem = song!
     }
+	
+	/// Returns the currently played song
+    /// - Returns: The media item for the currently played song
+    public func nowPlayingItem() -> MPMediaItem? {
+        guard (songsCollection.count > 0) else { return nil }
+        
+        return player.nowPlayingItem
+    }
     
     /// Returns the album cover for the currently played song
     /// - Returns: The cover image artwork

@@ -10,6 +10,8 @@ import Foundation
 import MediaPlayer
 
 protocol PlayerProtocol {
+
+	func nowPlayingItem() -> MPMediaItem?	
 	
     func getPlayer() -> MPMusicPlayerController
     

@@ -16,9 +16,9 @@ class QueueCell: UITableViewCell {
     @IBOutlet weak var songLbl: UILabel!
     
 	// TODO: Remove app property. It must be injected.
-    private let app       = UIApplication.shared.delegate as! AppDelegate
+//    private let app       = UIApplication.shared.delegate as! AppDelegate
     private var activity: NVActivityIndicatorView?
-    
+	
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -43,11 +43,11 @@ extension QueueCell {
     /// Extracts the values from the item and puts them into the label
     ///
     /// - Parameter item: Item
-    func render(item: MPMediaItem, color: UIColor?) {
+	func render(item: MPMediaItem, color: UIColor?, player: PlayerProtocol) {
         self.songLbl.text  = item.title
         
         // If it is the current playing song ..
-        if (item == app.appPlayer.getPlayer().nowPlayingItem) {
+		if (item == player.nowPlayingItem()) {
             activity = NVActivityIndicatorViewFactory.shared.getNewPlaying(frame: CGRect.zero)
             self.addSubview(activity!)
             activity?.frame = self.songImg.frame.scale(by: 0.5)

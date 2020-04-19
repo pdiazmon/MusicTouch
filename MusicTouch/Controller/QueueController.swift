@@ -31,5 +31,9 @@ class QueueController {
 	func configure(backgroundColor: UIColor) {
 		self.viewController?.backgroundColor = backgroundColor
 	}
+	
+	func getPlayer() -> PlayerProtocol {
+		return self.player
+	}
 
 }
