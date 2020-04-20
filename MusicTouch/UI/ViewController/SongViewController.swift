@@ -9,6 +9,7 @@
 import UIKit
 import MediaPlayer
 import UIFontComplete
+import Combine
 
 
 class SongViewController: UIViewController {
@@ -17,6 +18,7 @@ class SongViewController: UIViewController {
     @IBOutlet weak var playButtonsStack: UIStackView!
     
 	var controller: SongController?
+	var controllerDataUpdate: Cancellable?
 
     override var prefersStatusBarHidden: Bool { return true }
 	
@@ -29,7 +31,10 @@ class SongViewController: UIViewController {
         self.songsTableView.register(MTCellFactory.shared.classForCoder(), forCellReuseIdentifier: "CellSong")
         
 		self.songsTableView.backgroundColor = UIColor.systemBackground
-        
+		
+		controllerDataUpdate = controller?.dataUpdatedSubject.sink { [weak self] in
+			self?.reloadData()
+		}
     }
 
     override func didReceiveMemoryWarning() {

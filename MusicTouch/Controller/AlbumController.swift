@@ -9,18 +9,23 @@
 import Foundation
 import UIKit
 import MediaPlayer
+import Combine
 
 class AlbumController {
 	
 	private var tabBarController: UITabBarController?
-	private var albumList: [MTAlbumData] = []
-	private weak var viewController: AlbumViewController?
+	private var albumList: [MTAlbumData] = [] {
+		didSet {
+			dataUpdatedSubject.send()
+		}
+	}
 	private var dataStore: DataStoreProtocol
 	private var player: PlayerProtocol?
 	
-	init(tabBarController: UITabBarController?, viewController: AlbumViewController?, dataStore: DataStoreProtocol, player: PlayerProtocol?) {
+	var dataUpdatedSubject = PassthroughSubject<Void, Never>()
+	
+	init(tabBarController: UITabBarController?, dataStore: DataStoreProtocol, player: PlayerProtocol?) {
 		self.tabBarController = tabBarController
-		self.viewController   = viewController
 		self.dataStore        = dataStore
 		self.player           = player
 		
@@ -70,8 +75,8 @@ class AlbumController {
 	func showSongsView(itemIndex: Int) {
         // Get the SongViewController, make it to reload its table and activate it
         if let vc = tabBarController?.customizableViewControllers?[TabBarItem.song.rawValue] as? SongViewController,
-			let item = getItem(byIndex: itemIndex),
-			let songController = vc.controller
+		   let item = getItem(byIndex: itemIndex),
+		   let songController = vc.controller
 		{
 			songController.configure(songs: item.songs, songsRetriever: item)
             tabBarController?.selectedIndex = TabBarItem.song.rawValue
@@ -129,7 +134,6 @@ class AlbumController {
     /// - Parameter list: playlists list
     func setAlbumList(_ list: [MTAlbumData]) {
         self.albumList = list
-        viewController?.reloadData()
     }
 	
 	func isDataLoaded() -> Bool {

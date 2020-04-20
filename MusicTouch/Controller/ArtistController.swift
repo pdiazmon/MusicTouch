@@ -9,18 +9,23 @@
 import Foundation
 import UIKit
 import MediaPlayer
+import Combine
 
 class ArtistController {
 	
 	private var tabBarController: UITabBarController?
-	private var artistList: [MTArtistData] = []
-	private weak var viewController: ArtistViewController?
+	private var artistList: [MTArtistData] = [] {
+		didSet {
+			dataUpdatedSubject.send()
+		}
+	}
 	private var dataStore: DataStoreProtocol
 	private var player: PlayerProtocol?
 	
-	init(tabBarController: UITabBarController?, viewController: ArtistViewController?, dataStore: DataStoreProtocol, player: PlayerProtocol?) {
+	var dataUpdatedSubject = PassthroughSubject<Void, Never>()
+	
+	init(tabBarController: UITabBarController?, dataStore: DataStoreProtocol, player: PlayerProtocol?) {
 		self.tabBarController = tabBarController
-		self.viewController   = viewController
 		self.dataStore        = dataStore
 		self.player           = player
 		
@@ -123,7 +128,6 @@ class ArtistController {
     /// - Parameter list: playlists list
     func setArtistList(_ list: [MTArtistData]) {
         self.artistList = list
-        viewController?.reloadData()
     }
 
 }

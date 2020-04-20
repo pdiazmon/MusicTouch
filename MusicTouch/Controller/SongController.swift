@@ -9,19 +9,24 @@
 import Foundation
 import UIKit
 import MediaPlayer
+import Combine
 
 class SongController {
 	
 	private var tabBarController: UITabBarController?
-	private var songList: [MTSongData] = []
-	private weak var viewController: SongViewController?
+	private var songList: [MTSongData] = [] {
+		didSet {
+			dataUpdatedSubject.send()
+		}
+	}
 	private var songsRetriever: SongsRetrieverProtocol?
 	private var dataStore: DataStoreProtocol
 	private var player: PlayerProtocol
 	
-	init(tabBarController: UITabBarController, viewController: SongViewController, dataStore: DataStoreProtocol, player: PlayerProtocol) {
+	var dataUpdatedSubject = PassthroughSubject<Void, Never>()
+
+	init(tabBarController: UITabBarController, dataStore: DataStoreProtocol, player: PlayerProtocol) {
 		self.tabBarController = tabBarController
-		self.viewController   = viewController
 		self.dataStore        = dataStore
 		self.player           = player
 		
@@ -82,7 +87,6 @@ class SongController {
     /// - Parameter list: playlists list
     func setSongsList(_ list: [MTSongData]) {
         self.songList = list
-        viewController?.reloadData()
     }
 	
 	func isDataLoaded() -> Bool {

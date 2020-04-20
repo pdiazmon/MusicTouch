@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Combine
 
 class AlbumViewController: UIViewController {
 
@@ -14,6 +15,7 @@ class AlbumViewController: UIViewController {
     @IBOutlet weak var playButtonsStack: UIStackView!
     
 	var controller: AlbumController?
+	var controllerDataUpdate: Cancellable?
     
     override var prefersStatusBarHidden: Bool { return true }
 
@@ -26,6 +28,10 @@ class AlbumViewController: UIViewController {
         self.albumsTableView.register(MTCellFactory.shared.classForCoder(), forCellReuseIdentifier: "CellAlbum")
         
 		self.albumsTableView.backgroundColor = UIColor.systemBackground
+		
+		controllerDataUpdate = controller?.dataUpdatedSubject.sink { [weak self] in
+			self?.reloadData()
+		}
     }
 
     override func didReceiveMemoryWarning() {

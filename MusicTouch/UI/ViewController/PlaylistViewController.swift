@@ -7,12 +7,14 @@
 //
 
 import UIKit
+import Combine
 
 class PlaylistViewController: UIViewController {
     
     @IBOutlet weak var playlistTableView: UITableView!
 	
 	var controller: PlaylistController?
+	var controllerDataUpdate: Cancellable?
     
     override var prefersStatusBarHidden: Bool { return true }
     
@@ -23,6 +25,10 @@ class PlaylistViewController: UIViewController {
         self.playlistTableView.register(MTCellFactory.shared.classForCoder(), forCellReuseIdentifier: "CellPlaylist")
         
 		self.playlistTableView.backgroundColor = UIColor.systemBackground
+		
+		controllerDataUpdate = controller?.dataUpdatedSubject.sink { [weak self] in
+			self?.reloadData()
+		}
     }
 
     override func didReceiveMemoryWarning() {

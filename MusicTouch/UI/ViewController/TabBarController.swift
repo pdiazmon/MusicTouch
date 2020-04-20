@@ -22,22 +22,22 @@ class TabBarController: UITabBarController {
 			if (view is PlaylistViewController) {
 				let vc = (view as! PlaylistViewController)
 				
-				vc.controller = PlaylistController(tabBarController: self, viewController: vc, dataStore: self.dataStore, player: self.player)
+				vc.controller = PlaylistController(tabBarController: self, dataStore: self.dataStore, player: self.player)
 			}
 			else if (view is ArtistViewController) {
 				let vc = (view as! ArtistViewController)
 				
-				vc.controller = ArtistController(tabBarController: self, viewController: vc, dataStore: self.dataStore, player: self.player)
+				vc.controller = ArtistController(tabBarController: self, dataStore: self.dataStore, player: self.player)
 			}
 			else if (view is AlbumViewController) {
 				let vc = (view as! AlbumViewController)
 				
-				vc.controller = AlbumController(tabBarController: self, viewController: vc, dataStore: self.dataStore, player: self.player)
+				vc.controller = AlbumController(tabBarController: self, dataStore: self.dataStore, player: self.player)
 			}
 			else if (view is SongViewController) {
 				let vc = (view as! SongViewController)
 				
-				vc.controller = SongController(tabBarController: self, viewController: vc, dataStore: self.dataStore, player: self.player)
+				vc.controller = SongController(tabBarController: self, dataStore: self.dataStore, player: self.player)
 			}
 			else if (view is PlayViewController) {
 				let vc = (view as! PlayViewController)

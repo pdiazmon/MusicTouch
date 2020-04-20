@@ -8,18 +8,23 @@
 
 import Foundation
 import UIKit
+import Combine
 
 class PlaylistController {
 	
 	private var tabBarController: UITabBarController?
-	private var playlistList: [MTPlaylistData] = []
-	private weak var viewController: PlaylistViewController?
+	private var playlistList: [MTPlaylistData] = [] {
+		didSet {
+			dataUpdatedSubject.send()
+		}
+	}
 	private var dataStore: DataStoreProtocol
 	private var player: PlayerProtocol?
 	
-	init(tabBarController: UITabBarController?, viewController: PlaylistViewController?, dataStore: DataStoreProtocol, player: PlayerProtocol?) {
+	var dataUpdatedSubject = PassthroughSubject<Void, Never>()
+	
+	init(tabBarController: UITabBarController?, dataStore: DataStoreProtocol, player: PlayerProtocol?) {
 		self.tabBarController = tabBarController
-		self.viewController   = viewController
 		self.dataStore        = dataStore
 		self.player           = player
 		
@@ -31,7 +36,6 @@ class PlaylistController {
     /// - Parameter list: playlists list
     func setPlaylistList(_ list: [MTPlaylistData]) {
         self.playlistList = list
-        viewController?.reloadData()
     }
 	
 	private func initializeList() {

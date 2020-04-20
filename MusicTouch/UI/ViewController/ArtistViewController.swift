@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Combine
 
 class ArtistViewController: UIViewController {
 
@@ -14,6 +15,7 @@ class ArtistViewController: UIViewController {
     @IBOutlet weak var playButtonsStack: UIStackView!
     
 	var controller: ArtistController?
+	var controllerDataUpdate: Cancellable?
     
     override var prefersStatusBarHidden: Bool { return true }
     
@@ -24,7 +26,10 @@ class ArtistViewController: UIViewController {
         self.artistTable.register(MTCellFactory.shared.classForCoder(), forCellReuseIdentifier: "CellArtist")
         
 		self.artistTable.backgroundColor = UIColor.systemBackground
-
+		
+		controllerDataUpdate = controller?.dataUpdatedSubject.sink { [weak self] in
+			self?.reloadData()
+		}
     }
 
     override func didReceiveMemoryWarning() {
