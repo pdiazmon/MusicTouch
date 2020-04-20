@@ -68,7 +68,7 @@ class MusicTouchTests: XCTestCase {
 
 	func testPlaylistController() {
 		let ds = DataStoreMock()
-		let controller = PlaylistController(tabBarController: nil, viewController: nil, dataStore: ds, player: nil)
+		let controller = PlaylistController(tabBarController: nil, dataStore: ds, player: nil)
 
 		XCTAssertEqual(controller.getItem(byIndex: 0)?.name, "Playlist 1")
 		
@@ -80,7 +80,7 @@ class MusicTouchTests: XCTestCase {
 	
 	func testArtistController() {
 		let ds = DataStoreMock()
-		let controller = ArtistController(tabBarController: nil, viewController: nil, dataStore: ds, player: nil)
+		let controller = ArtistController(tabBarController: nil, dataStore: ds, player: nil)
 		
 		XCTAssertEqual(controller.getItem(byIndex: 0)?.name, "Artist 1")
 
@@ -92,7 +92,7 @@ class MusicTouchTests: XCTestCase {
 
 	func testAlbumController() {
 		let ds = DataStoreMock()
-		let controller = AlbumController(tabBarController: nil, viewController: nil, dataStore: ds, player: nil)
+		let controller = AlbumController(tabBarController: nil, dataStore: ds, player: nil)
 
 		XCTAssertEqual(controller.getItem(byIndex: 0)?.albumTitle, "Album 1")
 		
