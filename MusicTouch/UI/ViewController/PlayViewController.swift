@@ -84,7 +84,7 @@ class PlayViewController: UIViewController {
 extension PlayViewController {
   
     /// Add and initialize objects to the view
-    func viewSetup() {
+    private func viewSetup() {
 		
 		guard let controller = self.controller else { return }
         
@@ -118,7 +118,7 @@ extension PlayViewController {
     }
     
     /// Set the view objects style
-    func viewStyle() {
+    private func viewStyle() {
         
         // Add a shadow to the artwork image
         self.artworkImg.layer.shadowColor   = UIColor.darkGray.cgColor
@@ -158,7 +158,7 @@ extension PlayViewController {
 // MARK: Actions
 extension PlayViewController {
     
-    /// Play the current song
+    /// Plays the current song
     func playSong() {
 		
 		guard let controller = self.controller else { return }
@@ -174,7 +174,7 @@ extension PlayViewController {
         self.audioEqualizer?.startAnimating()
     }
     
-    /// Pause the current song
+    /// Pauses the current song
     func pauseSong() {
 		guard let controller = self.controller else { return }
         controller.pauseSong()
@@ -184,7 +184,7 @@ extension PlayViewController {
     /// Animates the view objects when changes to the previous song
     ///
     /// - Parameter flipDuration: Animation duration
-    func animatePreviousSong(_ flipDuration: Double) {
+    private func animatePreviousSong(_ flipDuration: Double) {
         
         DispatchQueue.main.async {
             UIView.transition(with: self.artworkImg, duration: flipDuration, options: .transitionFlipFromLeft, animations: nil, completion: nil)
@@ -204,7 +204,7 @@ extension PlayViewController {
     /// Animates the view objects when changes to the next song
     ///
     /// - Parameter flipDuration: Animation duration
-    func animateNextSong(_ flipDuration: Double) {
+    private func animateNextSong(_ flipDuration: Double) {
         
         DispatchQueue.main.async {
             UIView.transition(with: self.artworkImg, duration: flipDuration, options: .transitionFlipFromRight, animations: nil, completion: nil)
@@ -229,7 +229,7 @@ extension PlayViewController {
     ///
     /// - Parameter image: Artwork image
     /// - Returns: Average color
-    func getAverageColor(image: UIImage) -> UIColor? {
+    private func getAverageColor(image: UIImage) -> UIColor? {
 		
 		guard let controller = self.controller else { return nil }
         
@@ -294,7 +294,7 @@ extension PlayViewController {
     }
         
     /// While timer run, update the progress objects accordingly
-    @objc func updateProgress() {
+    @objc private func updateProgress() {
         
 		guard let controller = self.controller else { return }
 		
@@ -326,7 +326,7 @@ extension PlayViewController {
     /// Tap event handler for play/pause the music
     ///
     /// - Parameter recognizer: Gesture recognizer object
-    @IBAction func tapPlayPause(_ recognizer: UIGestureRecognizer) {
+    @IBAction private func tapPlayPause(_ recognizer: UIGestureRecognizer) {
 		
 		guard let controller = self.controller else { return }
         
@@ -355,7 +355,7 @@ extension PlayViewController {
     /// Pan gesture event handler to increase/decrease volume
     ///
     /// - Parameter recognizer: Pan gesture recognizer
-    @IBAction func handleVolume(_ recognizer: UIPanGestureRecognizer) {
+    @IBAction private func handleVolume(_ recognizer: UIPanGestureRecognizer) {
         
         let location = recognizer.location(in: recognizer.view)
         
@@ -407,7 +407,7 @@ extension PlayViewController {
     /// Volume level change handler
     ///
     /// - Parameter notification: Volume change notification
-    @objc func volumeChanged(_ notification: Notification) {
+    @objc private func volumeChanged(_ notification: Notification) {
         
         // If the user is changing the volume using a pan gesture, return as the change is being handle by the gesture handler
         guard (volumeGestureInProgress == false) else { return }
@@ -432,7 +432,7 @@ extension PlayViewController {
     /// Swipe gesture handler to go to the previuos/next song
     ///
     /// - Parameter gesture: Swipe gesture recognizer
-    @IBAction func handleGesture(_ gesture: UISwipeGestureRecognizer) {
+    @IBAction private func handleGesture(_ gesture: UISwipeGestureRecognizer) {
         let flipDuration = 0.4
 		
 		guard let controller = self.controller else { return }

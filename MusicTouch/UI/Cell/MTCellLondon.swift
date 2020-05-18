@@ -44,6 +44,7 @@ class MTCellLondon: MTCell {
         super.init(coder: aDecoder)
     }
     
+	/// Sets up the cell elements
     override func setup() {
         self.addSubview(sideBar)
         self.addSubview(title)
@@ -52,6 +53,7 @@ class MTCellLondon: MTCell {
         super.setup()
     }
     
+	/// Organizes the cell elements
     override func layoutView() {
         // Side Bar
         self.sideBar.translatesAutoresizingMaskIntoConstraints = false
@@ -86,6 +88,7 @@ class MTCellLondon: MTCell {
         super.layoutView()
     }
     
+	/// Applies the style to the cell elements
     override func style() {
         // Title
         self.title.textAlignment = .left
@@ -95,6 +98,8 @@ class MTCellLondon: MTCell {
         super.style()
     }
     
+	/// Render the cell elements with the appropiate date
+	/// - Parameter item: data item
     override func render(item: MTData) {
         self.title.text  = item.title()
         

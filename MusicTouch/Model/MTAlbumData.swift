@@ -14,12 +14,12 @@ let ALBUMYEAR_DEFAULT: Int = 1900
 class MTAlbumData: MTData {
     var albumTitle: String = ""
     var artistName: String = ""
-	var numberOfSongs: Int { get { return self.getSongsListFromMEdiaLibrary().count } }
+	var numberOfSongs: Int { get { return self.getSongsListFromMediaLibrary().count } }
     var year: Int = ALBUMYEAR_DEFAULT
 	
 	var songs: [MTSongData] {
 		get {
-			return self.getSongsListFromMEdiaLibrary()
+			return self.getSongsListFromMediaLibrary()
 					   .sorted { $0.albumTrackNumber < $1.albumTrackNumber }
 					   .map { MTSongData(mediaItem: $0, mediaLibrary: self.mediaLibrary) }
 		}
@@ -40,15 +40,21 @@ class MTAlbumData: MTData {
         self.albumTitle    = albumTitle
         self.year          = year
     }
-    
+	
+	/// Gets the album title
+	/// - Returns: Album title
     func title() -> String {
 		return self.albumTitle
     }
-    
+	
+	/// Gets the album's artwork image
+	/// - Returns: Album's artwork image
     func image() -> UIImage? {
 		return mediaLibrary.getAlbumArtworkImage(byAlbumPersistentID: self.persistentID)
     }
     
+	/// Prints the album description to the stadard output (for debugging purposes only)
+	/// - Parameter offset: numer of heading scpaces
     func describe(offset: Int) {
         print("\(String(repeating: " ", count: offset))Album: *\(self.title())*")
         for song in self.songs {
@@ -56,11 +62,15 @@ class MTAlbumData: MTData {
         }
     }
     
+	/// Gets the album's song list from the Media Library
+	/// - Returns: album's songs list in a MPMediaItemCollection object
     func songsCollection() -> MPMediaItemCollection {
-		return MPMediaItemCollection(items: getSongsListFromMEdiaLibrary())
+		return MPMediaItemCollection(items: getSongsListFromMediaLibrary())
     }
 	
-	private func getSongsListFromMEdiaLibrary() -> [MPMediaItem] {
+	/// Gets the album's song list from the Media Library
+	/// - Returns: album's song list
+	private func getSongsListFromMediaLibrary() -> [MPMediaItem] {
 		return self.mediaLibrary.getSongsList(byAlbumPersistentID: self.persistentID)
 	}
 	

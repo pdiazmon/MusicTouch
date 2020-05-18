@@ -13,7 +13,10 @@ import NVActivityIndicatorView
 class NVActivityIndicatorViewFactory {
     
     static let shared = NVActivityIndicatorViewFactory()
-    
+	
+	/// Gets a new loading indicator view
+	/// - Parameter frame: indicator view frame
+	/// - Returns: a new loading indicator view object
     func getNewLoading(frame: CGRect) -> NVActivityIndicatorView {
         
         return NVActivityIndicatorView(frame: CGRect(x: frame.width * 0.25,
@@ -24,7 +27,10 @@ class NVActivityIndicatorViewFactory {
                                        color: UIColor.gray,
                                        padding: nil)
     }
-    
+	
+	/// Gets a new playing indicator view
+	/// - Parameter frame: indicator view frame
+	/// - Returns: a new playing indicator view object
     func getNewPlaying(frame: CGRect) -> NVActivityIndicatorView {
         return NVActivityIndicatorView(frame: CGRect(x: frame.width,
                                                      y: frame.height,

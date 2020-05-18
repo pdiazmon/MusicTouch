@@ -38,15 +38,21 @@ class MTPlaylistData: MTData {
 		
         self.name = name
     }
-    
+	
+	/// Gets the playlist title
+	/// - Returns: playlist title
     func title() -> String {
         return name
     }
-    
+	
+	/// Gets the playlist artwork image
+	/// - Returns: playlist artwork image
     func image() -> UIImage? {
 		return mediaLibrary.getPlaylistArtworkImage(byPersistentID: self.persistentID)
     }
-    
+	
+	/// Prints the playlist description to the stadard output (for debugging purposes only)
+	/// - Parameter offset: numer of heading scpaces
     func describe(offset: Int) {
         print("Playlist: *\(self.name)*")
         for song in self.songs {
@@ -54,10 +60,14 @@ class MTPlaylistData: MTData {
         }
     }
 
+	/// Gets the playlist's song list from the Media Library
+	/// - Returns: playlist's songs list in a MPMediaItemCollection object
     func songsCollection() -> MPMediaItemCollection {
 		return MPMediaItemCollection(items: getSongsListFromMediaLibrary())
     }
 
+	/// Gets the playlist's song list from the Media Library
+	/// - Returns: playlist's songs list
 	private func getSongsListFromMediaLibrary() -> [MPMediaItem] {
 		return mediaLibrary.getSongsList(byPlaylist: self.name)
 	}

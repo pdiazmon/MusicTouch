@@ -32,6 +32,10 @@ extension UIImage {
 	}
 		
 	// From https://nshipster.com/image-resizing/
+	
+	/// Gets a new resized image
+	/// - Parameter width: new image width
+	/// - Returns: resized image
 	func resized(toWidth width: CGFloat) -> UIImage? {
 		let renderer = UIGraphicsImageRenderer(size: CGSize(width: width, height: CGFloat(ceil(width/size.width * size.height))))
 		return renderer.image { (context) in

@@ -57,21 +57,31 @@ class ArtistController {
         }
         
     }
-	
+
+	/// Gets the n-th item of the artist list
+	/// - Parameter byIndex: Item index
+	/// - Returns: An MTArtistData object of the n-th artist
 	func getItem(byIndex: Int) -> MTArtistData? {
 		guard (self.indexWithinBounds(index: byIndex)) else { return nil }
 		
 		return self.artistList[byIndex]
 	}
 	
+	/// Indicates if the given index is within the bounds of the artist list
+	/// - Parameter index: Index to check
+	/// - Returns: true if the index is within bounds and false if not
 	func indexWithinBounds(index: Int) -> Bool {
 		return index < self.numberOfItems()
 	}
 	
+	/// Gets the number of elements in the artist list
+	/// - Returns: The number of items in the artist list
 	func numberOfItems() -> Int {
 		return self.artistList.count
 	}
 
+	/// Shows the albums view for an specific artist
+	/// - Parameter itemIndex: Index of the artist in the list
 	func showAlbumsView(itemIndex: Int) {
         if let vc = tabBarController?.customizableViewControllers?[TabBarItem.album.rawValue] as? AlbumViewController,
 		   let controller = vc.controller,
@@ -81,7 +91,8 @@ class ArtistController {
         }
 	}
 	
-	func showSongsView() {
+	/// Shows the songs view
+	private func showSongsView() {
 		tabBarController?.tabBar.items![TabBarItem.play.rawValue].isEnabled = true
 		tabBarController?.selectedIndex                                     = TabBarItem.play.rawValue
 	}
@@ -119,6 +130,7 @@ class ArtistController {
         }
     }
 
+	/// Sets the artist list with the default values
 	private func initializeList() {
 		self.setArtistList(self.dataStore.artistList())
 	}

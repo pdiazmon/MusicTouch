@@ -144,14 +144,20 @@ public class PDMMediaLibrary: MediaLibraryProtocol {
             
 		return getSongList(byFilterSet: myFilterSet)
     }
-    
+	
+	/// Gets the song list of an specific album by its persistent Id
+	/// - Parameter byAlbumPersistentID: Album's persistent Id
+	/// - Returns: A MPMediaItem array with all the songs of the given album
 	public func getSongsList(byAlbumPersistentID: MPMediaEntityPersistentID) -> [MPMediaItem] {
 		// Set the filter
 		let albumFilter = MPMediaPropertyPredicate(value: byAlbumPersistentID, forProperty: MPMediaItemPropertyAlbumPersistentID, comparisonType: .equalTo)
 
 		return getSongList(byFilter: albumFilter)
 	}
-
+	
+	/// Gets the song list of an specific artist by its persistent Id
+	/// - Parameter byArtistPersistentID: Artist's persistent Id
+	/// - Returns: A MPMediaItem array with all the songs of the given artist
 	public func getSongsList(byArtistPersistentID: MPMediaEntityPersistentID) -> [MPMediaItem] {
 		// Set the filter
 		let artistFilter = MPMediaPropertyPredicate(value: byArtistPersistentID, forProperty: MPMediaItemPropertyAlbumArtistPersistentID, comparisonType: .equalTo)
@@ -159,13 +165,19 @@ public class PDMMediaLibrary: MediaLibraryProtocol {
 		return getSongList(byFilter: artistFilter)
 	}
 	
+	/// Returns a MPMediaItem array with all the songs that conforms the single predicate received as parameter
+	/// - Parameter byFilter: Predicate to conform
+	/// - Returns: MPMediaItem array with all the songs that conforms the single predicates
 	private func getSongList(byFilter: MPMediaPropertyPredicate) -> [MPMediaItem] {
 		// Set the filter
 		let myFilterSet: Set<MPMediaPropertyPredicate> = [byFilter]
 		
 		return getSongList(byFilterSet: myFilterSet)
 	}
-
+	
+	/// Returns a MPMediaItem array with all the songs that conforms the set of predicates
+	/// - Parameter byFilterSet: Set of predicates to conform
+	/// - Returns: MPMediaItem array with all the songs that conforms the set of predicates
 	private func getSongList(byFilterSet: Set<MPMediaPropertyPredicate>) -> [MPMediaItem] {
 		var query: MPMediaQuery?
         
@@ -216,8 +228,9 @@ public class PDMMediaLibrary: MediaLibraryProtocol {
         
     }
 
-    /// Returns an specific playlist's item
-    /// - Returns: A MPMediaItem with the playlist
+	/// Returns an specific playlist's item
+	/// - Parameter byPlaylistName: playlist's name
+	/// - Returns: A MPMediaItem with the playlist
 	public func getPlaylistItem(byPlaylistName: String?) -> MPMediaItem? {
 		
 		guard let playlistName = byPlaylistName else { return nil }
@@ -241,7 +254,10 @@ public class PDMMediaLibrary: MediaLibraryProtocol {
             return nil
         }
     }
-
+	
+	/// Returns the MPMediaItem for an specific playlist by its persistent Id
+	/// - Parameter byPlaylistPersistentID: playlist's persistent Id
+	/// - Returns: MPMediaItem of the playlist
 	public func getPlaylistItem(byPlaylistPersistentID: MPMediaEntityPersistentID) -> MPMediaItem? {
 		let filter = MPMediaPropertyPredicate(value: byPlaylistPersistentID, forProperty: MPMediaItemPropertyPersistentID, comparisonType: MPMediaPredicateComparison.equalTo)
 

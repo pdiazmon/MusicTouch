@@ -15,8 +15,6 @@ class QueueCell: UITableViewCell {
     @IBOutlet weak var songImg: UIImageView!
     @IBOutlet weak var songLbl: UILabel!
     
-	// TODO: Remove app property. It must be injected.
-//    private let app       = UIApplication.shared.delegate as! AppDelegate
     private var activity: NVActivityIndicatorView?
 	
     override func awakeFromNib() {

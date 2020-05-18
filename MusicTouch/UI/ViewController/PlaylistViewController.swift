@@ -153,11 +153,11 @@ extension PlaylistViewController: UITableViewDelegate {
 extension PlaylistViewController {
     
     override func viewDidAppear(_ animated: Bool) {
-
         super.viewDidAppear(animated)		
     }
 	
-	func reloadData() {
+	/// Forces the tableview to reload its data
+	private func reloadData() {
 		guard let _ = self.playlistTableView else { return }
 		
 		self.playlistTableView.reloadData()

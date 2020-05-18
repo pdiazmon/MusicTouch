@@ -177,19 +177,19 @@ extension ArtistViewController {
     ///
     /// - Parameter animated: If true, the view was added to the window using an animation.
     override func viewDidAppear(_ animated: Bool) {
-        
         super.viewDidAppear(animated)		
     }
     
     /// Forces the TableView to reload its data
-    func reloadData() {
+    private func reloadData() {
         if let tv = self.artistTable {
             tv.reloadData()
             layout()
         }
     }
-    
-    func layout() {
+	
+	/// Organizes the view layout
+    private func layout() {
         // Enable/disable play buttons depending on list emptyness
         for button in self.playButtonsStack.arrangedSubviews {
 			if let button = (button as? UIButton), let controller = self.controller {

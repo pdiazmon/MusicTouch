@@ -38,28 +38,35 @@ class PlaylistController {
         self.playlistList = list
     }
 	
+	/// Sets the playlist list with the default values
 	private func initializeList() {
 		self.setPlaylistList(self.dataStore.playlistList())
 	}
 	
-	func isDataLoaded() -> Bool {
-		return self.dataStore.isDataLoaded()
-	}
-	
+	/// Gets the n-th item of the playlist list
+	/// - Parameter byIndex: Item index
+	/// - Returns: An MTPlaylistData object of the n-th playlist
 	func getItem(byIndex: Int) -> MTPlaylistData? {
 		guard (self.indexWithinBounds(index: byIndex)) else { return nil }
 		
 		return self.playlistList[byIndex]
 	}
 	
+	/// Indicates if the given index is within the bounds of the playlist list
+	/// - Parameter index: Index to check
+	/// - Returns: true if the index is within bounds and false if not
 	func indexWithinBounds(index: Int) -> Bool {
 		return index < self.numberOfItems()
 	}
 	
+	/// Gets the number of elements in the playlist list
+	/// - Returns: The number of items in the playlist list
 	func numberOfItems() -> Int {
 		return self.playlistList.count
 	}
 	
+	/// Shows the songs view for an specific playlist
+	/// - Parameter itemIndex: Index of the playlist in the list
 	func showSongsView(itemIndex: Int) {
         // Get the SongViewController, make it to reload its table and activate it
         if let vc = tabBarController?.customizableViewControllers?[TabBarItem.song.rawValue] as? SongViewController,

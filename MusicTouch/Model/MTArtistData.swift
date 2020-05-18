@@ -48,15 +48,21 @@ class MTArtistData: MTData {
 		
         self.name = name
     }
-    
+	
+	/// Gets the artist name
+	/// - Returns: Artist name
     func title() -> String {
         return name
     }
-    
+	
+	/// Gets the artist's artwork image
+	/// - Returns: Artist's artwork image
     func image() -> UIImage? {
 		return mediaLibrary.getArtistArtworkImage(byArtistPersistentID: self.persistentID)
     }
     
+	/// Prints the artist description to the stadard output (for debugging purposes only)
+	/// - Parameter offset: numer of heading scpaces
     func describe(offset: Int) {
         print("\(String(repeating: " ", count: offset))Artist: *\(self.name)*")
         for album in albums {
@@ -64,10 +70,14 @@ class MTArtistData: MTData {
         }
     }
     
+	/// Gets the artist's song list from the Media Library
+	/// - Returns: artist's songs list in a MPMediaItemCollection object
     func songsCollection() -> MPMediaItemCollection {
 		return MPMediaItemCollection(items: getAlbumsListFromMediaLibrary())
     }
     
+	/// Gets the artist's album list from the Media Library
+	/// - Returns: artist's album list
 	private func getAlbumsListFromMediaLibrary() -> [MPMediaItem] {
 		return mediaLibrary.getAlbumsList(byArtistPersistentID: self.persistentID)
 	}

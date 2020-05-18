@@ -36,35 +36,51 @@ class MTSongData: MTData {
 		self._albumTrackNumber  = mediaItem.albumTrackNumber
 		self._playbackDuration  = mediaItem.playbackDuration
     }
-    
+	
+	/// Gets the song title
+	/// - Returns: Song title
     func title() -> String {
 		return (self._songTitle == nil) ? "" : "\(self.albumTrackNumber()). \(self.songTitle())"
     }
 	
+	/// Gets the artist name
+	/// - Returns: Artist name
 	func albumArtist() -> String {
 		return self._albumArtist ?? ""
 	}
 	
+	/// Gets the album title
+	/// - Returns: Album title
 	func albumTitle() -> String {
 		return self._albumTitle ?? ""
 	}
-
+	
+	/// Gets the song's track number
+	/// - Returns: Song's track number
 	func albumTrackNumber() -> Int {
 		return self._albumTrackNumber ?? 0
 	}
 	
-	func songTitle() -> String {
+	/// Gets the song title
+	/// - Returns: Song title
+	private func songTitle() -> String {
 		return self._songTitle ?? ""
 	}
 	
+	/// Gets the song's artwork image
+	/// - Returns: Song's artwork image
     func image() -> UIImage? {
 		return mediaLibrary.getSongArtworkImage(byPersistentID: self.persistentID)
     }
 
+	/// Prints the song description to the stadard output (for debugging purposes only)
+	/// - Parameter offset: numer of heading scpaces
     func describe(offset: Int) {
         print("\(String(repeating: " ", count: offset))Song: *\(self.title())*")
     }
 	
+	/// Gets the song as a single item in a collection
+	/// - Returns: Song in a MPMediaItemCollection object
     func songsCollection() -> MPMediaItemCollection {
 		let item = self.mediaItem
 		

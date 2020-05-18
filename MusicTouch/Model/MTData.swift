@@ -8,7 +8,6 @@
 
 import Foundation
 import MediaPlayer
-import UIKit
 
 typealias MTData = MTDataRoot & MTDataProtocol & SongsRetrieverProtocol
 
@@ -23,10 +22,15 @@ class MTDataRoot {
 		self.mediaLibrary = mediaLibrary
 	}
 	
+	/// Gets the item playtime in seconds
+	/// - Returns: <#description#>
     func toSeconds() -> Int {
         return playTime.hours * 3600 + playTime.minutes * 60 + playTime.seconds
     }
-    
+	
+	/// Converts seconds in a (hours, minutes, seconds) tuple
+	/// - Parameter seconds: seconds amount to convert
+	/// - Returns: (hours, minutes, seconds)
     func fromSeconds(seconds: Int) -> (Int, Int, Int) {
         let _hour = Int(seconds / 3600)
         let rem = seconds % 3600

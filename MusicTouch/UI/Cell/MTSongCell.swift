@@ -24,12 +24,14 @@ class MTSongCell: MTCellDelegate {
         style()
     }
     
+	/// Sets up the cell elements
     func setup() {
         self.addSubview(artistName)
         self.addSubview(albumTitle)
         self.addSubview(playTime)
     }
     
+	/// Organizes the cell elements
     func layoutView() {
         
         // Artist Name
@@ -54,6 +56,7 @@ class MTSongCell: MTCellDelegate {
         self.playTime.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.45).isActive = true
     }
     
+	/// Applies the style to the cell elements
     func style() {
         // Artist Name
         self.artistName.textAlignment = .left
@@ -71,6 +74,8 @@ class MTSongCell: MTCellDelegate {
 		self.playTime.textColor     = UIColor.label
     }
     
+	/// Render the cell elements with the appropiate date
+	/// - Parameter item: data item
     func render(item: MTData) {
         
         if let itemSong = item as? MTSongData {

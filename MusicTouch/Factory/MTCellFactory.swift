@@ -23,7 +23,9 @@ class MTCellFactory {
     private init(style: MTCellStyle = .paris) {
         self.style = style
     }
-    
+	
+	/// Factory for cells
+	/// - Returns: Cell class
     func classForCoder() -> AnyClass {
         switch style {
         case .paris:
@@ -33,6 +35,9 @@ class MTCellFactory {
         }
     }
     
+	/// Render the cell elements with the appropiate data
+	/// - Parameter item: data item
+	/// - Parameter cell: cell to be rendered
     func render(cell: MTCell, item: MTData) {
         switch style {
         case .paris:
@@ -41,7 +46,10 @@ class MTCellFactory {
             if let myCell = (cell as? MTCellLondon) { myCell.render(item: item) }
         }
     }
-    
+	
+	/// Gets the color for the given element
+	/// - Parameter item: tab bar item to be colored
+	/// - Returns: color for the tab bar item
     func londonColor(_ item: TabBarItem) -> UIColor {
         switch item {
         case .playlist:

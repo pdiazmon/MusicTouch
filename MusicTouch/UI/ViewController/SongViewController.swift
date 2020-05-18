@@ -128,13 +128,13 @@ extension SongViewController: UITableViewDelegate {
 extension SongViewController {
     
     /// Forces the TableView to reload its data
-    public func reloadData() {
+    private func reloadData() {
         self.songsTableView?.reloadData()
         layout()
     }
     
-    /// Enable/disable play buttons depending on list emptyness
-    func layout() {
+    /// Organizes the view layout
+    private func layout() {
 		if let stack = self.playButtonsStack, let controller = self.controller {
             for button in stack.arrangedSubviews {
                 if let button = (button as? UIButton) {

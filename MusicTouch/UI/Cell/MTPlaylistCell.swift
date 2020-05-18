@@ -22,11 +22,13 @@ class MTPlaylistCell: MTCellDelegate {
         style()
     }
     
+	/// Sets up the cell elements
     func setup() {
         self.addSubview(numberOfSongs)
         self.addSubview(playTime)
     }
     
+	/// Organizes the cell elements
     func layoutView() {
         
         // Number of Albums
@@ -44,6 +46,7 @@ class MTPlaylistCell: MTCellDelegate {
         self.playTime.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.45).isActive = true
     }
     
+	/// Applies the style to the cell elements
     func style() {
         // Number of Albums
         self.numberOfSongs.textAlignment = .left
@@ -56,6 +59,8 @@ class MTPlaylistCell: MTCellDelegate {
 		self.playTime.textColor     = UIColor.label
     }
     
+	/// Render the cell elements with the appropiate date
+	/// - Parameter item: data item
     func render(item: MTData) {
         
         if let itemPlaylist = item as? MTPlaylistData {

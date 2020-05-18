@@ -53,9 +53,8 @@ class MTAudioEqualizer: UIView {
         }
     }
     
-    /**
-     Start animating.
-     */
+	
+	/// Starts the equalizer animation
     public final func startAnimating() {
         isHidden = false
         isAnimating = true
@@ -63,24 +62,29 @@ class MTAudioEqualizer: UIView {
         setUpAnimation()
     }
     
-    /**
-     Stop animating.
-     */
+	
+	/// Stops the equalizer animation
     public final func stopAnimating() {
         isHidden = true
         isAnimating = false
         layer.sublayers?.removeAll()
     }
-
+	
+	/// Sets up the equalizer animation
     private final func setUpAnimation() {
         layer.sublayers = nil
 
         setUpAnimation(size: frame.size, color: color, number: 6)
     }
-    
-    func randomStep() -> Double { return Double.random(in: -0.2...0.2) }
-    
-    func durations(_ number: Int) -> [CFTimeInterval] {
+	
+	/// Gets a random number
+	/// - Returns: A random double number between -0.2 and 0.2
+    private func randomStep() -> Double { return Double.random(in: -0.2...0.2) }
+	
+	/// Gets an array of CFTimeInterval to set up any of the equalizer bars
+	/// - Parameter number: number of equalizer bars
+	/// - Returns: array of CFTimeInterval for all the equalizer bars
+    private func durations(_ number: Int) -> [CFTimeInterval] {
         var ret: [CFTimeInterval] = []
         let max = 2.5
         let min = 4.5
@@ -118,8 +122,13 @@ class MTAudioEqualizer: UIView {
         return ret
     }
     
-    
-    func setUpAnimation(size: CGSize, color: UIColor, number: Int) {
+	
+	/// Sets up the animation of all the equalizer bars
+	/// - Parameters:
+	///   - size: width of the equalizer bars
+	///   - color: color of the equalizer bars
+	///   - number: number of bars
+    private func setUpAnimation(size: CGSize, color: UIColor, number: Int) {
         let lineSize = (size.width / CGFloat(number))
         let x = (layer.bounds.size.width - size.width) / 2
         let y = (layer.bounds.size.height - size.height) / 2
@@ -173,8 +182,13 @@ class MTAudioEqualizer: UIView {
             layer.addSublayer(line)
         }
     }
-    
-    func layerWith(size: CGSize, color: UIColor) -> CALayer {
+	
+	/// Gets the CALayer for an specific equalizer bar
+	/// - Parameters:
+	///   - size: siize of the bar
+	///   - color: color of the bar
+	/// - Returns: CALayer of the equalizer bar
+    private func layerWith(size: CGSize, color: UIColor) -> CALayer {
         let layer: CAShapeLayer = CAShapeLayer()
         var path: UIBezierPath  = UIBezierPath()
 

@@ -44,26 +44,31 @@ class MTCell: UITableViewCell {
         
         super.init(coder: aDecoder)
     }
-    
+	
+	/// Sets up the cell elements
     func setup() {
         if let del = delegate {
             self.addSubview(del)
             del.setup()
         }
     }
-    
+	
+	/// Organizes the view elements
     func layoutView() {
         if let del = delegate {
             del.layoutView()
         }
     }
-    
+	
+	/// Applies the style to the cell elements
     func style() {
         if let del = delegate {
             del.style()
         }
     }
-    
+	
+	/// Render the cell elements with the appropiate data
+	/// - Parameter item: data item
     func render(item: MTData) {
         if let del = delegate {
             del.render(item: item)

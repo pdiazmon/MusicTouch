@@ -175,7 +175,7 @@ extension AlbumViewController: UITableViewDelegate {
 
 extension AlbumViewController {
     
-    /// Enable/disable play buttons depending on list emptyness
+    /// Organizes the view layout
     func layout() {
         for button in self.playButtonsStack.arrangedSubviews {
 			if let button = (button as? UIButton), let controller = self.controller {

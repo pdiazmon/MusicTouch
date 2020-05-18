@@ -64,20 +64,28 @@ class SongController {
 
 	}
 	
+	/// Gets the n-th item of the song list
+	/// - Parameter byIndex: Item index
+	/// - Returns: An MTSongData object of the n-th song
 	func getItem(byIndex: Int) -> MTSongData? {
 		guard (self.indexWithinBounds(index: byIndex)) else { return nil }
 		
 		return self.songList[byIndex]
 	}
 	
+	/// Gets the number of elements in the song list
+	/// - Returns: The number of items in the song list
 	func indexWithinBounds(index: Int) -> Bool {
 		return index < self.numberOfItems()
 	}
 	
+	/// Gets the number of elements in the song list
+	/// - Returns: The number of items in the song list
 	func numberOfItems() -> Int {
 		return self.songList.count
 	}
 	
+	/// Sets the song list with the default values
 	private func initializeList() {
 		self.setSongsList(self.dataStore.songList())
 	}
@@ -89,16 +97,17 @@ class SongController {
         self.songList = list
     }
 	
-	func isDataLoaded() -> Bool {
-		return self.dataStore.isDataLoaded()
-	}
-
+	/// Configures the SongController
+	/// - Parameters:
+	///   - songs: List of songs
+	///   - songsRetriever: Songs collection retriever
 	func configure(songs: [MTSongData], songsRetriever: SongsRetrieverProtocol) {
 		self.setSongsList(songs)
 
 		self.songsRetriever = songsRetriever
 	}
 	
+	/// Configure the SongController with default values
 	func configureByDefault() {
 		self.configure(songs: self.dataStore.songList(), songsRetriever: self)
 	}
@@ -106,6 +115,8 @@ class SongController {
 }
 
 extension SongController: SongsRetrieverProtocol {
+	/// Retrieves the Collection of songs in a format to be passed to the player
+	/// - Returns: MPMediaItemCollection with all the songs of the list
 	func songsCollection() -> MPMediaItemCollection {
 		// By default, retrieves the list of all existing songs in the Media Library
 		return MPMediaItemCollection(items: self.dataStore.getSongsList())

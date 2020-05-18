@@ -42,7 +42,8 @@ class MTCellParis: MTCell {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+	
+	/// Sets up the cell elements
     override func setup() {
         self.addSubview(backgroundGrey)
         self.addSubview(backgroundBox)
@@ -51,7 +52,8 @@ class MTCellParis: MTCell {
 
         super.setup()        
     }
-    
+	
+	/// Organizes the cell elements
     override func layoutView() {
         // Background Grey
         self.backgroundGrey.translatesAutoresizingMaskIntoConstraints = false
@@ -93,6 +95,7 @@ class MTCellParis: MTCell {
         super.layoutView()
     }
     
+	/// Applies the style to the cell elements
     override func style() {
         // Background Grey
 		self.backgroundGrey.backgroundColor = UIColor.systemBackground
@@ -112,6 +115,8 @@ class MTCellParis: MTCell {
         super.style()
     }
     
+	/// Render the cell elements with the appropiate data
+	/// - Parameter item: data item
     override func render(item: MTData) {
         self.title.text  = item.title()
         

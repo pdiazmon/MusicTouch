@@ -58,20 +58,29 @@ class AlbumController {
         
     }
 	
+	/// Gets the n-th item of the album list
+	/// - Parameter byIndex: Item index
+	/// - Returns: An MTAlbumData object of the n-th album
 	func getItem(byIndex: Int) -> MTAlbumData? {
 		guard (self.indexWithinBounds(index: byIndex)) else { return nil }
 		
 		return self.albumList[byIndex]
 	}
 	
+	/// Gets the number of elements in the album list
+	/// - Returns: The number of items in the album list
 	func indexWithinBounds(index: Int) -> Bool {
 		return index < self.numberOfItems()
 	}
 	
+	/// Gets the number of elements in the album list
+	/// - Returns: The number of items in the album list
 	func numberOfItems() -> Int {
 		return self.albumList.count
 	}
 
+	/// Shows the songs view for an specific album
+	/// - Parameter itemIndex: Index of the album in the list
 	func showSongsView(itemIndex: Int) {
         // Get the SongViewController, make it to reload its table and activate it
         if let vc = tabBarController?.customizableViewControllers?[TabBarItem.song.rawValue] as? SongViewController,
@@ -83,6 +92,7 @@ class AlbumController {
         }
 	}
 	
+	/// Shows the songs view
 	func showSongsView() {
 		tabBarController?.tabBar.items![TabBarItem.play.rawValue].isEnabled = true
 		tabBarController?.selectedIndex                                     = TabBarItem.play.rawValue
@@ -121,10 +131,12 @@ class AlbumController {
         }
     }
 
+	/// Sets the album list with the default values
 	private func initializeList() {
 		self.setAlbumList(self.dataStore.albumList())
 	}
 	
+	/// Configure the AlbumController with default values
 	func configureByDefault() {
 		self.initializeList()
 	}
@@ -136,8 +148,4 @@ class AlbumController {
         self.albumList = list
     }
 	
-	func isDataLoaded() -> Bool {
-		return self.dataStore.isDataLoaded()
-	}
-
 }
