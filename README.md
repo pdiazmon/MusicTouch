@@ -1,7 +1,7 @@
 # MusicTouch
-Develop: <img src="https://app.bitrise.io/app/f2d811688644c564/status.svg?token=1i_8RElOZE6rTzC1HUgDAQ&branch=develop">
+Develop: <img src="https://app.bitrise.io/app/f2d811688644c564/status.svg?token=1i_8RElOZE6rTzC1HUgDAQ&branch=develop"> [![codebeat badge](https://codebeat.co/badges/3a551647-b3a1-444b-9bb0-7bcaccedb583)](https://codebeat.co/projects/github-com-pdiazmon-musictouch-develop)
 
-Master:  <img src="https://app.bitrise.io/app/f2d811688644c564/status.svg?token=1i_8RElOZE6rTzC1HUgDAQ&branch=master">
+Master:  <img src="https://app.bitrise.io/app/f2d811688644c564/status.svg?token=1i_8RElOZE6rTzC1HUgDAQ&branch=master"> [![codebeat badge](https://codebeat.co/badges/0d44693c-95dc-49f2-9c1b-a88d3ecfbaa2)](https://codebeat.co/projects/github-com-pdiazmon-musictouch-master)
 
 MusicTouch is my first-real app in Swift.
 
